@@ -16,14 +16,14 @@ async function fetchDatafromFirebase() {
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
-  const [poststitle, setPoststitle] = useState('');
+  // const [poststitle, setPoststitle] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await fetchDatafromFirebase();
         setPosts(data);
-        setPoststitle(data[0]?.title || '');
+        // setPoststitle(data[0]?.title || '');
       } catch (error) {
         console.error('Error fetching data:', error);
       }
