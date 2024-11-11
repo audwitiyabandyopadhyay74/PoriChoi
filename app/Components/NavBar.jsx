@@ -27,19 +27,19 @@ const Page = () => {
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast("Login successful");
+      toast.success("Login successful", { theme: "colored" });
       document.location.href = "/";
     } catch (err) {
       const errorMessage = err.code === "auth/user-not-found" ? "User not found" : "Invalid email or password";
       setErrorText(errorMessage);
-      toast(errorMessage);
+      toast.error(errorMessage, { theme: "colored" });
     }
   };
 
   const resetPassword = async () => {
     try {
       await sendPasswordResetEmail(auth, email);
-      toast(`Password reset link sent successfully to ${email}`);
+      toast.success(`Password reset link sent successfully to ${email}`);
     } catch (error) {
       console.error("Error sending password reset email:", error);
     }
@@ -51,68 +51,68 @@ const Page = () => {
       document.location.href = "/";
     } catch (error) {
       console.error("Error signing in with Google:", error);
-      toast("The user is not signed up");
+      toast.error("The user is not signed up", { theme: "colored" });
     }
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center px-4 sm:px-0">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-400 to-indigo-600 px-4 sm:px-0">
       <ToastContainer
-        toastClassName="bg-red-600 relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
-        bodyClassName="text-sm font-white font-med block p-3"
+        toastClassName="relative flex p-4 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer shadow-lg"
+        bodyClassName="text-sm font-white font-medium block p-3"
         position="bottom-left"
         autoClose={3000}
       />
-      <div className="h-[90%] w-full sm:w-[75%] md:w-[50%] lg:w-[35%] bg-white rounded-md text-center gap-4 flex flex-col justify-center items-center p-4">
-        <Image src={icon} className="rounded-full w-24 h-24 mb-2 bg-white p-1" alt="Icon" />
-        <div className="font-semibold text-3xl sm:text-4xl md:text-5xl">Login</div>
-        <div className="w-full flex flex-col items-center gap-3">
+      <div className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-white rounded-xl shadow-xl flex flex-col items-center py-8 px-6 md:px-12 animate-fadeInUp">
+        <Image src={icon} className="rounded-full w-24 h-24 bg-white p-2 shadow-lg" alt="Icon" />
+        <h2 className="text-3xl font-bold text-gray-800 mt-4 mb-6">Welcome Back</h2>
+        <div className="w-full flex flex-col items-center gap-4">
           <input
             required
             type="email"
             placeholder="Email"
-            className="w-[90%] sm:w-[80%] h-10 border-2 p-2 border-black rounded-md"
+            className="w-full sm:w-4/5 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 ease-in-out"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div className="relative w-[90%] sm:w-[80%] flex items-center">
+          <div className="relative w-full sm:w-4/5">
             <input
               required
               type={passwordVisible ? "text" : "password"}
               placeholder="Password"
-              className="w-full h-10 border-2 p-2 border-black rounded-md"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 ease-in-out"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <i
-              className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"} absolute right-3 text-xl cursor-pointer`}
+              className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"} absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-400 cursor-pointer hover:text-blue-500 transition duration-150`}
               onClick={togglePasswordVisibility}
             ></i>
           </div>
         </div>
         <button
-          className="w-[60%] sm:w-[40%] lg:w-[30%] mt-6 bg-red-600 text-white rounded-md py-2 hover:scale-105"
+          className="w-4/5 sm:w-2/3 mt-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition transform hover:scale-105 duration-300 shadow-md"
           onClick={login}
         >
           Login
         </button>
         <button
-          className="w-[60%] sm:w-[40%] lg:w-[30%] mt-4 bg-black text-white rounded-md py-2 hover:scale-105 flex items-center justify-center gap-2"
+          className="w-4/5 sm:w-2/3 mt-4 py-3 bg-red-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-red-700 transition transform hover:scale-105 duration-300 shadow-md"
           onClick={signInWithGoogle}
         >
-          <i className="fa-brands fa-google"></i> Login With Google
+          <i className="fa-brands fa-google"></i> Login with Google
         </button>
-        <div className="mt-5 text-sm sm:text-base">
+        <div className="mt-5 text-sm sm:text-base text-gray-600">
           Forgot password?{" "}
-          <span className="text-blue-500 cursor-pointer" onClick={resetPassword}>
+          <span className="text-blue-500 cursor-pointer hover:underline" onClick={resetPassword}>
             Reset
           </span>
         </div>
-        {errorText && <span className="text-red-600 mt-2 text-sm">{errorText}</span>}
-        <div className="mt-5 text-sm sm:text-base">
-          Don&#39;t have an account?{" "}
+        {errorText && <span className="text-red-500 text-sm mt-2">{errorText}</span>}
+        <div className="mt-5 text-sm sm:text-base text-gray-600">
+          Don’t have an account?{" "}
           <span
-            className="text-blue-500 cursor-pointer"
+            className="text-blue-500 cursor-pointer hover:underline"
             onClick={() => {
               document.location.href = "/sign-up";
             }}
