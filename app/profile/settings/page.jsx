@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Logo from "../favicon.ico";
+import Logo from "../../favicon.ico";
 import Image from 'next/image';
 import { FaSearch } from "react-icons/fa";
-import { auth } from "../firebase.js";
+import { auth } from "../../firebase";
 import { onAuthStateChanged } from 'firebase/auth';
-import Form from './Form';
+import Form from '../../Components/Form';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
