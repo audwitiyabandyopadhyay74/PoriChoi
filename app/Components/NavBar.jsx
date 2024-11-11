@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Logo from "../favicon.ico";
 import Image from 'next/image';
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { auth } from "../firebase.js";
 import { onAuthStateChanged } from 'firebase/auth';
 import Form from './Form';
@@ -18,6 +18,7 @@ const NavBar = () => {
   const [user, setUser] = useState(null);
   const [isOnclick, setIsOnclick] = useState(false);
   const [customStyle, setCustomStyle] = useState("hidden");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (pathname === "/") {
@@ -35,24 +36,12 @@ const NavBar = () => {
     }
 
     const unSubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
+      setUser(user || null);
     });
     return () => unSubscribe();
   }, [pathname]);
 
   const toggleSearchInput = () => {
-    const search = document.querySelector('input');
-    if (isOnclick) {
-      search.classList.add('right-10');
-      search.classList.remove('right-[-180%]');
-    } else {
-      search.classList.add('right-[-180%]');
-      search.classList.remove('right-10');
-    }
     setIsOnclick(!isOnclick);
   };
 
@@ -60,54 +49,76 @@ const NavBar = () => {
     setCustomStyle((prevStyle) => (prevStyle === "block" ? "hidden" : "block"));
   };
 
-  const inactiveClass = "h-[4.5rem] ease-in-out duration-150 hover:text-red-600 border-[#0000] border-b-[5px] hover:border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
-  const activeClass = "h-[4.5rem] ease-in-out duration-150 text-red-600 border-[#0000] border-b-[5px] border border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
-  if (user === null) {
-    return (
-      <nav className='h-16 w-full bg-white text-black flex items-center shadow-md relative px-4 sm:px-8 lg:px-12'>
-        <div className="logo flex items-center justify-center gap-2 w-[30%] md:w-[20%]">
-          <Image src={Logo} alt="logo" className='w-10 h-10 md:w-14 md:h-14' />
-          <h1 className='text-lg md:text-2xl font-bold'>Porichoi</h1>
-        </div>
-        <div className="hidden md:flex w-[60%] items-center gap-4 justify-center"></div>
-        <div className="w-[70%] md:w-[20%] flex justify-end gap-2 md:gap-4">
-          <button className='w-[7vw] md:w-[6vw] h-[6vh] bg-[#ebeaea] hover:scale-105 rounded-md' onClick={() => { document.location.href = "/log-in" }}>Login</button>
-          <button className='w-[7vw] md:w-[6vw] h-[6vh] bg-[#fff] hover:scale-105 rounded-md' onClick={() => { document.location.href = "/sign-up" }}>Sign up</button>
-        </div>
-      </nav>
-    );
-  }
+  const inactiveClass = "flex flex-col items-center justify-center h-14 w-16 text-center text-gray-700 hover:text-red-600 transition-colors duration-200";
+  const activeClass = "flex flex-col items-center justify-center h-14 w-16 text-red-600 border-b-2 border-red-600";
 
   return (
     <>
-      <nav className='h-16 w-full bg-white text-black flex items-center shadow-md fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 lg:px-12'>
-        <div className="logo flex items-center justify-center gap-2 w-[30%] md:w-[20%]">
-          <Image src={Logo} alt="logo" className='w-10 h-10 md:w-14 md:h-14' />
-          <h1 className='text-lg md:text-2xl font-bold'>Porichoi</h1>
+      <nav className="fixed top-0 left-0 w-full bg-white/90 text-black shadow-md z-50 px-4 sm:px-8 lg:px-12 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Image src={Logo} alt="logo" className="w-10 h-10 md:w-12 md:h-12" />
+          <h1 className="text-lg md:text-2xl font-bold">Porichoi</h1>
         </div>
-        <div className="hidden md:flex w-[60%] items-center gap-4 justify-center">
+        <div className="hidden md:flex items-center gap-8">
           <Link href="/" className={home ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-house' style={{ fontSize: "24px" }}></i>
-            <span style={{ fontSize: "10px" }}>Home</span>
+            <i className="fa-solid fa-house"></i>
+            <span>Home</span>
           </Link>
           <Link href="/profile" className={profile ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-user' style={{ fontSize: "24px" }}></i>
-            <span style={{ fontSize: "10px" }}>Profile</span>
+            <i className="fa-solid fa-user"></i>
+            <span>Profile</span>
           </Link>
           <Link href="/news" className={news ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-newspaper' style={{ fontSize: "24px" }}></i>
-            <span style={{ fontSize: "10px" }}>News</span>
+            <i className="fa-solid fa-newspaper"></i>
+            <span>News</span>
           </Link>
         </div>
-        <div className="w-[70%] md:w-[20%] flex justify-end items-center gap-2 md:gap-4">
-          <input type="text" placeholder='Search' className='hidden md:block h-[60%] ease-in-out duration-500 right-[-180%] absolute w-[80%] outline-none border border-black rounded-md p-2' />
-          <i className="fa-solid fa-cloud-arrow-up hidden md:block" style={{ fontSize: "24px" }} onClick={togglePostFormDisplay}></i>
-          <div className="md:w-[4vh] md:bg-[#ebe9e9] rounded-[100%] h-[4vh] flex items-center justify-center cursor-pointer">
-            <FaSearch size={"20px"} onClick={toggleSearchInput} />
+        <div className="flex items-center gap-4">
+          <input
+            type="text"
+            placeholder="Search"
+            className={`absolute right-0 md:relative md:block ${isOnclick ? 'block' : 'hidden'} w-64 md:w-32 lg:w-64 p-2 bg-gray-100 border border-gray-300 rounded-md transition-transform duration-300 ease-in-out`}
+          />
+          <FaSearch size={20} onClick={toggleSearchInput} className="cursor-pointer text-gray-700 hover:text-red-600 transition duration-200" />
+          <i className="fa-solid fa-cloud-arrow-up hidden md:block cursor-pointer text-gray-700 hover:text-red-600 transition duration-200" onClick={togglePostFormDisplay}></i>
+          {user ? (
+            <button onClick={() => auth.signOut()} className="hidden md:block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-200">
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link href="/log-in" className="hidden md:block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200">Login</Link>
+              <Link href="/sign-up" className="hidden md:block px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-200">Sign up</Link>
+            </>
+          )}
+          <div className="md:hidden">
+            <button onClick={toggleMobileMenu} className="text-gray-700 hover:text-red-600 transition duration-200">
+              {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            </button>
           </div>
         </div>
       </nav>
+
+      <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden fixed top-16 left-0 w-full bg-white shadow-lg z-40`}>
+        <Link href="/" className={`block px-4 py-2 ${home ? "text-red-600" : "text-gray-700"} hover:bg-gray-100`}>Home</Link>
+        <Link href="/profile" className={`block px-4 py-2 ${profile ? "text-red-600" : "text-gray-700"} hover:bg-gray-100`}>Profile</Link>
+        <Link href="/news" className={`block px-4 py-2 ${news ? "text-red-600" : "text-gray-700"} hover:bg-gray-100`}>News</Link>
+        {user ? (
+          <button onClick={() => auth.signOut()} className="block w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100">
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link href="/log-in" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Login</Link>
+            <Link href="/sign-up" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Sign up</Link>
+          </>
+        )}
+      </div>
+
       <Form Style={customStyle + ' mt-[-100px]'} />
     </>
   );
