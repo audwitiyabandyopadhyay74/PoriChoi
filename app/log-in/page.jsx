@@ -56,32 +56,32 @@ const Page = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 px-4 sm:px-0">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-4 sm:px-6 lg:px-8">
       <ToastContainer
         toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
         bodyClassName="text-sm font-medium text-white block p-3"
         position="bottom-left"
         autoClose={3000}
       />
-      <div className="w-full sm:w-4/5 md:w-2/3 lg:w-1/3 bg-white/30 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 flex flex-col items-center py-10 px-6 md:px-12 animate-fadeInUp transform transition duration-500 ease-in-out hover:shadow-2xl hover:scale-105">
+      <div className="w-full max-w-lg bg-white/70 backdrop-blur-md rounded-3xl shadow-xl border border-white/20 flex flex-col items-center py-10 px-6 sm:px-8 md:px-10 lg:px-12">
         <Image src={icon} className="rounded-full w-24 h-24 bg-white p-2 shadow-lg transition-transform duration-300 transform hover:scale-110" alt="Icon" />
-        <h2 className="text-5xl font-bold text-white mt-6 mb-4">Welcome Back</h2>
+        <h2 className="text-4xl font-bold text-white mt-6 mb-4">Welcome Back</h2>
         <p className="text-gray-200 text-center mb-6">Sign in to your account to continue</p>
         <div className="w-full flex flex-col items-center gap-4">
           <input
             required
             type="email"
             placeholder="Email"
-            className="w-full sm:w-4/5 px-4 py-3 bg-white/70 text-gray-700 rounded-lg shadow-md border border-transparent focus:border-purple-400 focus:ring-2 focus:ring-purple-500 transition duration-200 ease-in-out"
+            className="w-full px-4 py-3 bg-white/90 text-gray-700 rounded-lg shadow-md border border-transparent focus:border-purple-400 focus:ring-2 focus:ring-purple-500 transition duration-200 ease-in-out"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div className="relative w-full sm:w-4/5">
+          <div className="relative w-full">
             <input
               required
               type={passwordVisible ? "text" : "password"}
               placeholder="Password"
-              className="w-full px-4 py-3 bg-white/70 text-gray-700 rounded-lg shadow-md border border-transparent focus:border-purple-400 focus:ring-2 focus:ring-purple-500 transition duration-200 ease-in-out"
+              className="w-full px-4 py-3 bg-white/90 text-gray-700 rounded-lg shadow-md border border-transparent focus:border-purple-400 focus:ring-2 focus:ring-purple-500 transition duration-200 ease-in-out"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -92,13 +92,13 @@ const Page = () => {
           </div>
         </div>
         <button
-          className="w-4/5 sm:w-3/4 mt-10 py-3 bg-purple-500 text-white rounded-lg font-semibold shadow-lg hover:bg-purple-600 transition duration-300 transform hover:scale-105"
+          className="w-full mt-8 py-3 bg-purple-500 text-white rounded-lg font-semibold shadow-lg hover:bg-purple-600 transition duration-300 transform hover:scale-105"
           onClick={login}
         >
           Login
         </button>
         <button
-          className="w-4/5 sm:w-3/4 mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
           onClick={signInWithGoogle}
         >
           <i className="fa-brands fa-google"></i> Sign in with Google
