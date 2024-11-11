@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../Components/NavBar';
 import { auth, firestore } from '../../firebase';
-// import { ref, uploadBytes } from 'firebase/storage';
-import {onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../../download.png';
 import SideBar from '../../Components/SideBar';
@@ -14,62 +13,50 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [phoneNumber, setPhoneNumber] = useState('');
-  // const [changedName, setChangedName] = useState('');
-  // const [changedEmail, setChangedEmail] = useState('');
-  // const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
-  // const [changedImage, setChangedImage] = useState(null);
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
-  // const [poststitle, setPoststitle] = useState('');
-
+console.log(user, posts)
+  // Fetch user data on authentication state change
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         setPhoto(user.photoURL || Avatar);
         setName(user.displayName || 'Name is not given');
-        setEmail(user.email || 'Email is not given');
-        setPhoneNumber(user.phoneNumber || 'Phone Number is not given');
       } else {
         setUser(null);
       }
     });
   }, []);
 
-  async function fetchDatafromFirebase() {
+  // Fetch posts from Firestore
+  const fetchDataFromFirebase = async () => {
     const querySnapshot = await getDocs(collection(firestore, 'posts'));
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
     return data;
-  }
-console.log(posts)
+  };
+
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
-        const data = await fetchDatafromFirebase();
+        const data = await fetchDataFromFirebase();
         setPosts(data);
-        setFilteredPosts(data.filter(post => user.displayName === name));
-        // setPoststitle(data[0]?.title || '');
+        setFilteredPosts(data.filter(post => post.author === name)); // Adjust filter based on your field
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    }
+    };
+
     if (name) {
       fetchData();
     }
   }, [name]);
 
-
-
-
-
-
   return (
-    <div className="">
+    <div>
       <NavBar />
       <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
         <Image src={photo} width={100} height={100} className="rounded-full" alt="Profile Image" />

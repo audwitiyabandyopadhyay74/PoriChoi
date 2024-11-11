@@ -1,121 +1,116 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import NavBar from '../../Components/NavBar';
-import { auth, storage } from '../../firebase';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
-
-import SideBar from '../../Components/SideBar';
+import Logo from "../favicon.ico";
 import Image from 'next/image';
-import Avatar from '../../download.png';
-// import Link from 'next/link';
+import { FaSearch } from "react-icons/fa";
+import { auth } from "../firebase.js";
+import { onAuthStateChanged } from 'firebase/auth';
+import Form from './Form';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
-const Page = () => {
+const NavBar = () => {
+  const pathname = usePathname();
+  const [home, setHome] = useState(false);
+  const [profile, setProfile] = useState(false);
+  const [news, setNews] = useState(false);
   const [user, setUser] = useState(null);
-  const [photo, setPhoto] = useState(Avatar);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [changedName, setChangedName] = useState('');
-  const [changedEmail, setChangedEmail] = useState('');
-  const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
-  const [changedImage, setChangedImage] = useState(null);
-  const [changedFilenameImage, setChangedFileNameImage] = useState("");
-  const [changedImageLink, setChangedImageLink] = useState("");
-console.log(email,phoneNumber,changedImageLink)
+  const [isOnclick, setIsOnclick] = useState(false);
+  const [customStyle, setCustomStyle] = useState("hidden");
+
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    if (pathname === "/") {
+      setHome(true);
+      setProfile(false);
+      setNews(false);
+    } else if (pathname === "/profile") {
+      setHome(false);
+      setProfile(true);
+      setNews(false);
+    } else {
+      setHome(false);
+      setProfile(false);
+      setNews(true);
+    }
+
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setPhoto(user.photoURL || Avatar);
-        setName(user.displayName || "Name is not given");
-        setEmail(user.email || "Email is not given");
-        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       } else {
         setUser(null);
       }
     });
-  }, []);
+    return () => unSubscribe();
+  }, [pathname]);
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setChangedImage(file);
-      setChangedFileNameImage(file.name);
+  const toggleSearchInput = () => {
+    const search = document.querySelector('input');
+    if (isOnclick) {
+      search.classList.add('right-10');
+      search.classList.remove('right-[-180%]');
+    } else {
+      search.classList.add('right-[-180%]');
+      search.classList.remove('right-10');
     }
+    setIsOnclick(!isOnclick);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const imgRef = ref(storage, `/uploads/images/${changedFilenameImage}`);
-      await uploadBytes(imgRef, changedImage);
-      const link = await getDownloadURL(imgRef);
-      setChangedImageLink(link);
-
-      await updateProfile(user, {
-        displayName: changedName || name,
-        photoURL: link || photo,
-      }).then(()=> document.location.reload());
-
-      // Optional: Reload the page to reflect changes
-      // document.location.reload();
-    } catch (error) {
-      console.error('Error uploading image:', error.message);
-    }
+  const togglePostFormDisplay = () => {
+    setCustomStyle((prevStyle) => (prevStyle === "block" ? "hidden" : "block"));
   };
-  const userd = auth.currentUser;
 
-  const inputClassName = 'w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none';
-  
-  const handleSignOut = () => {
-    signOut(auth).then(() => {
-      document.location.href = '/log-in';
-    });
-  };
+  if (user === null) {
+    return (
+      <nav className='h-16 w-screen bg-white text-black flex items-center shadow-md relative'>
+        <div className="logo flex items-center justify-center gap-2 w-[20%]">
+          <Image src={Logo} alt="logo" className='w-14 h-14' />
+          <h1 className='text-2xl font-bold'>Porichoi</h1>
+        </div>
+        <div className="h-max w-[60%] flex items-center gap-4 justify-center"></div>
+        <div className="w-[20%] h-[4rem] flex align-middle gap-4 items-center">
+          <button className='w-[7vw] h-[6vh] bg-[#ebeaea] hover:scale-110 rounded-md' onClick={() => { document.location.href = "/log-in" }}>Login</button>
+          <button className='w-[7vw] h-[6vh] bg-[#fff] hover:scale-110 rounded-md' onClick={() => { document.location.href = "/sign-up" }}>Sign up</button>
+        </div>
+      </nav>
+    );
+  }
+
+  const inactiveClass = "h-[4.5rem] ease-in-out duration-150 hover:text-red-600 border-[#0000] border-b-[5px] hover:border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
+  const activeClass = "h-[4.5rem] ease-in-out duration-150 text-red-600 border-[#0000] border-b-[5px] border border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
 
   return (
-    <div className=''>
-      <NavBar />
-      <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
-        <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
-        <h1 className='text-2xl font-semibold'>{name}</h1>
-      </div>
-      <br />
-      <div className="flex w-screen h-full justify-between gap-[200px]">
-        <div className="flex w-screen h-max flex-row gap-[200px] justify-center items-center">
-<SideBar/>
-&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<div className="block">
-<form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}>
-            <div className="text-3xl font-semibold">Update Your Profile</div>
-            <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on the Update Your Profile</b>
-            <input type="text" value={changedName} placeholder='Name' onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
-            <input type="text" value={changedEmail} placeholder='Email' onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
-            <input type="text" value={changedPhoneNumber} placeholder='Phone Number' onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
-            <input type="file" onChange={handleImageUpload} className={inputClassName} />
-            <input type="submit" value="Update" className='shadow-lg w-[10vw] h-[6vh] rounded-md p-1 bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
-      
-          </form>
-          <div className="block">
-          <div className="text-3xl ">Delete Account</div>
-      <button className='w-[10vh] h-[5vh] text-white rounded-md bg-red-600 hover:scale-110 cursor-pointer' onClick={()=>{
-        const confom = confirm("Are You Sure");
-        if(confom === true){userd.delete().then((result) => {
-  alert("Sucessfully deleted"+result.message)      
-      }).catch((err) => {
-        alert(err.message)
-      });}}}>Delete</button>
-
-          </div>
-
-</div>
-  
+    <>
+      <nav className='h-16 w-screen bg-white text-black flex items-center shadow-md fixed z-100'>
+        <div className="logo flex items-center justify-center gap-2 w-[20%]">
+          <Image src={Logo} alt="logo" className='w-14 h-14' />
+          <h1 className='text-2xl font-bold'>Porichoi</h1>
         </div>
-      </div>
-    </div>
+        <div className="h-max w-[60%] flex items-center gap-4 justify-center">
+          <Link href="/" className={home ? activeClass : inactiveClass}>
+            <i className='fa-solid fa-house' style={{ fontSize: "30px" }}></i>
+            <span style={{ fontSize: "10px" }}>Home</span>
+          </Link>
+          <Link href="/profile" className={profile ? activeClass : inactiveClass}>
+            <i className='fa-solid fa-user' style={{ fontSize: "30px" }}></i>
+            <span style={{ fontSize: "10px" }}>Profile</span>
+          </Link>
+          <Link href="/news" className={news ? activeClass : inactiveClass}>
+            <i className='fa-solid fa-newspaper' style={{ fontSize: "30px" }}></i>
+            <span style={{ fontSize: "10px" }}>News</span>
+          </Link>
+        </div>
+        <div className="w-[20%] h-[4rem] flex align-middle justify-center gap-4 items-center">
+          <input type="text" placeholder='Search' className='h-[60%] ease-in-out duration-500 right-[-180%] absolute w-[80%] outline-none border border-black rounded-md p-2' />
+          <i className="fa-solid fa-cloud-arrow-up" style={{ fontSize: "24px" }} onClick={togglePostFormDisplay}></i>
+          <div className="w-[4vh] bg-[#ebe9e9] rounded-[100%] h-[4vh] flex flex-col items-center justify-center align-middle scale-125 absolute right-[20px] hover:cursor-pointer">
+            <FaSearch size={"20px"} onClick={toggleSearchInput} onClickCapture={tptosearch} />
+          </div>
+        </div>
+      </nav>
+      <Form Style={customStyle + ' mt-[-100px]'} />
+    </>
   );
 };
 
-export default Page;
+export default NavBar;
