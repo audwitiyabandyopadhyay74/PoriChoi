@@ -14,7 +14,7 @@ const NewsPage = () => {
     // Function to fetch top headlines
     const fetchTopHeadlines = async () => {
       try {
-        const url = `https://newsapi.org/v2/top-headlines?sources=google-news-in&apiKey=e7f7d9be7f8941388aee0e10c146a327`;
+        const url = "https://newsapi.org/v2/top-headlines?sources=google-news-in&apiKey=e7f7d9be7f8941388aee0e10c146a327";
         const response = await fetch(url);
         const data = await response.json();
         setNewsData(data.articles);
