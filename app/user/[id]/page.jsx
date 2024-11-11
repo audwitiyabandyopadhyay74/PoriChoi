@@ -157,7 +157,7 @@ const Page = () => {
 
           <div className="mt-8">
             <h2 className="text-lg font-bold mb-4">Followers</h2>
-            {followers.length > 0 ? (
+            {followers > 0 ? (
               followers
             ) : (
               <div>0 followers found</div>
