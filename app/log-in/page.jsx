@@ -56,22 +56,23 @@ const Page = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-400 to-indigo-600 px-4 sm:px-0">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 px-4 sm:px-0">
       <ToastContainer
-        toastClassName="relative flex p-4 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer shadow-lg"
-        bodyClassName="text-sm font-white font-medium block p-3"
+        toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
+        bodyClassName="text-sm font-medium text-white block p-3"
         position="bottom-left"
         autoClose={3000}
       />
-      <div className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-white rounded-xl shadow-xl flex flex-col items-center py-8 px-6 md:px-12 animate-fadeInUp">
-        <Image src={icon} className="rounded-full w-24 h-24 bg-white p-2 shadow-lg" alt="Icon" />
-        <h2 className="text-3xl font-bold text-gray-800 mt-4 mb-6">Welcome Back</h2>
+      <div className="w-full sm:w-4/5 md:w-2/3 lg:w-1/3 bg-white/30 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 flex flex-col items-center py-10 px-6 md:px-12 animate-fadeInUp transform transition duration-500 ease-in-out hover:shadow-2xl hover:scale-105">
+        <Image src={icon} className="rounded-full w-24 h-24 bg-white p-2 shadow-lg transition-transform duration-300 transform hover:scale-110" alt="Icon" />
+        <h2 className="text-5xl font-bold text-white mt-6 mb-4">Welcome Back</h2>
+        <p className="text-gray-200 text-center mb-6">Sign in to your account to continue</p>
         <div className="w-full flex flex-col items-center gap-4">
           <input
             required
             type="email"
             placeholder="Email"
-            className="w-full sm:w-4/5 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 ease-in-out"
+            className="w-full sm:w-4/5 px-4 py-3 bg-white/70 text-gray-700 rounded-lg shadow-md border border-transparent focus:border-purple-400 focus:ring-2 focus:ring-purple-500 transition duration-200 ease-in-out"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -80,39 +81,39 @@ const Page = () => {
               required
               type={passwordVisible ? "text" : "password"}
               placeholder="Password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 ease-in-out"
+              className="w-full px-4 py-3 bg-white/70 text-gray-700 rounded-lg shadow-md border border-transparent focus:border-purple-400 focus:ring-2 focus:ring-purple-500 transition duration-200 ease-in-out"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <i
-              className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"} absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-400 cursor-pointer hover:text-blue-500 transition duration-150`}
+              className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"} absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-500 cursor-pointer hover:text-purple-500 transition duration-150`}
               onClick={togglePasswordVisibility}
             ></i>
           </div>
         </div>
         <button
-          className="w-4/5 sm:w-2/3 mt-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition transform hover:scale-105 duration-300 shadow-md"
+          className="w-4/5 sm:w-3/4 mt-10 py-3 bg-purple-500 text-white rounded-lg font-semibold shadow-lg hover:bg-purple-600 transition duration-300 transform hover:scale-105"
           onClick={login}
         >
           Login
         </button>
         <button
-          className="w-4/5 sm:w-2/3 mt-4 py-3 bg-red-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-red-700 transition transform hover:scale-105 duration-300 shadow-md"
+          className="w-4/5 sm:w-3/4 mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
           onClick={signInWithGoogle}
         >
-          <i className="fa-brands fa-google"></i> Login with Google
+          <i className="fa-brands fa-google"></i> Sign in with Google
         </button>
-        <div className="mt-5 text-sm sm:text-base text-gray-600">
+        <div className="mt-5 text-sm text-gray-300">
           Forgot password?{" "}
-          <span className="text-blue-500 cursor-pointer hover:underline" onClick={resetPassword}>
-            Reset
+          <span className="text-blue-400 cursor-pointer hover:underline" onClick={resetPassword}>
+            Reset it here
           </span>
         </div>
-        {errorText && <span className="text-red-500 text-sm mt-2">{errorText}</span>}
-        <div className="mt-5 text-sm sm:text-base text-gray-600">
+        {errorText && <span className="text-red-400 text-sm mt-2">{errorText}</span>}
+        <div className="mt-6 text-sm text-gray-300">
           Don’t have an account?{" "}
           <span
-            className="text-blue-500 cursor-pointer hover:underline"
+            className="text-blue-400 cursor-pointer hover:underline"
             onClick={() => {
               document.location.href = "/sign-up";
             }}
