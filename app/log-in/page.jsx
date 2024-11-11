@@ -1,5 +1,5 @@
 "use client"
-import React,{useState,useEffect} from 'react'
+import React,{  useState,useEffect} from 'react'
 import {auth} from "../firebase"
 import {signInWithEmailAndPassword, sendPasswordResetEmail , signInWithPopup , GoogleAuthProvider} from "firebase/auth"
 import icon from "../favicon.ico"

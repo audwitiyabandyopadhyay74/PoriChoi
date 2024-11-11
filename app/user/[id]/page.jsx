@@ -11,7 +11,7 @@ import Image from 'next/image';
 import Post from '@/app/Components/Post';
 import { onAuthStateChanged } from 'firebase/auth';
 
-import { matchesMiddleware } from 'next/dist/shared/lib/router/router';
+// import { matchesMiddleware } from 'next/dist/shared/lib/router/router';
 
 const Page = () => {
   const [user, setUser] = useState(null);
@@ -22,7 +22,7 @@ const Page = () => {
   const [posts, setPosts] = useState([]);
   const [userData, setUserData] = useState([]);
   const pathname = usePathname();
-
+console.log(userData);
   const fetchUserData = async () => {
     const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
     return querySnapshot.docs.map(doc => ({

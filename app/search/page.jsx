@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import NavBar from '../Components/NavBar';
+// import NavBar from '../Components/NavBar';
 import { usePathname } from 'next/navigation';
 import { firestore, auth } from '../firebase';
 import SearchData from '../Components/Search Data';
@@ -24,7 +24,7 @@ const fetchDataFromFirebase = async () => {
 };
 
 const Page = () => {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const [userData, setUserData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState(null);

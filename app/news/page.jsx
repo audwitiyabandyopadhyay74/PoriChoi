@@ -9,7 +9,7 @@ const NewsPage = () => {
 
   useEffect(() => {
     // Replace 'YOUR_API_KEY' with your actual API key
-    const apiKey = 'e7f7d9be7f8941388aee0e10c146a327';
+    // const apiKey = 'e7f7d9be7f8941388aee0e10c146a327';
 
     // Function to fetch top headlines
     const fetchTopHeadlines = async () => {

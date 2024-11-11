@@ -4,12 +4,12 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../../Components/NavBar';
 import { auth, storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { updateProfile, signOut, onAuthStateChanged,deleteUserc } from 'firebase/auth';
+import { updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
 
 import SideBar from '../../Components/SideBar';
 import Image from 'next/image';
 import Avatar from '../../download.png';
-import Link from 'next/link';
+// import Link from 'next/link';
 
 const Page = () => {
   const [user, setUser] = useState(null);
@@ -23,7 +23,7 @@ const Page = () => {
   const [changedImage, setChangedImage] = useState(null);
   const [changedFilenameImage, setChangedFileNameImage] = useState("");
   const [changedImageLink, setChangedImageLink] = useState("");
-
+console.log(email,phoneNumber,changedImageLink)
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {

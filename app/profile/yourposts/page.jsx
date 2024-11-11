@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../Components/NavBar';
-import { auth, storage, firestore } from '../../firebase';
-import { ref, uploadBytes } from 'firebase/storage';
-import { updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
+import { auth, firestore } from '../../firebase';
+// import { ref, uploadBytes } from 'firebase/storage';
+import {  signOut, onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../../download.png';
 import SideBar from '../../Components/SideBar';
@@ -14,15 +14,15 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [changedName, setChangedName] = useState('');
-  const [changedEmail, setChangedEmail] = useState('');
-  const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
-  const [changedImage, setChangedImage] = useState(null);
+  // const [email, setEmail] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState('');
+  // const [changedName, setChangedName] = useState('');
+  // const [changedEmail, setChangedEmail] = useState('');
+  // const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
+  // const [changedImage, setChangedImage] = useState(null);
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
-  const [poststitle, setPoststitle] = useState('');
+  // const [poststitle, setPoststitle] = useState('');
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -46,14 +46,14 @@ const Page = () => {
     }));
     return data;
   }
-
+console.log(posts)
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await fetchDatafromFirebase();
         setPosts(data);
         setFilteredPosts(data.filter(post => user.displayName === name));
-        setPoststitle(data[0]?.title || '');
+        // setPoststitle(data[0]?.title || '');
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -63,18 +63,10 @@ const Page = () => {
     }
   }, [name]);
 
-  const handleSubmit = (e) => {
-    document.location.href = '/profile/update-profile';
-    e.preventDefault();
-  };
 
-  const inputClassName = 'w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none';
 
-  const handleSignOut = () => {
-    signOut(auth).then(() => {
-      document.location.href = '/log-in';
-    });
-  };
+
+
 
   return (
     <div className="">

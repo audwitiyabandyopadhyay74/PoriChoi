@@ -17,7 +17,7 @@ const SignUpPage = () => {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState('');
   const [userPic, setUserPic] = useState('');
-
+console.log(user)
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -100,6 +100,7 @@ const SignUpPage = () => {
     });
   };
 
+  console.log(user)
   return (
     <div className='w-screen h-screen flex justify-center items-center'>
       <div className="h-[90%] w-[35%] bg-[#fff] rounded-md text-center gap-[10px] flex flex-col justify-center items-center">
