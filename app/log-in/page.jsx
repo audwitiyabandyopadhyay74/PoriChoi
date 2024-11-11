@@ -114,7 +114,7 @@ const Page = () => {
         </div>
         {errorText && <span className="text-red-600">{errorText}</span>}
         <div className="mt-5">
-          Don"t have an account?{" "}
+          Don&#39;t have an account?{" "}
           <span
             className="text-blue-500 hover:mt-[-10px] cursor-pointer"
             onClick={() => {
