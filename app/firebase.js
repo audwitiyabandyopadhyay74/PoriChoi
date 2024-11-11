@@ -29,7 +29,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const storage = getStorage(app);
 const firestore = getFirestore(app);
-const perf = getPerformance(app);
+// const perf = getPerformance(app);
 
 
 
