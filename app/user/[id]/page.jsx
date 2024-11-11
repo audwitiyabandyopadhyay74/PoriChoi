@@ -63,7 +63,7 @@ const Page = () => {
           setUser(matchedUser);
 
           const userFollowers = data.filter(follower => follower.followingId === matchedUser.id);
-          setFollowers(userFollowers.length);
+          setFollowers(userFollowers.length || userData);
 
           const userPosts = await fetchUserPosts(matchedUser.userName);
           setPosts(userPosts);
