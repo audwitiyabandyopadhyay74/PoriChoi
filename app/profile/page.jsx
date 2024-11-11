@@ -15,10 +15,10 @@ const Page = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState();
-  const [changedName, setChangedName] = useState('');
-  const [changedEmail, setChangedEmail] = useState('');
-  const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
-  const [changedImage, setChangedImage] = useState(null);
+  // const [changedName, setChangedName] = useState('');
+  // const [changedEmail, setChangedEmail] = useState('');
+  // const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
+  // const [changedImage, setChangedImage] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -34,6 +34,8 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
     });
   }, []);
 
+  console.log(user)
+
 
 
   const handleSubmit = (e) => {
@@ -41,14 +43,7 @@ document.location.href = "/profile/update-profile"
     e.preventDefault();
   };
 
-  const inputClassName = 'w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none';
 
-  const handleSignOut = () => {
-    signOut(auth).then(() => {
-      document.location.href = '/log-in'; // Fix the typo here
-    });
-  };
-const spanClassName = '';
   return (
     <div className=''>
       <NavBar />

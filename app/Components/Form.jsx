@@ -19,7 +19,7 @@ const Form = ({Style}) => {
   const [userDisplayName, setUserDisplayName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPhoto, setUserPhoto] = useState('');
-
+console.log(user)
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {

@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import Logo from "../favicon.ico";
 import Image from 'next/image';
-import { GoHomeFill } from "react-icons/go";
-import { CgProfile } from 'react-icons/cg';
+// import { GoHomeFill } from "react-icons/go";
+// import { CgProfile } from 'react-icons/cg';
 import { FaSearch } from "react-icons/fa";
 import { auth } from "../firebase.js";
 import { onAuthStateChanged } from 'firebase/auth';
