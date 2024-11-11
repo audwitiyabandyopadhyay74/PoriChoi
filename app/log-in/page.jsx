@@ -27,19 +27,19 @@ const Page = () => {
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast("Login successful");
+      toast.success("Login successful", { theme: "colored" });
       document.location.href = "/";
     } catch (err) {
       const errorMessage = err.code === "auth/user-not-found" ? "User not found" : "Invalid email or password";
       setErrorText(errorMessage);
-      toast(errorMessage);
+      toast.error(errorMessage, { theme: "colored" });
     }
   };
 
   const resetPassword = async () => {
     try {
       await sendPasswordResetEmail(auth, email);
-      toast(`Password reset link sent successfully to ${email}`);
+      toast.success(`Password reset link sent successfully to ${email}`);
     } catch (error) {
       console.error("Error sending password reset email:", error);
     }
@@ -51,72 +51,68 @@ const Page = () => {
       document.location.href = "/";
     } catch (error) {
       console.error("Error signing in with Google:", error);
-      toast("The user is not signed up");
+      toast.error("The user is not signed up", { theme: "colored" });
     }
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-400 to-indigo-600 px-4 sm:px-0">
       <ToastContainer
-        toastClassName="bg-red-600 relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
-        bodyClassName="text-sm font-white font-med block p-3"
+        toastClassName="relative flex p-4 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer shadow-lg"
+        bodyClassName="text-sm font-white font-medium block p-3"
         position="bottom-left"
         autoClose={3000}
       />
-      <div className="h-[90%] w-[35%] bg-[#fff] rounded-md text-center gap-[10px] flex flex-col justify-center items-center">
-        <Image src={icon} className="rounded-full w-[40%] mt-[10px] scale-75 bg-white p-1" alt="Icon" />
-        <div className="font-semibold text-5xl mt-[-20px]">Login</div>
-        <div className="w-[100%] h-[10%] rounded-md flex justify-center items-center">
+      <div className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-white rounded-xl shadow-xl flex flex-col items-center py-8 px-6 md:px-12 animate-fadeInUp">
+        <Image src={icon} className="rounded-full w-24 h-24 bg-white p-2 shadow-lg" alt="Icon" />
+        <h2 className="text-3xl font-bold text-gray-800 mt-4 mb-6">Welcome Back</h2>
+        <div className="w-full flex flex-col items-center gap-4">
           <input
             required
             type="email"
             placeholder="Email"
-            className="w-[80%] h-full mt-10 ml-5 border-2 p-1 border-black rounded-md"
+            className="w-full sm:w-4/5 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 ease-in-out"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <div className="relative w-full sm:w-4/5">
+            <input
+              required
+              type={passwordVisible ? "text" : "password"}
+              placeholder="Password"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 ease-in-out"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <i
+              className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"} absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-400 cursor-pointer hover:text-blue-500 transition duration-150`}
+              onClick={togglePasswordVisibility}
+            ></i>
+          </div>
         </div>
-        <br />
-        <div className="w-[100%] h-[10%] rounded-md flex flex-row justify-center items-center">
-          <input
-            required
-            type={passwordVisible ? "text" : "password"}
-            placeholder="Password"
-            className="w-[80%] h-full mt-10 border-2 p-1 border-black rounded-md"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <i
-            className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"} z-100 text-2xl ml-[-40px] mt-[7%] cursor-pointer`}
-            onClick={togglePasswordVisibility}
-          ></i>
-        </div>
-        <br />
         <button
-          className="w-[30%] mt-10 ml-10 bg-red-600 text-white rounded-md scale-150 hover:scale-110"
-          style={{ fontSize: "12px", padding: "10px 30px" }}
+          className="w-4/5 sm:w-2/3 mt-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition transform hover:scale-105 duration-300 shadow-md"
           onClick={login}
         >
           Login
         </button>
         <button
-          className="w-[30vh] mt-10 ml-10 bg-black text-white rounded-md scale-150 hover:scale-110"
-          style={{ fontSize: "12px", padding: "10px 35px" }}
+          className="w-4/5 sm:w-2/3 mt-4 py-3 bg-red-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-red-700 transition transform hover:scale-105 duration-300 shadow-md"
           onClick={signInWithGoogle}
         >
-          <i className="fa-brands fa-google"></i> Login With Google
+          <i className="fa-brands fa-google"></i> Login with Google
         </button>
-        <div className="mt-5">
+        <div className="mt-5 text-sm sm:text-base text-gray-600">
           Forgot password?{" "}
-          <span className="text-blue-500 cursor-pointer" onClick={resetPassword}>
+          <span className="text-blue-500 cursor-pointer hover:underline" onClick={resetPassword}>
             Reset
           </span>
         </div>
-        {errorText && <span className="text-red-600">{errorText}</span>}
-        <div className="mt-5">
-          Don&#39;t have an account?{" "}
+        {errorText && <span className="text-red-500 text-sm mt-2">{errorText}</span>}
+        <div className="mt-5 text-sm sm:text-base text-gray-600">
+          Don’t have an account?{" "}
           <span
-            className="text-blue-500 hover:mt-[-10px] cursor-pointer"
+            className="text-blue-500 cursor-pointer hover:underline"
             onClick={() => {
               document.location.href = "/sign-up";
             }}
