@@ -74,7 +74,7 @@ const Page = () => {
   return (
     <div className='w-screen h-screen flex justify-center items-center'>
       <ToastContainer
-        toastClassName={(context) =>
+        toastClassName={() =>
           "bg-red-600 relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
         }
         bodyClassName={() => "text-sm font-white font-med block p-3"}

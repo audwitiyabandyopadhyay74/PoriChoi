@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../Components/NavBar';
 import { auth} from '../firebase';
 // import { ref, uploadBytes } from 'firebase/storage';
-import {  signOut, onAuthStateChanged } from 'firebase/auth';
+import {onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../download.png';
 import SideBar from '../Components/SideBar';
