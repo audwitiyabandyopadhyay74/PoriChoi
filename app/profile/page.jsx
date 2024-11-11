@@ -9,7 +9,7 @@ import Avatar from '../download.png';
 import SideBar from '../Components/SideBar';
 
 const Page = () => {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ const Page = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);
+        // setUser(user);
         setPhoto(user.photoURL || Avatar);
         setName(user.displayName || "Name is not given");
         setEmail(user.email || "Email is not given");
