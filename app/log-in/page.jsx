@@ -46,7 +46,7 @@ const Page = () => {
       toast('Login successful');
       document.location.href = "/";
     } catch (err) {
-      const errorMessage = err.code === "auth/user-not-found' ? 'User not found' : 'Invalid email or password';
+      const errorMessage = err.code === "auth/user-not-found' ? 'User not found' : 'Invalid email or password";
       document.getElementById('error-text').innerHTML = errorMessage;
       toast(errorMessage);
     }
