@@ -1,116 +1,128 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import Logo from "../favicon.ico";
-import Image from 'next/image';
-import { FaSearch } from "react-icons/fa";
-import { auth } from "../firebase.js";
-import { onAuthStateChanged } from 'firebase/auth';
-import Form from './Form';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import icon from "../favicon.ico";
+import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../toastify.css";
 
-const NavBar = () => {
-  const pathname = usePathname();
-  const [home, setHome] = useState(false);
-  const [profile, setProfile] = useState(false);
-  const [news, setNews] = useState(false);
-  const [user, setUser] = useState(null);
-  const [isOnclick, setIsOnclick] = useState(false);
-  const [customStyle, setCustomStyle] = useState("hidden");
+const Page = () => {
+  const googleProvider = new GoogleAuthProvider();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   useEffect(() => {
-    if (pathname === "/") {
-      setHome(true);
-      setProfile(false);
-      setNews(false);
-    } else if (pathname === "/profile") {
-      setHome(false);
-      setProfile(true);
-      setNews(false);
-    } else {
-      setHome(false);
-      setProfile(false);
-      setNews(true);
-    }
+    setErrorText("");
+  }, [email, password]);
 
-    const unSubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
-    return () => unSubscribe();
-  }, [pathname]);
-
-  const toggleSearchInput = () => {
-    const search = document.querySelector('input');
-    if (isOnclick) {
-      search.classList.add('right-10');
-      search.classList.remove('right-[-180%]');
-    } else {
-      search.classList.add('right-[-180%]');
-      search.classList.remove('right-10');
-    }
-    setIsOnclick(!isOnclick);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prev) => !prev);
   };
 
-  const togglePostFormDisplay = () => {
-    setCustomStyle((prevStyle) => (prevStyle === "block" ? "hidden" : "block"));
+  const login = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast("Login successful");
+      document.location.href = "/";
+    } catch (err) {
+      const errorMessage = err.code === "auth/user-not-found" ? "User not found" : "Invalid email or password";
+      setErrorText(errorMessage);
+      toast(errorMessage);
+    }
   };
 
-  const inactiveClass = "h-[4.5rem] ease-in-out duration-150 hover:text-red-600 border-[#0000] border-b-[5px] hover:border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
-  const activeClass = "h-[4.5rem] ease-in-out duration-150 text-red-600 border-[#0000] border-b-[5px] border border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
+  const resetPassword = async () => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast(`Password reset link sent successfully to ${email}`);
+    } catch (error) {
+      console.error("Error sending password reset email:", error);
+    }
+  };
 
-  if (user === null) {
-    return (
-      <nav className='h-16 w-full bg-white text-black flex items-center shadow-md relative px-4 sm:px-8 lg:px-12'>
-        <div className="logo flex items-center justify-center gap-2 w-[30%] md:w-[20%]">
-          <Image src={Logo} alt="logo" className='w-10 h-10 md:w-14 md:h-14' />
-          <h1 className='text-lg md:text-2xl font-bold'>Porichoi</h1>
-        </div>
-        <div className="hidden md:flex w-[60%] items-center gap-4 justify-center"></div>
-        <div className="w-[70%] md:w-[20%] flex justify-end gap-2 md:gap-4">
-          <button className='w-[7vw] md:w-[6vw] h-[6vh] bg-[#ebeaea] hover:scale-105 rounded-md' onClick={() => { document.location.href = "/log-in" }}>Login</button>
-          <button className='w-[7vw] md:w-[6vw] h-[6vh] bg-[#fff] hover:scale-105 rounded-md' onClick={() => { document.location.href = "/sign-up" }}>Sign up</button>
-        </div>
-      </nav>
-    );
-  }
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      document.location.href = "/";
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+      toast("The user is not signed up");
+    }
+  };
 
   return (
-    <>
-      <nav className='h-16 w-full bg-white text-black flex items-center shadow-md fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 lg:px-12'>
-        <div className="logo flex items-center justify-center gap-2 w-[30%] md:w-[20%]">
-          <Image src={Logo} alt="logo" className='w-10 h-10 md:w-14 md:h-14' />
-          <h1 className='text-lg md:text-2xl font-bold'>Porichoi</h1>
-        </div>
-        <div className="hidden md:flex w-[60%] items-center gap-4 justify-center">
-          <Link href="/" className={home ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-house' style={{ fontSize: "24px" }}></i>
-            <span style={{ fontSize: "10px" }}>Home</span>
-          </Link>
-          <Link href="/profile" className={profile ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-user' style={{ fontSize: "24px" }}></i>
-            <span style={{ fontSize: "10px" }}>Profile</span>
-          </Link>
-          <Link href="/news" className={news ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-newspaper' style={{ fontSize: "24px" }}></i>
-            <span style={{ fontSize: "10px" }}>News</span>
-          </Link>
-        </div>
-        <div className="w-[70%] md:w-[20%] flex justify-end items-center gap-2 md:gap-4">
-          <input type="text" placeholder='Search' className='hidden md:block h-[60%] ease-in-out duration-500 right-[-180%] absolute w-[80%] outline-none border border-black rounded-md p-2' />
-          <i className="fa-solid fa-cloud-arrow-up hidden md:block" style={{ fontSize: "24px" }} onClick={togglePostFormDisplay}></i>
-          <div className="md:w-[4vh] md:bg-[#ebe9e9] rounded-[100%] h-[4vh] flex items-center justify-center cursor-pointer">
-            <FaSearch size={"20px"} onClick={toggleSearchInput} />
+    <div className="w-screen h-screen flex justify-center items-center px-4 sm:px-0">
+      <ToastContainer
+        toastClassName="bg-red-600 relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+        bodyClassName="text-sm font-white font-med block p-3"
+        position="bottom-left"
+        autoClose={3000}
+      />
+      <div className="h-[90%] w-full sm:w-[75%] md:w-[50%] lg:w-[35%] bg-white rounded-md text-center gap-4 flex flex-col justify-center items-center p-4">
+        <Image src={icon} className="rounded-full w-24 h-24 mb-2 bg-white p-1" alt="Icon" />
+        <div className="font-semibold text-3xl sm:text-4xl md:text-5xl">Login</div>
+        <div className="w-full flex flex-col items-center gap-3">
+          <input
+            required
+            type="email"
+            placeholder="Email"
+            className="w-[90%] sm:w-[80%] h-10 border-2 p-2 border-black rounded-md"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <div className="relative w-[90%] sm:w-[80%] flex items-center">
+            <input
+              required
+              type={passwordVisible ? "text" : "password"}
+              placeholder="Password"
+              className="w-full h-10 border-2 p-2 border-black rounded-md"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <i
+              className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"} absolute right-3 text-xl cursor-pointer`}
+              onClick={togglePasswordVisibility}
+            ></i>
           </div>
         </div>
-      </nav>
-      <Form Style={customStyle + ' mt-[-100px]'} />
-    </>
+        <button
+          className="w-[60%] sm:w-[40%] lg:w-[30%] mt-6 bg-red-600 text-white rounded-md py-2 hover:scale-105"
+          onClick={login}
+        >
+          Login
+        </button>
+        <button
+          className="w-[60%] sm:w-[40%] lg:w-[30%] mt-4 bg-black text-white rounded-md py-2 hover:scale-105 flex items-center justify-center gap-2"
+          onClick={signInWithGoogle}
+        >
+          <i className="fa-brands fa-google"></i> Login With Google
+        </button>
+        <div className="mt-5 text-sm sm:text-base">
+          Forgot password?{" "}
+          <span className="text-blue-500 cursor-pointer" onClick={resetPassword}>
+            Reset
+          </span>
+        </div>
+        {errorText && <span className="text-red-600 mt-2 text-sm">{errorText}</span>}
+        <div className="mt-5 text-sm sm:text-base">
+          Don&#39;t have an account?{" "}
+          <span
+            className="text-blue-500 cursor-pointer"
+            onClick={() => {
+              document.location.href = "/sign-up";
+            }}
+          >
+            Sign up
+          </span>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default NavBar;
+export default Page;
