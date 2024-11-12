@@ -89,7 +89,7 @@ const Page = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="p-3 border rounded w-full mb-6 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <div className="space-y-4">
+        <div className="space-y-4 bg-white">
           {filteredData.map((user) => (
             <div key={user.id} className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow hover:bg-gray-100 transition-all">
               <Link href={`user/${user.id}`} className="flex-grow text-lg font-medium text-blue-600">
