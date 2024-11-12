@@ -1,14 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-// import NavBar from '../Components/NavBar';
-// import { usePathname } from 'next/navigation';
 import { firestore, auth } from '../firebase';
-import SearchData from '../Components/Search Data';
+import SearchData from '../Components/SearchData';
 import { getDocs, getDoc, collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import Link from 'next/link';
-
 
 const fetchDataFromFirebase = async () => {
   try {
@@ -24,34 +21,24 @@ const fetchDataFromFirebase = async () => {
 };
 
 const Page = () => {
-  // const pathname = usePathname();  
   const [userData, setUserData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Track the current authenticated user
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user.uid);
-        console.log("Current user ID:", user.uid);
-      } else {
-        setCurrentUser(null);
-      }
+      setCurrentUser(user ? user.uid : null);
     });
   }, []);
 
-  // Fetch user data from Firestore
   useEffect(() => {
     const fetchUserData = async () => {
       const data = await fetchDataFromFirebase();
       setUserData(data);
-      console.log("Fetched user data:", data);
     };
     fetchUserData();
   }, []);
 
-  // Follow user function with debug logs
   const handleFollow = async (userId) => {
     if (!currentUser) {
       console.log("No user is currently logged in.");
@@ -63,8 +50,6 @@ const Page = () => {
     try {
       const userDoc = await getDoc(userDocRef);
       const userFollowers = userDoc.data()?.followers || [];
-
-      console.log("Current followers:", userFollowers);
 
       if (!userFollowers.includes(currentUser)) {
         await updateDoc(userDocRef, {
@@ -78,9 +63,6 @@ const Page = () => {
               : user
           )
         );
-        console.log("User followed successfully:", userId);
-      } else {
-        console.log("User is already followed.");
       }
     } catch (error) {
       console.error("Error following user:", error);
@@ -92,33 +74,43 @@ const Page = () => {
   );
 
   return (
-    <>
-      {/* <NavBar />   */}
-      <div className="w-screen h-screen flex-col gap-10 p-20 justify-center items-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-semibold text-center mb-4">User Search</h2>
         <input
           type="text"
           placeholder="Search by name"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 border rounded w-1/2 mb-6"
+          className="p-3 border rounded w-full mb-6 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        {filteredData.map((user) => (
-          <div key={user.id} className="flex items-center gap-4">
-           <Link href={`user/${user.id}`}> <SearchData {...user} className="p-10" /></Link>
-            <div className="flex flex-col items-center">
-              <button
-                onClick={() => handleFollow(user.id)}
-                disabled={Array.isArray(user.followers) && user.followers.includes(currentUser)}
-                className={`p-2 text-white rounded ${Array.isArray(user.followers) && user.followers.includes(currentUser) ? 'bg-gray-400' : 'bg-blue-500 pulse'}`}
-              >
-                {Array.isArray(user.followers) && user.followers.includes(currentUser) ? 'Following' : 'Follow'}
-              </button>
-              <span className="text-gray-600">{Array.isArray(user.followers) ? user.followers.length : 0} Followers</span>
+        <div className="space-y-4">
+          {filteredData.map((user) => (
+            <div key={user.id} className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow hover:bg-gray-100 transition-all">
+              <Link href={`user/${user.id}`} className="flex-grow">
+                <SearchData {...user} className="text-lg font-medium text-blue-600" />
+              </Link>
+              <div className="flex flex-col items-center">
+                <button
+                  onClick={() => handleFollow(user.id)}
+                  disabled={Array.isArray(user.followers) && user.followers.includes(currentUser)}
+                  className={`p-2 w-24 rounded text-white ${
+                    Array.isArray(user.followers) && user.followers.includes(currentUser)
+                      ? 'bg-gray-400'
+                      : 'bg-blue-500 hover:bg-blue-600 transition-colors'
+                  }`}
+                >
+                  {Array.isArray(user.followers) && user.followers.includes(currentUser) ? 'Following' : 'Follow'}
+                </button>
+                <span className="text-gray-500 text-sm mt-1">
+                  {Array.isArray(user.followers) ? user.followers.length : 0} Followers
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
