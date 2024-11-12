@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { firestore, auth } from '../firebase';
-import SearchData from '../Components/Search Data';
+import SearchData from '../Components/SearchData';
 import { getDocs, getDoc, collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const fetchDataFromFirebase = async () => {
   try {
@@ -75,8 +76,12 @@ const Page = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold text-center mb-4">User Search</h2>
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 relative">
+        <Link href="/" className="absolute top-4 left-4 flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+          <FaArrowLeft className="mr-2" />
+          <span className="font-semibold">Back to Homepage</span>
+        </Link>
+        <h2 className="text-2xl font-semibold text-center mb-6 mt-10">User Search</h2>
         <input
           type="text"
           placeholder="Search by name"
@@ -87,8 +92,8 @@ const Page = () => {
         <div className="space-y-4">
           {filteredData.map((user) => (
             <div key={user.id} className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow hover:bg-gray-100 transition-all">
-              <Link href={`user/${user.id}`} className="flex-grow">
-                <SearchData {...user} className="text-lg font-medium text-blue-600" />
+              <Link href={`user/${user.id}`} className="flex-grow text-lg font-medium text-blue-600">
+                <SearchData {...user} />
               </Link>
               <div className="flex flex-col items-center">
                 <button
