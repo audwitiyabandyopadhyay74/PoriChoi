@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { auth, firestore } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import icon from '../favicon.ico';
 import Image from 'next/image';
@@ -15,158 +15,125 @@ const SignUpPage = () => {
   const [displayName, setDisplayName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState('');
-  const [userPic, setUserPic] = useState('');
-console.log(user)
+  const [error, setError] = useState('');
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setUsername(user.displayName);
-        setUserPic(user.photoURL);
       }
     });
   }, []);
 
   const togglePasswordVisibility = () => {
     const passwordInput = document.getElementById('password');
-    const icon = document.getElementById('icon');
-    if (passwordInput.type === 'password') {
-      icon.classList.remove('fa-eye');
-      icon.classList.add('fa-eye-slash');
-      passwordInput.setAttribute('type', 'text');
-    } else {
-      icon.classList.remove('fa-eye-slash');
-      icon.classList.add('fa-eye');
-      passwordInput.setAttribute('type', 'password');
-    }
+    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
   };
 
   const signUpWithEmail = async () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      // Update the displayName
-      await updateProfile(user, {
-        displayName: displayName,
-        phoneNumber: phoneNumber,
-      }).then(async () => {
-        await addDoc(collection(firestore, 'userFollowingdata'), {
-          userName: displayName || username,
-          pic: userPic || null,
-        });
-      }).catch((err) => {
-        alert(err.message);
+      await updateProfile(user, { displayName, phoneNumber });
+      await addDoc(collection(firestore, 'userFollowingdata'), {
+        userName: displayName,
+        pic: user.photoURL || null,
       });
-      // Redirect to home page
       document.location.href = '/';
     } catch (err) {
-      if (err.message.includes('auth/email-already-in-use')) {
-        document.getElementById('alert').innerHTML = 'The email is already in use';
+      if (err.code === 'auth/email-already-in-use') {
+        setError('The email is already in use');
       } else {
-        alert(err);
+        setError('An error occurred. Please try again.');
       }
     }
   };
 
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, googleProvider)
-    .then(async (result) => {
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      const userName = user.displayName || displayName || username;
-      const userPic = user.photoURL || userPic || null;
+      const userRef = collection(firestore, 'userFollowingdata');
+      const q = query(userRef, where("userName", "==", user.displayName));
 
-      // Check if user data is already in Firestore to avoid duplicate entries
-      const userCollection = collection(firestore, 'userFollowingdata');
-      const userDoc = {
-        userName: userName,
-        pic: userPic,
-        follower:0,
-      };
-
-      // Add the user's data to Firestore
-      try {
-        await addDoc(userCollection, userDoc);
-        document.location.href = '/';
-      } catch (err) {
-        console.error("Error adding user to Firestore:", err);
+      const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty) {
+        await addDoc(userRef, {
+          userName: user.displayName,
+          pic: user.photoURL,
+          follower: 0,
+        });
       }
-    })
-    .catch((error) => {
-      console.log("Google sign-in error:", error);
-      if (error.message.includes('auth/email-already-in-use')) {
-        document.getElementById('alert').innerHTML = 'The email is already in use';
+      document.location.href = '/';
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        setError('The email is already in use');
+      } else {
+        setError('Google sign-in error. Please try again.');
       }
-    });
+    }
   };
 
-  console.log(user)
   return (
     <div className='w-screen h-screen flex justify-center items-center'>
-      <div className="h-[90%] lg:w-[35%] w-[90vw] bg-[#fff] rounded-md text-center gap-[10px] flex flex-col justify-center items-center">
-        <br /> <br />
-        <Image src={icon} className='rounded-full w-[40%] mt-[10px] scale-75 bg-white p-1' alt="Icon" />
-        <div className="font-semibold text-5xl mt-[-20px]">Sign Up</div>
-        <div className="w-[100%] h-[10%] rounded-md flex justify-center items-center">
+      <div className="h-[90%] lg:w-[35%] w-[90vw] bg-[#fff] rounded-md text-center flex flex-col justify-center items-center p-5 gap-4">
+        <Image src={icon} className='rounded-full w-[40%] scale-75 bg-white p-1' alt="Icon" />
+        <div className="font-semibold text-3xl">Sign Up</div>
+
+        <input
+          type="text"
+          placeholder='Full Name'
+          className='w-[80%] border p-2 rounded-md'
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder='Email'
+          className='w-[80%] border p-2 rounded-md'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div className="w-[80%] relative">
           <input
-            required
-            type="text"
-            placeholder='Full Name'
-            className='w-[80%] h-[100%] mt-10 ml-5 border-2 p-1 border-black rounded-md'
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-          />
-        </div>
-        <div className="w-[100%] h-[10%] rounded-md flex justify-center items-center">
-          <input
-            required
-            type="email"
-            placeholder='Email'
-            className='w-[80%] h-full mt-10 ml-5 border-2 p-1 border-black rounded-md'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="w-[100%] h-[10%] rounded-md flex flex-row justify-center items-center">
-          <input
-            required
             type="password"
             placeholder='Password'
             id='password'
-            className='w-[80%] h-full mt-10 border-2 p-1 border-black rounded-md z-0'
+            className='w-full border p-2 rounded-md'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <i className="fa-solid fa-eye z-100 text-2xl ml-[-40px] mt-[7%] relative"
+          <i
+            className="fa-solid fa-eye cursor-pointer absolute right-3 top-3"
             onClick={togglePasswordVisibility}
-            id='icon'></i>
+          ></i>
         </div>
-        <div className="w-[100%] h-[10%] rounded-md flex justify-center items-center">
-          <input
-            required
-            type="text"
-            placeholder='Phone Number'
-            className='w-[80%] h-[100%] mt-10 ml-5 border-2 p-1 border-black rounded-md'
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-        </div>
-        <br />
+        <input
+          type="text"
+          placeholder='Phone Number'
+          className='w-[80%] border p-2 rounded-md'
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+
         <button
-          className='w-[30%] mt-10 ml-10 bg-red-600 text-white rounded-md scale-150 hover:scale-110'
-          style={{ fontSize: "12px", padding: "10px 30px" }}
-          onClick={signUpWithEmail}>
-          Sign up
+          className='w-[60%] mt-5 bg-red-600 text-white py-2 rounded-md hover:scale-105'
+          onClick={signUpWithEmail}
+        >
+          Sign Up
         </button>
         <button
-          className='w-[30vh] mt-10 ml-10 bg-black text-white rounded-md scale-150 hover:scale-110'
-          style={{ fontSize: "12px", padding: "10px 35px" }}
-          onClick={signInWithGoogle}>
-          <i className="fa-brands fa-google"></i> Login With Google
+          className='w-[60%] mt-3 bg-black text-white py-2 rounded-md flex items-center justify-center hover:scale-105'
+          onClick={signInWithGoogle}
+        >
+          <i className="fa-brands fa-google mr-2"></i> Login With Google
         </button>
-        <p className="text-red-800" id='alert'></p>
-        <span id="error-text" className='text-red-600'></span>
-        <div className="mt-5">Have an account? <span className='text-blue-500' onClick={() => { document.location.href = "/log-in" }}>Log in</span></div>
+
+        {error && <p className="text-red-600">{error}</p>}
+
+        <div className="mt-5">
+          Have an account? <span className='text-blue-500 cursor-pointer' onClick={() => { document.location.href = "/log-in" }}>Log in</span>
+        </div>
       </div>
     </div>
   );
