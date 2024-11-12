@@ -14,13 +14,12 @@ const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  // const [user, setUser] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // setUser(user);
+        setDisplayName(user.displayName);
       }
     });
   }, []);
@@ -41,11 +40,7 @@ const SignUpPage = () => {
       });
       document.location.href = '/';
     } catch (err) {
-      if (err.code === 'auth/email-already-in-use') {
-        setError('The email is already in use');
-      } else {
-        setError('An error occurred. Please try again.');
-      }
+      setError(err.message.includes('auth/email-already-in-use') ? 'The email is already in use' : 'An error occurred. Please try again.');
     }
   };
 
@@ -55,8 +50,8 @@ const SignUpPage = () => {
       const user = result.user;
       const userRef = collection(firestore, 'userFollowingdata');
       const q = query(userRef, where("userName", "==", user.displayName));
-
       const querySnapshot = await getDocs(q);
+      
       if (querySnapshot.empty) {
         await addDoc(userRef, {
           userName: user.displayName,
@@ -66,73 +61,79 @@ const SignUpPage = () => {
       }
       document.location.href = '/';
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        setError('The email is already in use');
-      } else {
-        setError('Google sign-in error. Please try again.');
-      }
+      setError(error.message.includes('auth/email-already-in-use') ? 'The email is already in use' : 'Google sign-in error. Please try again.');
     }
   };
 
   return (
-    <div className='w-screen h-screen flex justify-center items-center'>
-      <div className="h-[90%] lg:w-[35%] w-[90vw] bg-[#fff] rounded-md text-center flex flex-col justify-center items-center p-5 gap-4">
-        <Image src={icon} className='rounded-full w-[40%] scale-75 bg-white p-1' alt="Icon" />
-        <div className="font-semibold text-3xl">Sign Up</div>
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg relative transform transition hover:scale-105">
+        <Image src={icon} alt="Icon" className="mx-auto w-16 mb-6" />
+        
+        <h2 className="text-3xl font-semibold text-gray-800 text-center mb-4">Sign Up</h2>
+
+        {error && <p className="text-sm text-center text-red-600 bg-red-100 p-2 rounded-md mb-4">{error}</p>}
 
         <input
           type="text"
-          placeholder='Full Name'
-          className='w-[80%] border p-2 rounded-md'
+          placeholder="Full Name"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-purple-500 focus:outline-none"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
         />
         <input
           type="email"
-          placeholder='Email'
-          className='w-[80%] border p-2 rounded-md'
+          placeholder="Email"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-purple-500 focus:outline-none"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div className="w-[80%] relative">
+        
+        <div className="relative mb-3">
           <input
             type="password"
-            placeholder='Password'
-            id='password'
-            className='w-full border p-2 rounded-md'
+            placeholder="Password"
+            id="password"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <i
-            className="fa-solid fa-eye cursor-pointer absolute right-3 top-3"
+            className="fa-solid fa-eye absolute top-3 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
             onClick={togglePasswordVisibility}
           ></i>
         </div>
+        
         <input
           type="text"
-          placeholder='Phone Number'
-          className='w-[80%] border p-2 rounded-md'
+          placeholder="Phone Number"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-purple-500 focus:outline-none"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
 
         <button
-          className='w-[60%] mt-5 bg-red-600 text-white py-2 rounded-md hover:scale-105'
           onClick={signUpWithEmail}
+          className="w-full py-3 mt-5 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50"
         >
           Sign Up
         </button>
+
         <button
-          className='w-[60%] mt-3 bg-black text-white py-2 rounded-md flex items-center justify-center hover:scale-105'
           onClick={signInWithGoogle}
+          className="w-full flex items-center justify-center py-3 mt-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
         >
-          <i className="fa-brands fa-google mr-2"></i> Login With Google
+          <i className="fa-brands fa-google mr-2"></i> Sign Up with Google
         </button>
 
-        {error && <p className="text-red-600">{error}</p>}
-
-        <div className="mt-5">
-          Have an account? <span className='text-blue-500 cursor-pointer' onClick={() => { document.location.href = "/log-in" }}>Log in</span>
+        <div className="mt-5 text-center text-gray-600">
+          Already have an account?{" "}
+          <span
+            onClick={() => document.location.href = "/log-in"}
+            className="text-blue-500 cursor-pointer hover:underline"
+          >
+            Log in
+          </span>
         </div>
       </div>
     </div>
