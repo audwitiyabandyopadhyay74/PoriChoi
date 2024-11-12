@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { firestore, auth } from '../firebase';
-import SearchData from '../Components/SearchData';
+import SearchData from '../Components/Search Data';
 import { getDocs, getDoc, collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import Link from 'next/link';
