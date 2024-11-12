@@ -103,14 +103,14 @@ const Page = () => {
         >
           <i className="fa-brands fa-google"></i> Sign in with Google
         </button>
-        <div className="mt-5 text-sm text-gray-300">
+        <div className="mt-5 text-sm text-white">
           Forgot password?{" "}
           <span className="text-blue-400 cursor-pointer hover:underline" onClick={resetPassword}>
             Reset it here
           </span>
         </div>
         {errorText && <span className="text-red-400 text-sm mt-2">{errorText}</span>}
-        <div className="mt-6 text-sm text-gray-300">
+        <div className="mt-6 text-sm text-white">
           Don’t have an account?{" "}
           <span
             className="text-blue-400 cursor-pointer hover:underline"
