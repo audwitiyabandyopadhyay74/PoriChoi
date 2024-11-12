@@ -103,7 +103,7 @@ console.log(user)
   console.log(user)
   return (
     <div className='w-screen h-screen flex justify-center items-center'>
-      <div className="h-[90%] w-[35%] bg-[#fff] rounded-md text-center gap-[10px] flex flex-col justify-center items-center">
+      <div className="h-[90%] lg:w-[35%] w-[90vw] bg-[#fff] rounded-md text-center gap-[10px] flex flex-col justify-center items-center">
         <br /> <br />
         <Image src={icon} className='rounded-full w-[40%] mt-[10px] scale-75 bg-white p-1' alt="Icon" />
         <div className="font-semibold text-5xl mt-[-20px]">Sign Up</div>
