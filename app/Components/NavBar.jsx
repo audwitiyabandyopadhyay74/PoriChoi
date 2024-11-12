@@ -62,7 +62,7 @@ const NavBar = () => {
 
   if (user === null) {
     return (
-      <nav className='h-16 w-screen bg-white text-black flex items-center shadow-md relative'>
+      <nav className='h-16 w-screen bg-white text-black flex items-center sm:justify-start  shadow-md relative'>
         <div className="logo flex items-center justify-center gap-2 w-[20%]">
           <Image src={Logo} alt="logo" className='w-14 h-14' />
           <h1 className='text-2xl font-bold'>Porichoi</h1>
