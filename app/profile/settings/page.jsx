@@ -35,11 +35,7 @@ const NavBar = () => {
     }
 
     const unSubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
+      setUser(user ? user : null);
     });
     return () => unSubscribe();
   }, [pathname]);
@@ -47,11 +43,11 @@ const NavBar = () => {
   const toggleSearchInput = () => {
     const search = document.querySelector('input');
     if (isOnclick) {
-      search.classList.add('right-10');
+      search.classList.add('right-4');
       search.classList.remove('right-[-180%]');
     } else {
       search.classList.add('right-[-180%]');
-      search.classList.remove('right-10');
+      search.classList.remove('right-4');
     }
     setIsOnclick(!isOnclick);
   };
@@ -60,55 +56,102 @@ const NavBar = () => {
     setCustomStyle((prevStyle) => (prevStyle === "block" ? "hidden" : "block"));
   };
 
-  if (user === null) {
-    return (
-      <nav className='h-16 w-screen bg-white text-black flex items-center shadow-md relative'>
-        <div className="logo flex items-center justify-center gap-2 w-[20%]">
-          <Image src={Logo} alt="logo" className='w-14 h-14' />
-          <h1 className='text-2xl font-bold'>Porichoi</h1>
-        </div>
-        <div className="h-max w-[60%] flex items-center gap-4 justify-center"></div>
-        <div className="w-[20%] h-[4rem] flex align-middle gap-4 items-center">
-          <button className='w-[7vw] h-[6vh] bg-[#ebeaea] hover:scale-110 rounded-md' onClick={() => { document.location.href = "/log-in" }}>Login</button>
-          <button className='w-[7vw] h-[6vh] bg-[#fff] hover:scale-110 rounded-md' onClick={() => { document.location.href = "/sign-up" }}>Sign up</button>
-        </div>
-      </nav>
-    );
-  }
-
-  const inactiveClass = "h-[4.5rem] ease-in-out duration-150 hover:text-red-600 border-[#0000] border-b-[5px] hover:border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
-  const activeClass = "h-[4.5rem] ease-in-out duration-150 text-red-600 border-[#0000] border-b-[5px] border border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
+  const inactiveClass = "ease-in-out duration-150 text-gray-500 hover:text-red-600 border-b-4 border-transparent hover:border-b-red-600 flex justify-center items-center flex-col";
+  const activeClass = "ease-in-out duration-150 text-red-600 border-b-4 border-b-red-600 flex justify-center items-center flex-col";
 
   return (
     <>
-      <nav className='h-16 w-screen bg-white text-black flex items-center shadow-md fixed z-100'>
-        <div className="logo flex items-center justify-center gap-2 w-[20%]">
-          <Image src={Logo} alt="logo" className='w-14 h-14' />
-          <h1 className='text-2xl font-bold'>Porichoi</h1>
-        </div>
-        <div className="h-max w-[60%] flex items-center gap-4 justify-center">
-          <Link href="/" className={home ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-house' style={{ fontSize: "30px" }}></i>
-            <span style={{ fontSize: "10px" }}>Home</span>
+      <nav className="h-16 w-full bg-white text-black flex items-center shadow-md fixed top-0 z-50 px-4 md:px-8 lg:px-12">
+        <div className="flex items-center justify-between w-full md:w-auto">
+          <Link href="/" className="flex items-center gap-2">
+            <Image src={Logo} alt="logo" width={40} height={40} className="md:w-12 md:h-12" />
+            <h1 className="text-xl font-bold hidden md:block">Porichoi</h1>
           </Link>
-          <Link href="/profile" className={profile ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-user' style={{ fontSize: "30px" }}></i>
-            <span style={{ fontSize: "10px" }}>Profile</span>
-          </Link>
-          <Link href="/news" className={news ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-newspaper' style={{ fontSize: "30px" }}></i>
-            <span style={{ fontSize: "10px" }}>News</span>
-          </Link>
-        </div>
-        <div className="w-[20%] h-[4rem] flex align-middle justify-center gap-4 items-center">
-          <input type="text" placeholder='Search' className='h-[60%] ease-in-out duration-500 right-[-180%] absolute w-[80%] outline-none border border-black rounded-md p-2' />
-          <i className="fa-solid fa-cloud-arrow-up" style={{ fontSize: "24px" }} onClick={togglePostFormDisplay}></i>
-          <div className="w-[4vh] bg-[#ebe9e9] rounded-[100%] h-[4vh] flex flex-col items-center justify-center align-middle scale-125 absolute right-[20px] hover:cursor-pointer">
-            <FaSearch size={"20px"} onClick={toggleSearchInput} onClickCapture={tptosearch} />
+
+          <div className="flex items-center gap-4 md:ml-8">
+            <Link href="/" className={home ? activeClass : inactiveClass}>
+              <i className="fa-solid fa-house text-lg md:text-xl"></i>
+              <span className="text-xs md:text-sm">Home</span>
+            </Link>
+            <Link href="/profile" className={profile ? activeClass : inactiveClass}>
+              <i className="fa-solid fa-user text-lg md:text-xl"></i>
+              <span className="text-xs md:text-sm">Profile</span>
+            </Link>
+            <Link href="/news" className={news ? activeClass : inactiveClass}>
+              <i className="fa-solid fa-newspaper text-lg md:text-xl"></i>
+              <span className="text-xs md:text-sm">News</span>
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2 ml-auto">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search"
+                className="absolute w-48 md:w-64 right-[-180%] transition-all duration-500 outline-none border border-black rounded-md p-2"
+              />
+              <FaSearch
+                className="text-gray-700 text-lg cursor-pointer"
+                onClick={toggleSearchInput}
+              />
+            </div>
+            <i
+              className="fa-solid fa-cloud-arrow-up text-xl md:text-2xl cursor-pointer"
+              onClick={togglePostFormDisplay}
+            ></i>
           </div>
         </div>
+
+        <div className="hidden md:flex ml-auto">
+          {user ? (
+            <>
+              <Link href="/" className="px-4 py-2 rounded hover:bg-gray-100">
+                Dashboard
+              </Link>
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                onClick={() => auth.signOut()}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                onClick={() => (window.location.href = "/log-in")}
+              >
+                Login
+              </button>
+              <button
+                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                onClick={() => (window.location.href = "/sign-up")}
+              >
+                Sign up
+              </button>
+            </>
+          )}
+        </div>
       </nav>
-      <Form Style={customStyle + ' mt-[-100px]'} />
+
+      {/* Conditional Post Form */}
+      <Form Style={`${customStyle} mt-[-100px]`} />
+
+      {/* Mobile Footer Navigation */}
+      <div className="fixed bottom-0 left-0 w-full bg-white shadow-md md:hidden flex justify-around py-3 border-t">
+        <Link href="/" className={home ? activeClass : inactiveClass}>
+          <i className="fa-solid fa-house text-lg"></i>
+          <span className="text-xs">Home</span>
+        </Link>
+        <Link href="/profile" className={profile ? activeClass : inactiveClass}>
+          <i className="fa-solid fa-user text-lg"></i>
+          <span className="text-xs">Profile</span>
+        </Link>
+        <Link href="/news" className={news ? activeClass : inactiveClass}>
+          <i className="fa-solid fa-newspaper text-lg"></i>
+          <span className="text-xs">News</span>
+        </Link>
+      </div>
     </>
   );
 };
