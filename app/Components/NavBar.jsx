@@ -88,7 +88,7 @@ const NavBar = () => {
           {/* Actions */}
           <div className="flex items-center gap-4 relative">
             {/* Search Icon */}
-            <button onClick={toggleSearch} className="text-gray-600 hover:text-gray-800">
+            <button onClick={document.location.href ="/search"} className="text-gray-600 hover:text-gray-800">
               <FaSearch size={20} />
             </button>
             {/* Search Input */}
