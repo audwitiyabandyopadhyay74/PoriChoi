@@ -33,7 +33,7 @@ const notactive = "w-[53.5vh] h-[8vh] flex items-center justify-center bg-[#000]
 const active = "w-[53.5vh] h-[8vh] flex items-center justify-center bg-[#fff] border-r border-r-[6px] text-[#000] p-[10px] border-r-[#fff]   flex gap-4  font-semibold";
 return(
     <div className="flex bg-[#000] h-screen w-full absolute left-[0] rounded-md">
-    <ul>
+    <ul className='w-full'>
       <li className={profile? active :notactive} onClick={() => { document.location.href = "/profile" }}><i className='fa-solid fa-user' style={{fontSize:"24px"}}></i> Your Profile</li>
       <li className={settings?active :notactive} onClick={()=>{document.location.href = "profile/settings"}}><i className='fa-solid fa-gear' style={{fontSize:"24px"}}></i> Settings</li>
       <li className={YourPosts?active :notactive} onClick={()=>{document.location.href = "profile/yourposts"}}><i className='fa-solid fa-signs-posts' style={{fontSize:"24px"}}></i> Your Posts</li>
