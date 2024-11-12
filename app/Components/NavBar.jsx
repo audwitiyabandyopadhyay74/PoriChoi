@@ -103,7 +103,7 @@ const NavBar = () => {
 
             {/* Post Form Icon */}
             <button onClick={togglePostForm} className="text-gray-600 hover:text-gray-800">
-              <FaBars size={20} />
+              <i style={{fontSize:"20"}} className='fa-solid fa-upload' > </i>
             </button>
 
             {/* Conditional Rendering based on Auth */}
