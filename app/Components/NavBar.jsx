@@ -17,7 +17,7 @@ const NavBar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isPostFormVisible, setIsPostFormVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   useEffect(() => {
     // Set active page based on current pathname
