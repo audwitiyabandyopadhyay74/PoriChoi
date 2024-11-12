@@ -158,7 +158,7 @@ const Post = (props) => {
           <h2 className='text-xl font-semibold'>Comments:</h2>
           <ul>
             {comments.map(comment => (
-              <li key={comment.id} className='w-max h-max flex flex-col gap-[0px] justify-start'>
+              <li key={comment.id} className='w-[40%] h-max flex flex-col gap-[0px] justify-start'>
                 <div className='flex items-center gap-5 font-bold w-full h-max'>
                   <Image src={comment.pic || "https://yt3.ggpht.com/PEMn6YMvrLc8yX9nWB8VqurEVZzi3iRHHxYvBen3yNEbiRgSbk1Gmxycu5x2tfcScYisz4x3Ig=s176-c-k-c0x00ffffff-no-rj"} alt="User profile" width={100} height={100} className='rounded-full w-[10vh] h-[10vh] scale-50' />
                   {comment.name}
