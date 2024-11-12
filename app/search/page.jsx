@@ -76,7 +76,7 @@ const Page = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <div className="w-max max-w-md bg-white rounded-lg shadow-md p-6 relative">
+      <div className="w-max bg-white rounded-lg shadow-md p-6 relative">
         <Link href="/" className="absolute top-4 left-4 flex items-center text-blue-600 hover:text-blue-800 transition-colors">
           <FaArrowLeft className="mr-2" />
           <span className="font-semibold">Back to Homepage</span>
