@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Logo from "../favicon.ico";
 import Image from 'next/image';
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaHome, FaUser, FaNewspaper, FaBars, FaTimes } from "react-icons/fa";
 import { auth } from "../firebase.js";
 import { onAuthStateChanged } from 'firebase/auth';
 import Form from './Form';
@@ -12,28 +12,26 @@ import Link from 'next/link';
 
 const NavBar = () => {
   const pathname = usePathname();
-  const [home, setHome] = useState(false);
-  const [profile, setProfile] = useState(false);
-  const [news, setNews] = useState(false);
+  const [activePage, setActivePage] = useState('');
   const [user, setUser] = useState(null);
-  const [isOnclick, setIsOnclick] = useState(false);
-  const [customStyle, setCustomStyle] = useState("hidden");
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isPostFormVisible, setIsPostFormVisible] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
+    // Set active page based on current pathname
     if (pathname === "/") {
-      setHome(true);
-      setProfile(false);
-      setNews(false);
+      setActivePage("home");
     } else if (pathname === "/profile") {
-      setHome(false);
-      setProfile(true);
-      setNews(false);
+      setActivePage("profile");
+    } else if (pathname === "/news") {
+      setActivePage("news");
     } else {
-      setHome(false);
-      setProfile(false);
-      setNews(true);
+      setActivePage("");
     }
 
+    // Listen for authentication state changes
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
@@ -44,71 +42,151 @@ const NavBar = () => {
     return () => unSubscribe();
   }, [pathname]);
 
-  const toggleSearchInput = () => {
-    const search = document.querySelector('input');
-    if (isOnclick) {
-      search.classList.add('right-10');
-      search.classList.remove('right-[-180%]');
-    } else {
-      search.classList.add('right-[-180%]');
-      search.classList.remove('right-10');
-    }
-    setIsOnclick(!isOnclick);
+  const toggleSearch = () => {
+    setIsSearchVisible(!isSearchVisible);
   };
 
-  const togglePostFormDisplay = () => {
-    setCustomStyle((prevStyle) => (prevStyle === "block" ? "hidden" : "block"));
+  const togglePostForm = () => {
+    setIsPostFormVisible(!isPostFormVisible);
   };
 
-  if (user === null) {
-    return (
-      <nav className='h-16 w-screen bg-white text-black flex items-center sm:justify-start  shadow-md relative'>
-        <div className="logo flex items-center justify-center gap-2 w-[20%]">
-          <Image src={Logo} alt="logo" className='w-14 h-14' />
-          <h1 className='text-2xl font-bold'>Porichoi</h1>
-        </div>
-        <div className="h-max w-max lg:w-[60%] flex items-center gap-4 justify-center"></div>
-        <div className="w-max lg:w-[20%] h-[4rem] flex align-middle gap-4 items-center">
-          <button className='w-[7vw] h-[6vh] bg-[#ebeaea] hover:scale-110 rounded-md' onClick={() => { document.location.href = "/log-in" }}>Login</button>
-          <button className='w-[7vw] h-[6vh] bg-[#fff] hover:scale-110 rounded-md' onClick={() => { document.location.href = "/sign-up" }}>Sign up</button>
-        </div>
-      </nav>
-    );
-  }
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
-  const inactiveClass = "h-[4.5rem] ease-in-out duration-150 hover:text-red-600 border-[#0000] border-b-[5px] hover:border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
-  const activeClass = "h-[4.5rem] ease-in-out duration-150 text-red-600 border-[#0000] border-b-[5px] border border-b-red-600 rounded-md flex justify-center items-center w-[4rem] flex-col";
+  // Define active and inactive classes
+  const inactiveClass = "flex flex-col items-center justify-center text-gray-600 hover:text-red-600";
+  const activeClass = "flex flex-col items-center justify-center text-red-600";
 
   return (
     <>
-      <nav className='h-16 w-screen bg-white text-black flex items-center shadow-md fixed z-100'>
-        <div className="logo flex items-center justify-center gap-2 w-[20%]">
-          <Image src={Logo} alt="logo" className='w-14 h-14' />
-          <h1 className='text-2xl font-bold'>Porichoi</h1>
-        </div>
-        <div className="h-max w-[60%] flex items-center gap-4 justify-center">
-          <Link href="/" className={home ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-house' style={{ fontSize: "30px" }}></i>
-            <span style={{ fontSize: "10px" }}>Home</span>
-          </Link>
-          <Link href="/profile" className={profile ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-user' style={{ fontSize: "30px" }}></i>
-            <span style={{ fontSize: "10px" }}>Profile</span>
-          </Link>
-          <Link href="/news" className={news ? activeClass : inactiveClass}>
-            <i className='fa-solid fa-newspaper' style={{ fontSize: "30px" }}></i>
-            <span style={{ fontSize: "10px" }}>News</span>
-          </Link>
-        </div>
-        <div className="w-[20%] h-[4rem] flex align-middle justify-center gap-4 items-center">
-          <input type="text" placeholder='Search' className='h-[60%] ease-in-out duration-500 right-[-180%] absolute w-[80%] outline-none border border-black rounded-md p-2' />
-          <i className="fa-solid fa-cloud-arrow-up" style={{ fontSize: "24px" }} onClick={togglePostFormDisplay}></i>
-          <div className="w-[4vh] bg-[#ebe9e9] rounded-[100%] h-[4vh] flex flex-col items-center justify-center align-middle scale-125 absolute right-[20px] hover:cursor-pointer">
-            <FaSearch size={"20px"} onClick={toggleSearchInput} onClickCapture={tptosearch} />
+      {/* Desktop Navbar */}
+      <nav className="hidden md:flex fixed top-0 left-0 right-0 h-16 bg-white shadow-md z-50">
+        <div className="flex items-center justify-between w-full px-8">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <Image src={Logo} alt="logo" className='w-12 h-12' />
+            <h1 className='text-2xl font-bold'>Porichoi</h1>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex items-center gap-6">
+            <Link href="/" className={activePage === "home" ? activeClass : inactiveClass}>
+              <FaHome size={24} />
+              <span className="text-xs">Home</span>
+            </Link>
+            <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass}>
+              <FaUser size={24} />
+              <span className="text-xs">Profile</span>
+            </Link>
+            <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass}>
+              <FaNewspaper size={24} />
+              <span className="text-xs">News</span>
+            </Link>
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center gap-4 relative">
+            {/* Search Icon */}
+            <button onClick={toggleSearch} className="text-gray-600 hover:text-gray-800">
+              <FaSearch size={20} />
+            </button>
+            {/* Search Input */}
+            {isSearchVisible && (
+              <input
+                type="text"
+                placeholder="Search..."
+                className="absolute right-10 top-12 w-48 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            )}
+
+            {/* Post Form Icon */}
+            <button onClick={togglePostForm} className="text-gray-600 hover:text-gray-800">
+              <FaBars size={20} />
+            </button>
+
+            {/* Conditional Rendering based on Auth */}
+            {user ? (
+              <Link href="/profile">
+                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                  <Image src={user.photoURL || Logo} alt="User Avatar" className='rounded-full w-10 h-10' />
+                </div>
+              </Link>
+            ) : (
+              <>
+                <button
+                  className='px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition'
+                  onClick={() => { document.location.href = "/log-in" }}
+                >
+                  Login
+                </button>
+                <button
+                  className='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition'
+                  onClick={() => { document.location.href = "/sign-up" }}
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
         </div>
       </nav>
-      <Form Style={customStyle + ' mt-[-100px]'} />
+
+      {/* Mobile/Tablet Navbar */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t-md z-50">
+        <div className="flex items-center justify-around h-full">
+          <Link href="/" className={activePage === "home" ? activeClass : inactiveClass}>
+            <FaHome size={24} />
+            <span className="text-xs">Home</span>
+          </Link>
+          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass}>
+            <FaUser size={24} />
+            <span className="text-xs">Profile</span>
+          </Link>
+          <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass}>
+            <FaNewspaper size={24} />
+            <span className="text-xs">News</span>
+          </Link>
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            {/* Search Icon */}
+            <button onClick={toggleSearch} className="text-gray-600 hover:text-gray-800">
+              <FaSearch size={20} />
+            </button>
+            {/* Post Form Icon */}
+            <button onClick={togglePostForm} className="text-gray-600 hover:text-gray-800">
+              <FaBars size={20} />
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Search Input */}
+      {isSearchVisible && (
+        <div className="fixed bottom-16 left-0 right-0 px-4 pb-2 bg-white shadow-md z-40">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
+      )}
+
+      {/* Mobile Menu Toggle */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+          <div className="bg-white w-3/4 h-3/4 rounded-lg p-6 relative">
+            <button onClick={toggleMobileMenu} className="absolute top-4 right-4 text-gray-600 hover:text-gray-800">
+              <FaTimes size={24} />
+            </button>
+            {/* Add your mobile menu items here */}
+            <Form />
+          </div>
+        </div>
+      )}
+
+      {/* Post Form */}
+      <Form Style={`${isPostFormVisible ? 'block' : 'hidden'} fixed top-16 md:top-auto md:bottom-16 left-0 right-0 md:left-auto md:right-auto mx-auto`} />
     </>
   );
 };
