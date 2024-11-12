@@ -67,8 +67,8 @@ const NavBar = () => {
           <Image src={Logo} alt="logo" className='w-14 h-14' />
           <h1 className='text-2xl font-bold'>Porichoi</h1>
         </div>
-        <div className="h-max w-[60%] flex items-center gap-4 justify-center"></div>
-        <div className="w-[20%] h-[4rem] flex align-middle gap-4 items-center">
+        <div className="h-max w-max lg:w-[60%] flex items-center gap-4 justify-center"></div>
+        <div className="w-max lg:w-[20%] h-[4rem] flex align-middle gap-4 items-center">
           <button className='w-[7vw] h-[6vh] bg-[#ebeaea] hover:scale-110 rounded-md' onClick={() => { document.location.href = "/log-in" }}>Login</button>
           <button className='w-[7vw] h-[6vh] bg-[#fff] hover:scale-110 rounded-md' onClick={() => { document.location.href = "/sign-up" }}>Sign up</button>
         </div>
