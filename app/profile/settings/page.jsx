@@ -12,22 +12,22 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState('');
   const [changedName, setChangedName] = useState('');
   const [changedEmail, setChangedEmail] = useState('');
   const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
   const [changedImage, setChangedImage] = useState(null);
   const [changedFilenameImage, setChangedFileNameImage] = useState("");
-  const [changedImageLink, setChangedImageLink] = useState("");
+  // const [changedImageLink, setChangedImageLink] = useState("");
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         setPhoto(user.photoURL || Avatar);
         setName(user.displayName || "Name is not given");
-        setEmail(user.email || "Email is not given");
-        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
+        // setEmail(user.email || "Email is not given");
+        // setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       } else {
         setUser(null);
       }
