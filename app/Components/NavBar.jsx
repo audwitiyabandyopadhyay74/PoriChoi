@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Logo from "../favicon.ico";
 import Image from 'next/image';
-import { FaSearch, FaHome, FaUser, FaNewspaper, FaBars, FaTimes } from "react-icons/fa";
+import { FaSearch, FaHome, FaUser, FaNewspaper,  FaTimes } from "react-icons/fa";
 import { auth } from "../firebase.js";
 import { onAuthStateChanged } from 'firebase/auth';
 import Form from './Form';
@@ -156,7 +156,7 @@ const NavBar = () => {
             </button>
             {/* Post Form Icon */}
             <button onClick={togglePostForm} className="text-gray-600 hover:text-gray-800">
-              <FaBars size={20} />
+              <i className='fa-solid' style={{fontSize:"20"}} ></i>
             </button>
           </div>
         </div>
