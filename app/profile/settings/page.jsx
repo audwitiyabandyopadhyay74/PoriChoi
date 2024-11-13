@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import NavBar from '../Components/NavBar';
-import { auth } from '../firebase';
+import NavBar from '@/app/Components/NavBar';
+import { auth } from '@/app/firebase';
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import Image from 'next/image';
-import Avatar from '../download.png';
-import SideBar from '../Components/SideBar';
+import Avatar from '@/app/download.png';
+import SideBar from '@/app/Components/SideBar';
 
 const Page = () => {
   const [photo, setPhoto] = useState(Avatar);
