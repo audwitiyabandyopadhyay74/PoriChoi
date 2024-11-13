@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../../Components/NavBar';
 import { auth, storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { updateProfile, signOut, onAuthStateChanged,deleteUserc } from 'firebase/auth';
+import { updateProfile,  onAuthStateChanged } from 'firebase/auth';
 import SideBar from '../../Components/SideBar';
 import Image from 'next/image';
 import Avatar from '../../download.png';
-import Link from 'next/link';
+// import Link from 'next/link';
 const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
@@ -60,11 +60,11 @@ const Page = () => {
   const userd = auth.currentUser;
   const inputClassName = 'w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none';
   
-  const handleSignOut = () => {
-    signOut(auth).then(() => {
-      document.location.href = '/log-in';
-    });
-  };
+  // const handleSignOut = () => {
+  //   signOut(auth).then(() => {
+  //     document.location.href = '/log-in';
+  //   });
+  // };
   return (
     <div className=''>
       <NavBar />
