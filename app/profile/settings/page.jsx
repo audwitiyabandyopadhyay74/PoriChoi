@@ -48,7 +48,7 @@ const Page = () => {
 
   return (
     <div>
-      <NavBar />
+      <SideBar />
       <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
         <Image src={photo} width={100} height={100} className="rounded-full" alt="Profile Image" />
         <h1 className="text-2xl font-semibold">{name}</h1>
