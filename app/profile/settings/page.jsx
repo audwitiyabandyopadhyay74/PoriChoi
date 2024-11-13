@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import NavBar from '@/app/Components/NavBar';
+// import NavBar from '@/app/Components/NavBar';
 import { auth } from '@/app/firebase';
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import Image from 'next/image';
