@@ -3,53 +3,41 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../Components/NavBar';
 import { auth } from '../firebase';
-import { onAuthStateChanged, updateProfile } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../download.png';
 import SideBar from '../Components/SideBar';
 
 const Page = () => {
+  // const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        setPhoto(currentUser.photoURL || Avatar);
-        setName(currentUser.displayName || "Name is not given");
-        setEmail(currentUser.email || "Email is not given");
-        setPhoneNumber(currentUser.phoneNumber || "Phone Number is not given");
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // setUser(user);
+        setPhoto(user.photoURL || Avatar);
+        setName(user.displayName || "Name is not given");
+        setEmail(user.email || "Email is not given");
+        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       } else {
         setUser(null);
       }
     });
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (user) {
-      try {
-        await updateProfile(user, {
-          displayName: name,
-          photoURL: photo,
-        });
-        alert("Profile updated successfully!");
-        document.location.href = "/profile/update-profile";
-      } catch (error) {
-        console.error("Error updating profile:", error);
-      }
-    }
+    document.location.href = "/profile/update-profile";
   };
 
   return (
     <div>
       <NavBar />
-      <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
+      <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 ">
         <Image src={photo} width={100} height={100} className="rounded-full" alt="Profile Image" />
         <h1 className="text-2xl font-semibold">{name}</h1>
       </div>
@@ -58,26 +46,26 @@ const Page = () => {
         <div className="flex w-screen h-max flex-row gap-[200px] justify-center items-center">
           <SideBar />
           <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}>
-            <div className="text-3xl font-semibold">Edit Your Profile</div>
+            <div className="text-3xl font-semibold">Check Your Profile</div>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your name"
+              value={name || ''}
+              placeholder={name}
+              readOnly
               className="w-[30vw] border rounded-md p-2"
             />
             <input
               type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
+              value={email || ''}
+              placeholder={email}
+              readOnly
               className="w-[30vw] border rounded-md p-2"
             />
             <input
               type="text"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder="Enter your phone number"
+              value={phoneNumber || ''}
+              placeholder={phoneNumber}
+              readOnly
               className="w-[30vw] border rounded-md p-2"
             />
             <input
