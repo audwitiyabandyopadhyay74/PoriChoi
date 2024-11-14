@@ -1,14 +1,14 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import NavBar from '../Components/NavBar';
-import { auth, storage } from '../firebase';
-import { ref, uploadBytes } from 'firebase/storage';
-import { updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
+import { auth} from '../firebase';
+// import { ref, uploadBytes } from 'firebase/storage';
+// import { updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../download.png';
 import SideBar from '../Components/SideBar';
 const Page = () => {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ const Page = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);
+        // setUser(user);
         setPhoto(user.photoURL || Avatar);
         setName(user.displayName || "Name is not given");
         setEmail(user.email || "Email is not given");
