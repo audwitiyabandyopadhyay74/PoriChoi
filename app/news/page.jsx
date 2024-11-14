@@ -31,7 +31,7 @@ const NewsPage = () => {
     <div className='flex flex-col gap-4'>
       <ToastContainer/>
       <NavBar className="fixed top-0 w-full" />
-      <div className="flex flex-wrap justify-center pt-24 sm:pt-32 gap-4 px-4 sm:px-8 lg:px-16">
+      <div className="flex flex-wrap items-center justify-center pt-24 sm:pt-32 gap-4 px-4 sm:px-8 lg:px-16">
         {newsData.map((news) => (
           <a key={news.title+Math.random()*100} href={news.url} target='_blank' rel="noopener noreferrer" className='no-underline'>
             <div className="w-full sm:w-80 bg-white shadow-lg m-2 rounded-lg flex flex-col overflow-hidden transition-transform duration-300 transform hover:scale-105">
