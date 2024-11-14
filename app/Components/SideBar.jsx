@@ -122,12 +122,12 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getAuth, signOut } from "firebase/auth";
-import firebaseApp from '../firebase'; // Your Firebase configuration
+import {app} from '../firebase'; // Your Firebase configuration
 
 const Sidebar = () => {
   const router = useRouter();
   const { pathname } = router;
-  const auth = getAuth(firebaseApp);
+  const auth = getAuth(app);
 
   const linkClasses = (path) => (
     `block py-2 px-4 rounded ${
