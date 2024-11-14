@@ -13,14 +13,14 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState('');
   const [changedName, setChangedName] = useState('');
   const [changedEmail, setChangedEmail] = useState('');
   const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
   const [changedImage, setChangedImage] = useState(null);
   const [changedFilenameImage, setChangedFileNameImage] = useState("");
-  const [changedImageLink, setChangedImageLink] = useState("");
+  // const [changedImageLink, setChangedImageLink] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -28,8 +28,8 @@ const Page = () => {
         setUser(user);
         setPhoto(user.photoURL || Avatar);
         setName(user.displayName || "Name is not given");
-        setEmail(user.email || "Email is not given");
-        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
+        // setEmail(user.email || "Email is not given");
+        // setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       } else {
         setUser(null);
       }
@@ -50,7 +50,7 @@ const Page = () => {
       const imgRef = ref(storage, `/uploads/images/${changedFilenameImage}`);
       await uploadBytes(imgRef, changedImage);
       const link = await getDownloadURL(imgRef);
-      setChangedImageLink(link);
+      // setChangedImageLink(link);
       await updateProfile(user, {
         displayName: changedName || name,
         photoURL: link || photo,
@@ -61,11 +61,7 @@ const Page = () => {
     }
   };
 
-  const handleSignOut = () => {
-    signOut(auth).then(() => {
-      document.location.href = '/log-in';
-    });
-  };
+
 
   const userd = auth.currentUser;
   const inputClassName = 'w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none';
