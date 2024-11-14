@@ -9,7 +9,7 @@ import Avatar from '../download.png';
 import SideBar from '../Components/SideBar';
 
 const Page = () => {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ const Page = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);
+        // setUser(user);
         setPhoto(user.photoURL || Avatar);
         setName(user.displayName || "Name is not given");
         setEmail(user.email || "Email is not given");
@@ -31,11 +31,7 @@ const Page = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleSignOut = () => {
-    signOut(auth).then(() => {
-      document.location.href = '/log-in';
-    });
-  };
+
 
   return (
     <div>
@@ -57,7 +53,7 @@ const Page = () => {
               className="w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none" 
             />
             <input 
-              type="text" 
+              type="text"     
               value={email} 
               readOnly 
               className="w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none" 
