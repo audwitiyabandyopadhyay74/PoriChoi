@@ -8,7 +8,7 @@ const NewsPage = () => {
 
   useEffect(() => {
     const fetchTopHeadlines = async () => {
-      const url = "https://newsapi.org/v2/top-headlines?sources=google-news-in&apiKey=e7f7d9be7f8941388aee0e10c146a327";
+      const url = "https://api.bing.microsoft.com/v7.0/news/search?q=India";
       try {
         const response = await fetch(url);
         if (!response.ok) {
