@@ -119,14 +119,13 @@
 // };
 
 // export default NavBar;
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+// import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { getAuth, signOut } from "firebase/auth";
 import {app} from '../firebase'; // Your Firebase configuration
 
 const Sidebar = () => {
-  const router = useRouter();
-  const { pathname } = router;
+  const  pathname  = usePathname();
   const auth = getAuth(app);
 
   const linkClasses = (path) => (
@@ -151,19 +150,19 @@ const Sidebar = () => {
       <h2 className="text-2xl font-bold text-center my-4">Menu</h2>
       <ul className="flex flex-col flex-grow">
         <li className="my-2">
-          <Link href="/profile">
-            <a className={linkClasses('/profile')}>My Profile</a>
-          </Link>
+          <a href="/profile">
+            <span className={linkClasses('/profile')}>My Profile</span>
+          </a>
         </li>
         <li className="my-2">
-          <Link href="/settings">
-            <a className={linkClasses('/profile/settings')}>Settings</a>
-          </Link>
+          <a href="/settings">
+            <span className={linkClasses('/profile/settings')}>Settings</span>
+          </a>
         </li>
         <li className="my-2">
-          <Link href="/posts">
-            <a className={linkClasses('/profile/yourposts')}>My Posts</a>
-          </Link>
+          <span href="/posts">
+            <span className={linkClasses('/profile/yourposts')}>My Posts</span>
+          </span>
         </li>
       </ul>
       <button

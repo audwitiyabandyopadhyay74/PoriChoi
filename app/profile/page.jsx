@@ -5,6 +5,24 @@ import SideBar from '../Components/SideBar';
 // import Profile from '../Components/Profile';
 
 const Page = () => {
+  // const [photo, setPhoto] = useState(Avatar);
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
+  // const [changedName, setChangedName] = useState('');
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        // setPhoto(user.photoURL );
+        setName(user.displayName || "Name is not given");
+        setEmail(user.email || "Email is not given");
+        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
   return (
     <div>
       <NavBar />
