@@ -120,59 +120,47 @@
 
 // export default NavBar;
 // import Link from 'next/link';
+'use client';
+import React, { useEffect, useState } from 'react';
+import {auth} from "../firebase";
+import {signOut} from "firebase/auth";
 import { usePathname } from 'next/navigation';
-import { getAuth, signOut } from "firebase/auth";
-import {app} from '../firebase'; // Your Firebase configuration
-
-const Sidebar = () => {
-  const  pathname  = usePathname();
-  const auth = getAuth(app);
-
-  const linkClasses = (path) => (
-    `block py-2 px-4 rounded ${
-      pathname === path
-        ? 'bg-gray-700 text-white'
-        : 'text-gray-300 hover:bg-gray-600 hover:text-white'
-    }`
-  );
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      router.push('/login'); // Redirect to the login page after signing out
-    } catch (error) {
-      console.error('Sign Out Error', error);
-    }
+const handleSignOut = () => {
+    signOut(auth).then(() => {
+      document.location.href = '/log-in';
+    });
   };
-
-  return (
-    <div className="w-64 h-screen bg-gray-800 text-white flex flex-col">
-      <h2 className="text-2xl font-bold text-center my-4">Menu</h2>
-      <ul className="flex flex-col flex-grow">
-        <li className="my-2">
-          <a href="/profile">
-            <span className={linkClasses('/profile')}>My Profile</span>
-          </a>
-        </li>
-        <li className="my-2">
-          <a href="/settings">
-            <span className={linkClasses('/profile/settings')}>Settings</span>
-          </a>
-        </li>
-        <li className="my-2">
-          <span href="/posts">
-            <span className={linkClasses('/profile/yourposts')}>My Posts</span>
-          </span>
-        </li>
-      </ul>
-      <button
-        onClick={handleSignOut}
-        className="mt-auto py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded"
-      >
-        Sign Out
-      </button>
-    </div>
-  );
-};
-
-export default Sidebar;
+const SideBar = () =>{
+const [profile ,setProfile] = useState(false);
+const [settings ,setSettings] = useState(false);
+const [YourPosts ,setYourPosts] = useState(false);
+const pathname = usePathname()
+  useEffect(()=>{
+    if(pathname === "/profile"){
+setProfile(true);
+    }else if(pathname === "profile/yourposts"){
+      setYourPosts(true);
+    }
+    else{
+      setProfile(false);
+      setSettings(true)
+    }
+  },[])
+const notactive = "w-[53.5vh] h-[8vh] flex items-center justify-center bg-[#000] rounded-md gap-4 font-semibold text-white";
+const active = "w-[53.5vh] h-[8vh] flex items-center justify-center bg-[#fff] border-r border-r-[6px] text-[#000] p-[10px] border-r-[#fff]   flex gap-4  font-semibold";
+return(
+    <div className="flex bg-[#000] h-screen w-[25%] absolute left-[0] rounded-md">
+    <ul>
+      <li className={profile? active :notactive} onClick={() => { document.location.href = "/profile" }}><i className='fa-solid fa-user' style={{fontSize:"24px"}}></i> Your Profile</li>
+      <li className={settings?active :notactive} onClick={()=>{document.location.href = "profile/settings"}}><i className='fa-solid fa-gear' style={{fontSize:"24px"}}></i> Settings</li>
+      <li className={YourPosts?active :notactive} onClick={()=>{document.location.href = "profile/yourposts"}}><i className='fa-solid fa-signs-posts' style={{fontSize:"24px"}}></i> Your Posts</li>
+    
+      {/* <li className='w-[53.5vh] h-[8vh] flex items-center justify-center bg-[#0000] border-r border-r-[10px] rounded-full border-r-[#fff] rounded-md text-white'></li> */}
+      <li className='w-[53.5vh] h-[8vh] flex items-center justify-center bg-[#0000] rounded-md pt-[350px]'>
+        <button onClick={handleSignOut} className='w-[10vw] h-[3.5vw] bg-red-600 rounded-md text-white font-semibold'>Sign out</button>
+      </li>
+    </ul>
+  </div>
+)
+}
+export default SideBar;
