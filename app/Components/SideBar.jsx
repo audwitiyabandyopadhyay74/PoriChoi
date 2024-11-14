@@ -119,14 +119,43 @@
 // };
 
 // export default NavBar;
-import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const SideBar = () => {
+const Sidebar = () => {
+  const router = useRouter();
+  const { pathname } = router;
+
+  const linkClasses = (path) => (
+    `block py-2 px-4 rounded ${
+      pathname === path
+        ? 'bg-gray-700 text-white'
+        : 'text-gray-300 hover:bg-gray-600 hover:text-white'
+    }`
+  );
+
   return (
-    <div>
-      
+    <div className="w-64 h-screen bg-gray-800 text-white flex flex-col">
+      <h2 className="text-2xl font-bold text-center my-4">Menu</h2>
+      <ul className="flex flex-col">
+        <li className="my-2">
+          <Link href="/profile">
+            <a className={linkClasses('/profile')}>My Profile</a>
+          </Link>
+        </li>
+        <li className="my-2">
+          <Link href="/settings">
+            <a className={linkClasses('/settings')}>Settings</a>
+          </Link>
+        </li>
+        <li className="my-2">
+          <Link href="/posts">
+            <a className={linkClasses('/posts')}>My Posts</a>
+          </Link>
+        </li>
+      </ul>
     </div>
   );
-}
+};
 
-export default SideBar;
+export default Sidebar;
