@@ -121,10 +121,13 @@
 // export default NavBar;
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { getAuth, signOut } from "firebase/auth";
+import firebaseApp from '../firebase'; // Your Firebase configuration
 
 const Sidebar = () => {
   const router = useRouter();
   const { pathname } = router;
+  const auth = getAuth(firebaseApp);
 
   const linkClasses = (path) => (
     `block py-2 px-4 rounded ${
@@ -134,10 +137,19 @@ const Sidebar = () => {
     }`
   );
 
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login'); // Redirect to the login page after signing out
+    } catch (error) {
+      console.error('Sign Out Error', error);
+    }
+  };
+
   return (
     <div className="w-64 h-screen bg-gray-800 text-white flex flex-col">
       <h2 className="text-2xl font-bold text-center my-4">Menu</h2>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col flex-grow">
         <li className="my-2">
           <Link href="/profile">
             <a className={linkClasses('/profile')}>My Profile</a>
@@ -154,6 +166,12 @@ const Sidebar = () => {
           </Link>
         </li>
       </ul>
+      <button
+        onClick={handleSignOut}
+        className="mt-auto py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded"
+      >
+        Sign Out
+      </button>
     </div>
   );
 };
