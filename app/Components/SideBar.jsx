@@ -157,12 +157,12 @@ const Sidebar = () => {
         </li>
         <li className="my-2">
           <Link href="/settings">
-            <a className={linkClasses('/settings')}>Settings</a>
+            <a className={linkClasses('/profile/settings')}>Settings</a>
           </Link>
         </li>
         <li className="my-2">
           <Link href="/posts">
-            <a className={linkClasses('/posts')}>My Posts</a>
+            <a className={linkClasses('/profile/yourposts')}>My Posts</a>
           </Link>
         </li>
       </ul>

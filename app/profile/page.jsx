@@ -1,45 +1,14 @@
 "use client";
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import NavBar from '../Components/NavBar';
-import { auth } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import Image from 'next/image';
-import Avatar from '../download.png';
 import SideBar from '../Components/SideBar';
+import Profile from '../Components/Profile';
 
-const Page = () => {
-  // const [user, setUser] = useState(null);
-  const [photo, setPhoto] = useState(Avatar);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // setUser(user);
-        setPhoto(user.photoURL || Avatar);
-        setName(user.displayName || "Name is not given");
-        setEmail(user.email || "Email is not given");
-        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
-      } else {
-        setUser(null);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-
-
+const ProfilePage = () => {
   return (
     <div>
       <NavBar />
-      <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
-        <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
-        <h1 className='text-2xl font-semibold'>{name}</h1>
-      </div>
+      <Profile />
       <br />
       <div className="flex w-screen h-full justify-between">
         <div className="flex w-screen h-max flex-row gap-[200px] justify-center items-center">
@@ -77,4 +46,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default ProfilePage;
