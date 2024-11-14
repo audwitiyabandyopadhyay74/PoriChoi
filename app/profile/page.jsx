@@ -2,13 +2,13 @@
 import React from 'react';
 import NavBar from '../Components/NavBar';
 import SideBar from '../Components/SideBar';
-import Profile from '../Components/Profile';
+// import Profile from '../Components/Profile';
 
-const ProfilePage = () => {
+const Page = () => {
   return (
     <div>
       <NavBar />
-      <Profile />
+      {/* <Profile /> */}
       <br />
       <div className="flex w-screen h-full justify-between">
         <div className="flex w-screen h-max flex-row gap-[200px] justify-center items-center">
@@ -46,4 +46,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default Page;
