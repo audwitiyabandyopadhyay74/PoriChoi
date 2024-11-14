@@ -56,7 +56,7 @@ const NavBar = () => {
 
   // Define active and inactive classes
   const inactiveClass = "flex flex-col items-center justify-center text-gray-600 hover:text-red-600";
-  const activeClass = "flex flex-col items-center justify-center text-red-600";
+  const activeClass = "flex flex-col items-center justify-center text-red-600 border-[#0000] border-b-red-600 border-solid border-[5px] rounded-md h-full";
 
   return (
     <>
@@ -72,11 +72,11 @@ const NavBar = () => {
           {/* Navigation Links */}
           <div className="flex items-center gap-6">
             <Link href="/" className={activePage === "home" ? activeClass : inactiveClass}>
-              <FaHome size={24} />
+              <i className='fa-solid fa-home' style={{fontSize:"28px"}}></i>
               <span className="text-xs">Home</span>
             </Link>
             <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass}>
-              <FaUser size={24} />
+              <i className="fa-solid fa-user" style={{fontSize:"28px"}} ></i>
               <span className="text-xs">Profile</span>
             </Link>
             <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass}>
@@ -102,10 +102,7 @@ const NavBar = () => {
             )}
 
             {/* Post Form Icon */}
-            <button onClick={togglePostForm} className="text-gray-600 hover:text-gray-800">
-              <i style={{fontSize:"20"}} className='fa-solid fa-upload' > </i>
-            </button>
-
+       
             {/* Conditional Rendering based on Auth */}
             {user ? (
               <Link href="/profile">
@@ -156,7 +153,7 @@ const NavBar = () => {
             </button>
             {/* Post Form Icon */}
             <button onClick={togglePostForm} className="text-gray-600 hover:text-gray-800">
-              <i className='fa-solid' style={{fontSize:"20"}} ></i>
+              <i className='fa-solid fa-cloud-upload' style={{fontSize:"20"}} ></i>
             </button>
           </div>
         </div>
