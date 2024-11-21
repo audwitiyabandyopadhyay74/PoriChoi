@@ -64,7 +64,7 @@ const Page = () => {
         autoClose={3000}
       />
       <div className="w-full max-w-lg bg-white/70 backdrop-blur-md rounded-3xl shadow-xl border border-white/20 flex flex-col items-center py-10 px-6 sm:px-8 md:px-10 lg:px-12">
-        <Image src={icon} className="rounded-full w-24 h-24 bg-white p-2 shadow-lg transition-transform duration-300 transform hover:scale-110" alt="Icon" />
+        <Image src={icon} className="rounded-full w-24 h-24 bg-white p-2 shadow-lg transition-transform duration-300 transform hover:scale-110" alt="Icon" width={100}/>
         <h2 className="text-4xl font-bold text-white mt-6 mb-4">Welcome Back</h2>
         <p className="text-gray-200 text-center mb-6">Sign in to your account to continue</p>
         <div className="w-full flex flex-col items-center gap-4">

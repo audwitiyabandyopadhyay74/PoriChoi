@@ -68,7 +68,7 @@ const SignUpPage = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg relative transform transition hover:scale-105">
-        <Image src={icon} alt="Icon" className="mx-auto w-16 mb-6" />
+        <Image src={icon} alt="Icon" className="mx-auto w-16 mb-6"  width={100}/>
         
         <h2 className="text-3xl font-semibold text-gray-800 text-center mb-4">Sign Up</h2>
 
