@@ -85,7 +85,15 @@ const Page = () => {
     };
 
     const inputClassName = 'w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none';
-
+if(user === null){
+return(
+  <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center  font-bold'>
+  <NavBar />
+<span className="text-3xl">Please Login To Access This Page</span><a href='/log-in'>
+<button className='w-[10vw] text-white font-bold h-[3vw] bg-[#000] rounded-md'>Login</button></a>
+</div>
+)
+}else{
     return (
         <div>
             <NavBar />
@@ -154,7 +162,7 @@ const Page = () => {
                 </div>
             </div>
         </div>
-    );
+    ); }
 };
 
 export default Page;
