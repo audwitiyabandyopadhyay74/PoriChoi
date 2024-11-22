@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import NavBar from '../Components/NavBar';
 import { auth} from '../firebase';
 // import { ref, uploadBytes } from 'firebase/storage';
@@ -7,8 +7,9 @@ import { auth} from '../firebase';
 import Image from 'next/image';
 import Avatar from '../download.png';
 import SideBar from '../Components/SideBar';
+import {onAuthStateChanged} from 'firebase/auth'
 const Page = () => {
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const Page = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // setUser(user);
+        setUser(user);
         setPhoto(user.photoURL || Avatar);
         setName(user.displayName || "Name is not given");
         setEmail(user.email || "Email is not given");
@@ -38,6 +39,13 @@ document.location.href = "/profile/update-profile"
   
   
 // const spanClassName = '';
+if(user === null){
+  return(
+    <div className='w-screen h-screen flex justify-center items-center text-3xl font-bold'>
+    Please Login To Access This Page
+    </div>
+  )
+} else{ 
   return (
     <div className=''>
       <NavBar />
@@ -61,5 +69,6 @@ document.location.href = "/profile/update-profile"
       </div>
     </div>
   );
+}
 };
 export default Page;
