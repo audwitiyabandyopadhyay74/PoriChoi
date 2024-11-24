@@ -44,7 +44,7 @@ if(user === null){
     <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center  font-bold'>
             <NavBar />
 <span className="text-3xl  h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span><a href='/log-in'>
-<button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px] ' >Login</button></a>
+<button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button></a>
 </div>
   )
 } else{ 
