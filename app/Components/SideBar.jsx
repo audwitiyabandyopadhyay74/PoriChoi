@@ -7,8 +7,7 @@ import { usePathname } from 'next/navigation';
 const handleSignOut = () => {
     signOut(auth).then(() => {
         document.location.href = '/log-in';
-    });
-};
+})};
 
 const SideBar = () => {
     const [profile, setProfile] = useState(false);
@@ -31,7 +30,7 @@ const SideBar = () => {
     const active = "flex items-center justify-center bg-white text-black border-r-[6px] p-4 border-r-white gap-4 font-semibold";
 
     return (
-        <div className="flex flex-col bg-black h-full w-[20%] sm:w-[25%] lg:w-[15%] fixed left-0 rounded-md shadow-lg">
+        <div className="flex flex-col bg-black h-full w-[20%] sm:w-screen sm:h-[24vh] lg:w-[15%] fixed left-0 rounded-md shadow-lg">
             <ul className="flex flex-col gap-6 py-6 px-4">
                 <li
                     className={profile ? active : notActive}
