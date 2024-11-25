@@ -57,7 +57,7 @@ if(user === null){
       </div>
       <br />
       <div className="flex w-screen h-full justify-between">
-      <div className="flex w-screen h-max flex-row gap-[200px] justify-center items-center">
+      <div className="flex w-screen h-max lg:flex-row flex-col  gap-[200px] justify-center items-center">
         <SideBar/>
         <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}>
           <div className="text-3xl font-semibold">Check Your Profile</div>
