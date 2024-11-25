@@ -15,11 +15,14 @@ const SignUpPage = () => {
   const [displayName, setDisplayName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setDisplayName(user.displayName);
+        setUser(user)
       }
     });
   }, []);
@@ -64,7 +67,7 @@ const SignUpPage = () => {
       setError(error.message.includes('auth/email-already-in-use') ? 'The email is already in use' : 'Google sign-in error. Please try again.');
     }
   };
-
+if(user === null){document.location.href = "/"}else{
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg relative transform transition hover:scale-105">
@@ -137,7 +140,7 @@ const SignUpPage = () => {
         </div>
       </div>
     </div>
-  );
+  );}
 };
 
 export default SignUpPage;

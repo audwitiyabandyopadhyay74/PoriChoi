@@ -2,7 +2,7 @@
 
   import React, { useEffect, useState } from "react";
   import { auth } from "../firebase";
-  import { signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+  import {onAuthStateChanged, signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
   import icon from "../favicon.ico";
   import Image from "next/image";
   import { ToastContainer, toast } from "react-toastify";
@@ -15,8 +15,11 @@
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errorText, setErrorText] = useState("");
-
+    const [user, setUser] = useState(null);  
     useEffect(() => {
+      onAuthStateChanged((user)=>{
+        setUser(user)
+      })
       setErrorText("");
     }, [email, password]);
 
@@ -54,7 +57,7 @@
         toast.error("The user is not signed up", { theme: "colored" });
       }
     };
-
+if(user === null){document.location.href = "/"} else{
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-4 sm:px-6 lg:px-8">
         <ToastContainer
@@ -124,7 +127,7 @@
           </div>
         </div>
       </div>
-    );
+    );}
   };
 
   export default Page;
