@@ -49,7 +49,7 @@ const SideBar = () => {
           <i className='fa-solid fa-gear' style={{ fontSize: '24px' }}></i> Settings
         </li>
         <li className={yourPosts ? active : notActive} onClick={() => { document.location.href = '/profile/yourposts' }}>
-          <i className='fa-solid fa-signs-posts' style={{ fontSize: '24px' }}></i> Your Posts
+          <i className='fa-solid fa-signs-posts' style={{ fontSize: '24px' }}></i> My Posts
         </li>
         <li className="w-full py-4 flex items-center justify-center bg-gray-800 pt-20">
           <button onClick={handleSignOut} className='w-2/3 sm:w-1/2 py-2 bg-red-600 rounded-md text-white font-semibold'>Sign out</button>

@@ -66,7 +66,7 @@ if(user === null){
           <input type="text" value={email || ''} placeholder={email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} readOnly/>
           <input type="text" value={phoneNumber || ''} placeholder={phoneNumber} readOnly onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
         </div>
-          <input type="submit" value="Update Your Profile" className='lg:w-[10vw] lg:h-[6vh] w-[30%] h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
+          <input type="submit" value="Update My Profile" className='lg:w-[10vw] lg:h-[6vh] w-[30%] h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
         
         </form>
       </div>
