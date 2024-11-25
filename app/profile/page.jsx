@@ -35,7 +35,7 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
 document.location.href = "/profile/update-profile"
     e.preventDefault();
   };
-  const inputClassName = 'w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none';
+  const inputClassName = 'w-max h-[6vh] rounded-md p-1 border-none outline-none';
   
   
 // const spanClassName = '';
@@ -49,8 +49,7 @@ if(user === null){
   )
 } else{ 
   return (
-    <div className=''>
-      <NavBar />
+    <div className=''>      <NavBar />
       <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 ">
         <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
         <h1 className='text-2xl font-semibold'>{name}</h1>
