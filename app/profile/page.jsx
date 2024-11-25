@@ -58,9 +58,9 @@ if(user === null){
       <div className="flex w-screen h-full justify-between">
       <div className="flex w-screen h-max lg:flex-row flex-col  gap-[200px] justify-center items-center">
         <SideBar/>
-        <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}>
+        <form className="h-[70vh] lg:w-max w-screen flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}>
           <div className="text-3xl font-semibold">Check Your Profile</div>
-          <b className='w-[30vw] hidden'>ℹ️ You can also update one thing by just filling the input and clicking on the Update Your Profile</b> 
+          {/* <b className='w-[30vw] hidden'>ℹ️ You can also update one thing by just filling the input and clicking on the Update Your Profile</b>  */}
           <input type="text" value={name || ''} placeholder={name}   onChange={(e) => setChangedName(e.target.value)} readOnly  className={inputClassName} />
           <input type="text" value={email || ''} placeholder={email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} readOnly/>
           <input type="text" value={phoneNumber || ''} placeholder={phoneNumber} readOnly onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
