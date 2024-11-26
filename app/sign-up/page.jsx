@@ -25,7 +25,7 @@ const SignUpPage = () => {
         setDisplayName(user.displayName);
         setUser(user);
         if (pathname === "/sign-up") {
-          window.location.href = "/";
+          document.location.href = "/";
         }
       }
     });
@@ -45,7 +45,7 @@ const SignUpPage = () => {
         userName: displayName,
         pic: user.photoURL || null,
       });
-      window.location.href = '/';
+      document.location.href = '/';
     } catch (err) {
       setError(err.message.includes('auth/email-already-in-use') ? 'The email is already in use' : 'An error occurred. Please try again.');
     }
@@ -66,14 +66,14 @@ const SignUpPage = () => {
           follower: 0,
         });
       }
-      window.location.href = '/';
+      document.location.href = '/';
     } catch (error) {
       setError(error.message.includes('auth/email-already-in-use') ? 'The email is already in use' : 'Google sign-in error. Please try again.');
     }
   };
 
   if (user === null) {
-    window.location.href = "/";
+    document.location.href = "/";
   } else {
     return (
       <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
@@ -139,7 +139,7 @@ const SignUpPage = () => {
           <div className="mt-5 text-center text-gray-600">
             Already have an account?{" "}
             <span
-              onClick={() => window.location.href = "/log-in"}
+              onClick={() => document.location.href = "/log-in"}
               className="text-blue-500 cursor-pointer hover:underline"
             >
               Log in
