@@ -22,8 +22,8 @@ const Page = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       // setUser(user);
-      if (user && pathname === "/log-in") {
-        window.location.href = "/";
+      if (user && pathname === "/log-in") { 
+        document.location.href = "/";
       }
     });
     setErrorText("");
@@ -37,7 +37,7 @@ const Page = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Login successful", { theme: "colored" });
-      window.location.href = "/";
+      document.location.href = "/";
     } catch (err) {
       const errorMessage = err.code === "auth/user-not-found" ? "User not found" : "Invalid email or password";
       setErrorText(errorMessage);
@@ -57,7 +57,7 @@ const Page = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      window.location.href = "/";
+      document.location.href = "/";
     } catch (error) {
       console.error("Error signing in with Google:", error);
       toast.error("The user is not signed up", { theme: "colored" });
@@ -124,7 +124,7 @@ const Page = () => {
           Don’t have an account?{" "}
           <span
             className="text-blue-400 cursor-pointer hover:underline"
-            onClick={() => window.location.href = "/sign-up"}
+            onClick={() => document.location.href = "/sign-up"}
           >
             Sign up
           </span>
