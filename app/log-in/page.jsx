@@ -17,11 +17,11 @@ const Page = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorText, setErrorText] = useState("");
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setUser(user);
+      // setUser(user);
       if (user && pathname === "/log-in") {
         window.location.href = "/";
       }
