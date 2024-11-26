@@ -10,7 +10,132 @@ import Post from '@/app/Components/Post';
 import { onAuthStateChanged } from 'firebase/auth';
 
 const Page = () => {
-const [user, setUser] = useState(null); const [currentUser, setCurrentUser] = useState(null); const [loading, setLoading] = useState(true); const [error, setError] = useState(null); const [followers, setFollowers] = useState([]); const [posts, setPosts] = useState([]); const [userData, setUserData] = useState([]); const pathname = usePathname(); const fetchUserData = async () => { try { const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata')); return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), })); } catch (error) { console.error('Error fetching data from Firebase:', error); return []; } }; const fetchUserPosts = async (userName) => { try { const postsRef = collection(firestore, 'posts'); const q = query(postsRef, where('username', '==', userName)); const querySnapshot = await getDocs(q); return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), })); } catch (error) { console.error('Error fetching posts:', error); return []; } }; useEffect(() => { const loadUserData = async () => { try { setLoading(true); const data = await fetchUserData(); const userId = pathname.replace("/user/", ""); const matchedUser = data.find(user => user.id === userId); if (matchedUser) { setUser(matchedUser); const userFollowers = data.filter(follower => follower.followingId === matchedUser.id); setFollowers(userFollowers.length || 0); const userPosts = await fetchUserPosts(matchedUser.userName); setPosts(userPosts); } else { setUser(null); } } catch (error) { setError('Error fetching data'); console.error('Error fetching data:', error); } finally { setLoading(false); } }; loadUserData(); }, [pathname]); useEffect(() => { onAuthStateChanged(auth, (user) => { if (user) { setCurrentUser(user.uid); } else { setCurrentUser(null); } }); }, []); useEffect(() => { const loadUserData = async () => { const data = await fetchUserData(); setUserData(data); }; loadUserData(); }, []); const handleFollow = async (userId) => { if (!currentUser) { console.log("No user is currently logged in."); return; } const userDocRef = doc(firestore, 'userFollowingdata', userId); try { const userDoc = await getDoc(userDocRef); const userFollowers = userDoc.data()?.followers || []; if (!userFollowers.includes(currentUser)) { await updateDoc(userDocRef, { followers: arrayUnion(currentUser), }); setUserData((prevData) => prevData.map((user) => user.id === userId ? { ...user, followers: [...(user.followers || []), currentUser] } : user ) ); console.log("User followed successfully:", userId); } else { console.log("User is already followed."); } } catch (error) { console.error("Error following user:", error); } }; if (loading) return <div className='w-screen h-screen flex justify-center items-center'>Loading...</div>; if (error) return <div>{error}</div>;
+  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [followers, setFollowers] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const pathname = usePathname();
+const [followerscount , setFollowersCount ] = useState(0)
+
+  const fetchUserData = async () => {
+    const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  };
+
+  const fetchUserPosts = async (userName) => {
+    const postsRef = collection(firestore, 'posts');
+    const q = query(postsRef, where('username', '==', userName));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  };
+
+  const fetchDataFromFirebase = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
+      return querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+    } catch (error) {
+      console.error('Error fetching data from Firebase:', error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchUserData();
+
+        const userId = pathname.replace("/user/", ""); 
+        const matchedUser = data.find(user => user.id === userId);
+          
+        if (matchedUser) {
+          setUser(matchedUser);
+
+          const userFollowers = data.filter(follower => follower.followingId === matchedUser.id);
+          setFollowersCount(userFollowers.length || userData);
+
+          const userPosts = await fetchUserPosts(matchedUser.userName);
+          setPosts(userPosts);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        setError('Error fetching data');
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserData();
+  }, [pathname]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user.uid);
+      } else {
+        setCurrentUser(null);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const data = await fetchDataFromFirebase();
+      setUserData(data);
+    };
+    fetchUserData();
+  }, []);
+
+  const handleFollow = async (userId) => {
+    if (!currentUser) {
+      console.log("No user is currently logged in.");
+      return;
+    }
+
+    const userDocRef = doc(firestore, 'userFollowingdata', userId);
+
+    try {
+      const userDoc = await getDoc(userDocRef);
+      const userFollowers = userDoc.data()?.followers || [];
+
+      if (!userFollowers.includes(currentUser)) {
+        await updateDoc(userDocRef, {
+          followers: arrayUnion(currentUser),
+        });
+
+        setUserData((prevData) =>
+          prevData.map((user) =>
+            user.id === userId
+              ? { ...user, followers: [...(user.followers || []), currentUser] }
+              : user
+          )
+        );
+        console.log("User followed successfully:", userId);
+      } else {
+        console.log("User is already followed.");
+      }
+    } catch (error) {
+      console.error("Error following user:", error);
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <>
       <NavBar />
@@ -33,10 +158,10 @@ const [user, setUser] = useState(null); const [currentUser, setCurrentUser] = us
 
           <div className="mt-8">
             <h2 className="text-lg font-bold mb-4">Followers</h2>
-            {followers > 0 ? (
-              followers
+            {followerscount > 0 ? (
+              followerscount
             ) : (
-              <div>0 followers found</div>
+              <div>0</div>
             )}
           </div>
           <button
