@@ -14,7 +14,7 @@ const Page = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [followers, setFollowers] = useState([]);
+  // const [followers, setFollowers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [userData, setUserData] = useState([]);
   const pathname = usePathname();
