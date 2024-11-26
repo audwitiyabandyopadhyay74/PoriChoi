@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import {usePathname} from 'next/navigation'
 import { auth, firestore } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
