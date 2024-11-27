@@ -152,6 +152,10 @@ if(user === null){
             <FaNewspaper size={24} />
             <span className="text-xs">News</span>
           </Link>
+          <Link href="/log-in" className={activePage === "login" ? activeClass : inactiveClass + userstate === true ? "invisible" : "visible"}>
+          <i class="fa-solid fa-right-to-bracket"></i>
+            <span className="text-xs">Log in</span>
+          </Link>f
           {/* Actions */}
           <div className="flex items-center gap-2">
             {/* Search Icon */}
