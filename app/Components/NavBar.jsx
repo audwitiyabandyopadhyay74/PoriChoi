@@ -144,11 +144,11 @@ if(user === null){
             <FaHome size={24} />
             <span className="text-xs">Home</span>
           </Link>
-          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass}>
+          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass + userstate === true ? "invisible" : "visible"}>
             <FaUser size={24} />
             <span className="text-xs">Profile</span>
           </Link>
-          <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass}>
+          <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass + userstate === true ? "invisible" : "visible"}>
             <FaNewspaper size={24} />
             <span className="text-xs">News</span>
           </Link>
@@ -159,7 +159,7 @@ if(user === null){
               <FaSearch size={20} />
             </button>
             {/* Post Form Icon */}
-            <button onClick={togglePostForm} className="text-gray-600 hover:text-gray-800">
+            <button onClick={togglePostForm} className={"text-gray-600 hover:text-gray-800"+ userstate === true ? "invisible" : "visible"}>
               <i className='fa-solid fa-cloud-upload' style={{fontSize:"20"}} ></i>
             </button>
           </div>
