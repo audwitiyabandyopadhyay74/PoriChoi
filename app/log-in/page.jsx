@@ -17,13 +17,13 @@ const Page = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorText, setErrorText] = useState("");
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      // setUser(user);
-      if (user && pathname === "/log-in") { 
-        document.location.href = "/";
+      setUser(user);
+      if (user && pathname === "/log-in") {
+        setUser(user); // Set user to trigger redirect
       }
     });
     setErrorText("");
@@ -37,7 +37,7 @@ const Page = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Login successful", { theme: "colored" });
-      document.location.href = "/";
+      setUser(auth.currentUser); // Set user to trigger redirect
     } catch (err) {
       const errorMessage = err.code === "auth/user-not-found" ? "User not found" : "Invalid email or password";
       setErrorText(errorMessage);
@@ -57,12 +57,16 @@ const Page = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      document.location.href = "/";
+      setUser(auth.currentUser); // Set user to trigger redirect
     } catch (error) {
       console.error("Error signing in with Google:", error);
       toast.error("The user is not signed up", { theme: "colored" });
     }
   };
+
+  if (user) {
+    return <p>Redirecting...</p>; // Placeholder for redirection, replace with actual navigation logic if needed
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-4 sm:px-6 lg:px-8">
@@ -124,7 +128,7 @@ const Page = () => {
           Don’t have an account?{" "}
           <span
             className="text-blue-400 cursor-pointer hover:underline"
-            onClick={() => document.location.href = "/sign-up"}
+            onClick={() => setUser(null)} // Replace with actual navigation logic if needed
           >
             Sign up
           </span>
