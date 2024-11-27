@@ -35,8 +35,10 @@ const NavBar = () => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        setUserState(false);
       } else {
         setUser(null);
+        setUserState(true);
       }
     });
     return () => unSubscribe();
@@ -53,12 +55,6 @@ const NavBar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  if (user === null) {
-    setUserState(true);
-  } else {
-    setUserState(false);
-  }
 
   // Define active and inactive classes
   const inactiveClass = "flex flex-col items-center justify-center text-gray-600 hover:text-red-600";
