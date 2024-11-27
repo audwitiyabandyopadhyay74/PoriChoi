@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Logo from "../favicon.ico";
 import Image from 'next/image';
-import { FaSearch, FaHome, FaUser, FaNewspaper,  FaTimes } from "react-icons/fa";
+import { FaSearch, FaHome, FaUser, FaNewspaper, FaTimes } from "react-icons/fa";
 import { auth } from "../firebase.js";
 import { onAuthStateChanged } from 'firebase/auth';
 import Form from './Form';
@@ -18,7 +18,6 @@ const NavBar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isPostFormVisible, setIsPostFormVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  // const [error, setError] = useState('');
 
   useEffect(() => {
     // Set active page based on current pathname
@@ -54,12 +53,12 @@ const NavBar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-if(user === null){
-  setUserState(true)
-}else{
-    setUserState(false)
-  }
 
+  if (user === null) {
+    setUserState(true);
+  } else {
+    setUserState(false);
+  }
 
   // Define active and inactive classes
   const inactiveClass = "flex flex-col items-center justify-center text-gray-600 hover:text-red-600";
@@ -79,11 +78,11 @@ if(user === null){
           {/* Navigation Links */}
           <div className="flex items-center gap-6">
             <Link href="/" className={activePage === "home" ? activeClass : inactiveClass}>
-              <i className='fa-solid fa-home' style={{fontSize:"28px"}}></i>
+              <FaHome size={28} />
               <span className="text-xs">Home</span>
             </Link>
             <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass}>
-              <i className="fa-solid fa-user" style={{fontSize:"28px"}} ></i>
+              <FaUser size={28} />
               <span className="text-xs">Profile</span>
             </Link>
             <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass}>
@@ -96,9 +95,10 @@ if(user === null){
           <div className="flex items-center gap-4 relative">
             {/* Search Icon */}
             <a href="/search">
-            <button  className="text-gray-600 hover:text-gray-800">
-              <FaSearch size={20} />
-            </button></a>
+              <button className="text-gray-600 hover:text-gray-800">
+                <FaSearch size={20} />
+              </button>
+            </a>
             {/* Search Input */}
             {isSearchVisible && (
               <input
@@ -108,8 +108,6 @@ if(user === null){
               />
             )}
 
-            {/* Post Form Icon */}
-       
             {/* Conditional Rendering based on Auth */}
             {user ? (
               <Link href="/profile">
@@ -152,10 +150,14 @@ if(user === null){
             <FaNewspaper size={24} />
             <span className="text-xs">News</span>
           </Link>
-          <Link href="/log-in" className={activePage === "login" ? activeClass : inactiveClass + userstate === true ? "invisible" : "visible"}>
-          <i class="fa-solid fa-right-to-bracket"></i>
+          <Link href="/log-in" className={activePage === "login" ? activeClass : inactiveClass + userstate === true ? "visible" : "invisible"}>
+            <i className="fa-solid fa-right-to-bracket"></i>
             <span className="text-xs">Log in</span>
-          </Link>f
+          </Link>
+          <Link href="/sign-up" className={activePage === "signup" ? activeClass : inactiveClass + userstate === true ? "visible" : "invisible"}>
+            <i className="fa-solid fa-right-to-bracket"></i>
+            <span className="text-xs">Sign up</span>
+          </Link>
           {/* Actions */}
           <div className="flex items-center gap-2">
             {/* Search Icon */}
@@ -163,8 +165,8 @@ if(user === null){
               <FaSearch size={20} />
             </button>
             {/* Post Form Icon */}
-            <button onClick={togglePostForm} className={"text-gray-600 hover:text-gray-800"+ userstate === true ? "invisible" : "visible"}>
-              <i className='fa-solid fa-cloud-upload' style={{fontSize:"20"}} ></i>
+            <button onClick={togglePostForm} className={"text-gray-600 hover:text-gray-800" + userstate === true ? "invisible" : "visible"}>
+              <i className='fa-solid fa-cloud-upload' style={{ fontSize: "20" }} ></i>
             </button>
           </div>
         </div>
