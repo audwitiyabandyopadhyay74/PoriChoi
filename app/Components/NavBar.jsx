@@ -14,6 +14,7 @@ const NavBar = () => {
   const pathname = usePathname();
   const [activePage, setActivePage] = useState('');
   const [user, setUser] = useState(null);
+  const [userstate, setUserState] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isPostFormVisible, setIsPostFormVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -53,6 +54,12 @@ const NavBar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+if(user === null){
+  setUserState(true)
+}else{
+    setUserState(false)
+  }
+
 
   // Define active and inactive classes
   const inactiveClass = "flex flex-col items-center justify-center text-gray-600 hover:text-red-600";
