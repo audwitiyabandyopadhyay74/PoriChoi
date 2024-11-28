@@ -27,6 +27,10 @@ const NavBar = () => {
       setActivePage("profile");
     } else if (pathname === "/news") {
       setActivePage("news");
+    } else if (pathname === "/log-in") {
+      setActivePage("login");
+    } else if (pathname === "/sign-up") {
+      setActivePage("signup");
     } else {
       setActivePage("");
     }
