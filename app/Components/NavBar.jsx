@@ -9,7 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Form from './Form';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-
+import {CiLogin} from 'react-icons/ci'
 const NavBar = () => {
   const pathname = usePathname();
   const [activePage, setActivePage] = useState('');
@@ -146,12 +146,12 @@ const NavBar = () => {
             <span className="text-xs">News</span>
           </Link>
           <Link href="/log-in" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600 w-max h-full"}>
-            <i className="fa-solid fa-right-to-bracket"></i>
+            <CiLogin/>
             <span className="text-xs">Log in</span>
           </Link>
           <Link href="/sign-up" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600"}>
-            <i className="fa-solid fa-right-to-bracket"></i>
-            <span className="text-xs">Sign up</span>
+          <CiLogin/>
+          <span className="text-xs">Sign up</span>
           </Link>
           {/* Actions */}
           <div className="flex items-center gap-2">
