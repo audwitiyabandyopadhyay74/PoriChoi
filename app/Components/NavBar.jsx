@@ -130,7 +130,6 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
-//a
       {/* Mobile/Tablet Navbar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t-md z-50">
         <div className="flex items-center justify-around h-full">
