@@ -143,7 +143,7 @@ const NavBar = () => {
             <FaHome size={24} />
             <span className="text-xs">Home</span>
           </Link>
-          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass + userState === false ? "visible" : "invisible"}>
+          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass + userState === false ? "invisible" : "visible"}>
             <FaUser size={24} />
             <span className="text-xs">Profile</span>
           </Link>
