@@ -145,7 +145,7 @@ const NavBar = () => {
             <FaNewspaper size={24} />
             <span className="text-xs">News</span>
           </Link>
-          <Link href="/log-in" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600"}>
+          <Link href="/log-in" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600 w-max h-full"}>
             <i className="fa-solid fa-right-to-bracket"></i>
             <span className="text-xs">Log in</span>
           </Link>
