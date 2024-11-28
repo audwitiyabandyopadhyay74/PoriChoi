@@ -146,11 +146,15 @@ const NavBar = () => {
             <span className="text-xs">News</span>
           </Link>
           <Link href="/log-in" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600 w-max h-full"}>
-            <CiLogin/>
-            <span className="text-xs">Log in</span>
+<b>
+<CiLogin/>
+</b>            <span className="text-xs">Log in</span>
           </Link>
           <Link href="/sign-up" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600"}>
+          <b>
           <CiLogin/>
+
+          </b>
           <span className="text-xs">Sign up</span>
           </Link>
           {/* Actions */}
