@@ -143,11 +143,11 @@ const NavBar = () => {
             <FaHome size={24} />
             <span className="text-xs">Home</span>
           </Link>
-          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass + userState === false ? "invisible" : "visible"}>
+          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass + userState === false ? "visible" : "invisible"}>
             <FaUser size={24} />
             <span className="text-xs">Profile</span>
           </Link>
-          <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass + userState === false ? "invisible" : "visible"}>
+          <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass + userState === false ? "visible" : "invisible"}>
             <FaNewspaper size={24} />
             <span className="text-xs">News</span>
           </Link>
@@ -170,7 +170,7 @@ const NavBar = () => {
               <FaSearch size={20} />
             </button>
             {/* Post Form Icon */}
-            <button onClick={togglePostForm} className={"text-gray-600 hover:text-gray-800" + userState === false? "invisible" : "visible"}>
+            <button onClick={togglePostForm} className={"text-gray-600 hover:text-gray-800" + userState === false? "visible" : "invisible"}>
               <i className='fa-solid fa-cloud-upload' style={{ fontSize: "20" }}></i>
             </button>
           </div>
