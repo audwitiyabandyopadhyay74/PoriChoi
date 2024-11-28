@@ -146,11 +146,11 @@ const NavBar = () => {
             <FaNewspaper size={24} />
             <span className="text-xs">News</span>
           </Link>
-          <Link href="/log-in" className={activePage === "login" ? activeClass : inactiveClass + userstate === true ? "visible" : "invisible"}>
+          <Link href="/log-in" className={inactiveClass + userstate === true ? "visible" : "invisible"}>
             <i className="fa-solid fa-right-to-bracket"></i>
             <span className="text-xs">Log in</span>
           </Link>
-          <Link href="/sign-up" className={activePage === "signup" ? activeClass : inactiveClass + userstate === true ? "visible" : "invisible"}>
+          <Link href="/sign-up" className={userstate === true ? "visible" : "invisible"}>
             <i className="fa-solid fa-right-to-bracket"></i>
             <span className="text-xs">Sign up</span>
           </Link>
