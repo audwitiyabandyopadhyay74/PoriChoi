@@ -9,12 +9,13 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Form from './Form';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import {CiLogin} from 'react-icons/ci'
+import { CiLogin } from 'react-icons/ci';
+
 const NavBar = () => {
   const pathname = usePathname();
   const [activePage, setActivePage] = useState('');
   const [user, setUser] = useState(null);
-  const [userstate, setUserState] = useState(false);
+  const [userState, setUserState] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isPostFormVisible, setIsPostFormVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -134,6 +135,7 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
+
       {/* Mobile/Tablet Navbar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t-md z-50">
         <div className="flex items-center justify-around h-full">
@@ -141,25 +143,25 @@ const NavBar = () => {
             <FaHome size={24} />
             <span className="text-xs">Home</span>
           </Link>
-          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass + userstate === true ? "invisible" : "visible"}>
+          <Link href="/profile" className={activePage === "profile" ? activeClass : inactiveClass + userState === true ? "invisible" : "visible"}>
             <FaUser size={24} />
             <span className="text-xs">Profile</span>
           </Link>
-          <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass + userstate === true ? "invisible" : "visible"}>
+          <Link href="/news" className={activePage === "news" ? activeClass : inactiveClass + userState === true ? "invisible" : "visible"}>
             <FaNewspaper size={24} />
             <span className="text-xs">News</span>
           </Link>
-          <Link href="/log-in" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600 w-max h-full"}>
-<b>
-<CiLogin/>
-</b>            <span className="text-xs">Log in</span>
+          <Link href="/log-in" className={userState === true ? "visible" : "invisible" + " flex flex-col items-center justify-center text-gray-600 hover:text-red-600 w-max h-full"}>
+            <b>
+              <CiLogin />
+            </b>
+            <span className="text-xs">Log in</span>
           </Link>
-          <Link href="/sign-up" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600"}>
-          <b>
-          <CiLogin/>
-
-          </b>
-          <span className="text-xs">Sign up</span>
+          <Link href="/sign-up" className={userState === true ? "visible" : "invisible" + " flex flex-col items-center justify-center text-gray-600 hover:text-red-600"}>
+            <b>
+              <CiLogin />
+            </b>
+            <span className="text-xs">Sign up</span>
           </Link>
           {/* Actions */}
           <div className="flex items-center gap-2">
@@ -168,8 +170,8 @@ const NavBar = () => {
               <FaSearch size={20} />
             </button>
             {/* Post Form Icon */}
-            <button onClick={togglePostForm} className={"text-gray-600 hover:text-gray-800" + userstate === true ? "invisible" : "visible"}>
-              <i className='fa-solid fa-cloud-upload' style={{ fontSize: "20" }} ></i>
+            <button onClick={togglePostForm} className={"text-gray-600 hover:text-gray-800" + userState === true ? "invisible" : "visible"}>
+              <i className='fa-solid fa-cloud-upload' style={{ fontSize: "20" }}></i>
             </button>
           </div>
         </div>
@@ -204,5 +206,7 @@ const NavBar = () => {
     </>
   );
 };
+
+
 
 export default NavBar;
