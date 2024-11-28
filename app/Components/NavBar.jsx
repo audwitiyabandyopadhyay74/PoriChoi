@@ -39,10 +39,10 @@ const NavBar = () => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setUserState(false);
+        setUserState(true);
       } else {
         setUser(null);
-        setUserState(true);
+        setUserState(false);
       }
     });
     return () => unSubscribe();
