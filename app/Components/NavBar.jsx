@@ -130,7 +130,7 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
-
+//a
       {/* Mobile/Tablet Navbar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t-md z-50">
         <div className="flex items-center justify-around h-full">
@@ -146,11 +146,11 @@ const NavBar = () => {
             <FaNewspaper size={24} />
             <span className="text-xs">News</span>
           </Link>
-          <Link href="/log-in" className={userstate === true ? "visible" : "invisible"}>
+          <Link href="/log-in" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600"}>
             <i className="fa-solid fa-right-to-bracket"></i>
             <span className="text-xs">Log in</span>
           </Link>
-          <Link href="/sign-up" className={userstate === true ? "visible" : "invisible"}>
+          <Link href="/sign-up" className={userstate === true ? "visible" : "invisible" + "flex flex-col items-center justify-center text-gray-600 hover:text-red-600"}>
             <i className="fa-solid fa-right-to-bracket"></i>
             <span className="text-xs">Sign up</span>
           </Link>
