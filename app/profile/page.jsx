@@ -35,7 +35,7 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
 document.location.href = "/profile/update-profile"
     e.preventDefault();
   };
-  const inputClassName = 'w-max h-[6vh] rounded-md p-[10px] border-none outline-none';
+  const inputClassName = 'w-max h-[6vh] rounded-md p-[10px] border-none outline-none scroll-y';
   
   
 // const spanClassName = '';
