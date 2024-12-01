@@ -147,8 +147,8 @@ return(
                         <input 
                             type="submit" 
                             value="Update" 
-                            className='shadow-lg w-[10vw] h-[6vh] rounded-md p-1 bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' 
-                        />
+className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer'
+/>
                     </form>
                     <div className="block mt-8">
                         <div className="text-3xl">Delete Account</div>
