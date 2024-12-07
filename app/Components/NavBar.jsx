@@ -56,7 +56,7 @@ const NavBar = () => {
           </div>
 
           <div className="flex items-center gap-6">
-            {["home", "profile", "news"].map((page) => (
+            {user && ["home", "profile", "news"].map((page) => (
               <Link
                 key={page}
                 href={`/${page === "home" ? "" : page}`}
@@ -71,18 +71,19 @@ const NavBar = () => {
               </Link>
             ))}
           </div>
-          <button
-            className="text-gray-600 hover:text-gray-800"
-            onClick={() => toggleVisibility(setIsPostFormVisible)}
-          >
-            <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
-          </button>
+          {user && (
+            <button
+              className="text-gray-600 hover:text-gray-800"
+              onClick={() => toggleVisibility(setIsPostFormVisible)}
+            >
+              <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
+            </button>
+          )}
           <div className="flex items-center gap-4 relative">
             <button
               className="text-gray-600 hover:text-gray-800"
               onClick={() => toggleVisibility(setIsSearchVisible)}
             >
-
               <FaSearch size={20} />
             </button>
             {isSearchVisible && (
@@ -120,7 +121,7 @@ const NavBar = () => {
       {/* Mobile Navbar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t-md z-50">
         <div className="flex items-center justify-around h-full">
-          {["home", "profile", "news"].map((page) => (
+          {user && ["home", "profile", "news"].map((page) => (
             <Link
               key={page}
               href={`/${page === "home" ? "" : page}`}
@@ -148,12 +149,14 @@ const NavBar = () => {
             </>
           )}
 
-          <button
-            className="text-gray-600 hover:text-gray-800"
-            onClick={() => toggleVisibility(setIsPostFormVisible)}
-          >
-            <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
-          </button>
+          {user && (
+            <button
+              className="text-gray-600 hover:text-gray-800"
+              onClick={() => toggleVisibility(setIsPostFormVisible)}
+            >
+              <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
+            </button>
+          )}
         </div>
       </nav>
 
