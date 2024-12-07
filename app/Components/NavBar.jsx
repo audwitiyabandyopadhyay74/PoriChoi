@@ -71,18 +71,18 @@ const NavBar = () => {
               </Link>
             ))}
           </div>
-
-          <div className="flex items-center gap-4 relative">
-            <button
-              className="text-gray-600 hover:text-gray-800"
-              onClick={() => toggleVisibility(setIsSearchVisible)}
-            >
-   <button
+          <button
             className="text-gray-600 hover:text-gray-800"
             onClick={() => toggleVisibility(setIsPostFormVisible)}
           >
             <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
           </button>
+          <div className="flex items-center gap-4 relative">
+            <button
+              className="text-gray-600 hover:text-gray-800"
+              onClick={() => toggleVisibility(setIsSearchVisible)}
+            >
+
               <FaSearch size={20} />
             </button>
             {isSearchVisible && (
