@@ -106,11 +106,17 @@ const NavBar = () => {
               </Link>
             ) : (
               <div className="flex gap-2">
-                <Link href="/log-in" className="bg-[#ff000] w-[10vh] h-[6vh] border rounded-md">
+                <Link href="/log-in">
                   Login
+                <button className="bg-[#ff000] w-[10vh] h-[6vh] border rounded-md">
+                Login
+                </button>
                 </Link>
                 <Link href="/sign-up" className="bg-blue w-[10vh] h-[6vh] border rounded-md">
+                <button className="bg-[#ff000] w-[10vh] h-[6vh] border rounded-md">
+
                   Sign Up
+</button>
                 </Link>
               </div>
             )}
