@@ -42,7 +42,7 @@ const NavBar = () => {
 
   // Classes for active and inactive links
   const baseClass =
-    "flex flex-col items-center justify-center text-gray-600 hover:text-red-600";
+    "flex flex-col items-center justify-center text-gray-600 hover:text-red-600 transition-colors duration-300";
   const activeClass = "text-red-600 border-b-4 border-red-600";
 
   return (
@@ -73,7 +73,7 @@ const NavBar = () => {
           </div>
           {user && (
             <button
-              className="text-gray-600 hover:text-gray-800"
+              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
@@ -81,7 +81,7 @@ const NavBar = () => {
           )}
           <div className="flex items-center gap-4 relative">
             <button
-              className="text-gray-600 hover:text-gray-800"
+              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsSearchVisible)}
             >
               <FaSearch size={20} />
@@ -90,14 +90,14 @@ const NavBar = () => {
               <input
                 type="text"
                 placeholder="Search..."
-                className="absolute right-10 top-12 w-48 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="absolute right-10 top-12 w-48 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
               />
             )}
 
             {user ? (
               <Link href="/profile">
                 <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                  <Image
+                  <Image                                                                                                                       
                     src={user.photoURL || Logo}
                     alt="User Avatar"
                     className="rounded-full w-10 h-10"
@@ -107,15 +107,14 @@ const NavBar = () => {
             ) : (
               <div className="flex gap-2">
                 <Link href="/log-in">
-                <button className="bg-red w-[10vh] h-[6vh] border rounded-md">
-                Login
-                </button>
+                  <button className="bg-red-600 text-white w-[10vh] h-[6vh] border rounded-md hover:bg-red-700 transition-all duration-300">
+                    Login
+                  </button>
                 </Link>
-                <Link href="/sign-up" className="bg-blue w-[10vh] h-[6vh] border rounded-md">
-                <button className="bg-blue w-[10vh] h-[6vh] border rounded-md">
-
-                  Sign Up
-</button>
+                <Link href="/sign-up">
+                  <button className="bg-blue-600 text-white w-[10vh] h-[6vh] border rounded-md hover:bg-blue-700 transition-all duration-300">
+                    Sign Up
+                  </button>
                 </Link>
               </div>
             )}
@@ -143,12 +142,12 @@ const NavBar = () => {
 
           {!user && (
             <>
-              <Link href="/log-in" className={baseClass}>
-                <CiLogin />
+              <Link href="/log-in" className={`${baseClass} flex flex-col items-center justify-center w-max h-full`}>
+                <CiLogin size={24} />
                 <span className="text-xs">Log in</span>
               </Link>
-              <Link href="/sign-up" className={baseClass}>
-                <CiLogin />
+              <Link href="/sign-up" className={`${baseClass} flex flex-col items-center justify-center w-max h-full`}>
+                <CiLogin size={24} />
                 <span className="text-xs">Sign up</span>
               </Link>
             </>
@@ -156,7 +155,7 @@ const NavBar = () => {
 
           {user && (
             <button
-              className="text-gray-600 hover:text-gray-800"
+              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
@@ -171,7 +170,7 @@ const NavBar = () => {
           <input
             type="text"
             placeholder="Search..."
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
           />
         </div>
       )}
@@ -181,7 +180,7 @@ const NavBar = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
           <div className="bg-white w-3/4 h-3/4 rounded-lg p-6 relative">
             <button
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsMobileMenuOpen)}
             >
               <FaTimes size={24} />
