@@ -95,7 +95,7 @@ console.log(user)
   };
 
   return (
-    <div className={"w-[100%] h-[100%] flex items-center justify-center  "+Style } id='form' style={{position:"fixed"}}>
+    <div className={"sm:w-screen w-[100%] h-[100%] flex items-center justify-center  "+Style } id='form' style={{position:"fixed"}}>
       <div className="w-full h-full bg-white rounded-lg flex flex-col items-center z-[1000] justify-center relative border border-[2px] border-black">
       <i className="fa-solid fa-mark fa-2xl absolute top-10 right-4" onClick={hide}></i>
 
