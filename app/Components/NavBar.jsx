@@ -9,7 +9,7 @@ import { CiLogin } from "react-icons/ci";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Form from "./Form";
-import Avatar from "../"
+import Avatar from "../download.png"
 import Logo from "../favicon.ico";
 
 const NavBar = () => {
