@@ -24,7 +24,7 @@ const NavBar = () => {
     // Update active page based on pathname
     const pageMap = {
       "/": "home",
-      "/profile": "profile",
+      "/my-account": "my-account",
       "/news": "news",
       "/log-in": "login",
       "/sign-up": "signup",
@@ -57,7 +57,7 @@ const NavBar = () => {
           </div>
 
           <div className="flex items-center gap-6">
-            {user && ["home", "profile", "news"].map((page) => (
+            {user && ["home", "my-account", "news"].map((page) => (
               <Link
                 key={page}
                 href={`/${page === "home" ? "" : page}`}
@@ -66,7 +66,7 @@ const NavBar = () => {
                 }`}
               >
                 {page === "home" && <FaHome size={28} />}
-                {page === "profile" && <FaUser size={28} />}
+                {page === "my-account" && <FaUser size={28} />}
                 {page === "news" && <FaNewspaper size={24} />}
                 <span className="text-xs capitalize">{page}</span>
               </Link>
@@ -88,7 +88,7 @@ const NavBar = () => {
             </button> */}
             
             {user ? (
-              <Link href="/profile">
+              <Link href="/my-account">
                 <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
                   <details>
 <summary>
@@ -98,27 +98,31 @@ const NavBar = () => {
                     className="rounded-full w-10 h-10"
                   />
 </summary>
-
-                  </details>
+<p>
+  <ul style={{listStyleType:"none"}}>
+    <Link href={"/my-account"}><li><i className="fa-user fa-solid" style={{fontSize:"20px"}}></i>My Account</li></Link>
+  </ul>
+</p>
+                  </details>  
                   
                 </div>
               </Link>
-            ) : (
-              <div>
+
+) : (
+<div>
+
+<Link href="/search"><FaSearch size={25} /></Link>
+
+              <div className="flex w-max h-max items-center">
                 <Link href="/log-in">
-                  <button className="bg-black text-white w-[20vw] h-[6vh] border rounded-md hover:bg-white hover:text-black transition-all duration-300">
-                    Login
-                  </button>
+                <button className="bg-black text-white h-[6vh] border rounded-md hover:bg-white border-black border-[4px] hover:text-black transition-all duration-300" style="width:25vh;">Login</button>
                 </Link>
                 <Link href="/sign-up">
-                  <button className="bg-white border-none text-black w-[10vh] h-[6vh] border rounded-md hover:bg-blue-700 transition-all duration-300">
+                  <button className="bg-white border-none text-black w-[10vh] h-[6vh] border rounded-md  transition-all duration-300">
                     Sign Up
                   </button>
                 </Link>
-                <Link href="/search">
-              <FaSearch size={25} />
-
-                </Link>
+              </div>
               </div>
             )}
           </div>
@@ -128,7 +132,7 @@ const NavBar = () => {
       {/* Mobile Navbar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t-md z-50">
         <div className="flex items-center justify-around h-full">
-          {user && ["home", "profile", "news"].map((page) => (
+          {user && ["home", "my-account", "news"].map((page) => (
             <Link
               key={page}
               href={`/${page === "home" ? "" : page}`}
@@ -137,7 +141,7 @@ const NavBar = () => {
               }`}
             >
               {page === "home" && <FaHome size={24} />}
-              {page === "profile" && <FaUser size={24} />}
+              {page === "my-account" && <FaUser size={24} />}
               {page === "news" && <FaNewspaper size={24} />}
               <span className="text-xs capitalize">{page}</span>
             </Link>
@@ -166,6 +170,7 @@ const NavBar = () => {
           )}
         </div>
       </nav>
+      {/* my-account */}
 
       {/* Search Input */}
 
