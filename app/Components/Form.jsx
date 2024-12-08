@@ -105,14 +105,14 @@ console.log(user)
             type="file"
             accept='image/png'
             placeholder="Select an image"
-            className="w-[60vh] h-[6vh] rounded-md p-1 bg-[#e9e8e8e0] text-center flex items-center"
+            className="lg:w-[60vh] w-[80%] h-[6vh] rounded-md p-1 bg-[#e9e8e8e0] text-center flex items-center"
             onChange={handleImageUpload}
           />
           <input
             type="text"
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter Your Post's Title"
-            className="w-[60vh] h-[6vh] rounded-md p-4 bg-[#e9e8e8e0]"
+            className="lg:w-[60vh] w-[80%] h-[6vh] rounded-md p-4 bg-[#e9e8e8e0]"
           />
           <button className="bg-[#ff0000] border-none outline-none rounded-md h-[30px] w-[50px] text-white" onClick={handleSubmit}>
             Post
