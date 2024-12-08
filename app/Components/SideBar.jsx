@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
@@ -11,7 +12,7 @@ const handleSignOut = () => {
 };
 
 const SideBar = () => {
-  const [myaccount, setMyAccount] = useState(false);
+  const [myAccount, setMyAccount] = useState(false);
   const [settings, setSettings] = useState(false);
   const [yourPosts, setYourPosts] = useState(false);
   const pathname = usePathname();
@@ -42,14 +43,14 @@ const SideBar = () => {
   return (
     <div className="flex flex-col sm:flex-row h-full sm:h-screen w-full sm:w-1/4 bg-gray-800 sm:rounded-md">
       <ul className="w-full">
-        <li className={myaccount ? active : notActive} onClick={() => { document.location.href = '/my-account' }}>
+        <li className={myAccount ? active : notActive} onClick={() => { document.location.href = '/my-account' }}>
           <i className='fa-solid fa-user' style={{ fontSize: '24px' }}></i> Your Profile
         </li>
         <li className={settings ? active : notActive} onClick={() => { document.location.href = '/my-account/settings' }}>
           <i className='fa-solid fa-gear' style={{ fontSize: '24px' }}></i> Settings
         </li>
         <li className={yourPosts ? active : notActive} onClick={() => { document.location.href = '/my-account/yourposts' }}>
-          <i className='fa-solid fa-signs-posts' style={{ fontSize: '24px' }}></i> <My></My> Posts
+          <i className='fa-solid fa-signs-posts' style={{ fontSize: '24px' }}></i> Your Posts
         </li>
         <li className="w-full py-4 flex items-center justify-center bg-gray-800 pt-20">
           <button onClick={handleSignOut} className='w-2/3 sm:w-1/2 py-2 bg-red-600 rounded-md text-white font-semibold'>Sign out</button>
