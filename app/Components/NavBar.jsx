@@ -81,12 +81,11 @@ const NavBar = () => {
             </button>
           )}
           <div className="flex items-center gap-4 relative">
-            <button
+            {/* <button
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsSearchVisible)}
             >
-              <FaSearch size={20} />
-            </button>
+            </button> */}
             {isSearchVisible && (
               <input
                 type="text"
@@ -112,16 +111,20 @@ const NavBar = () => {
                 </div>
               </Link>
             ) : (
-              <div className="flex gap-2">
+              <div>
                 <Link href="/log-in">
-                  <button className="bg-red-600 text-white w-[10vh] h-[6vh] border rounded-md hover:bg-red-700 transition-all duration-300">
+                  <button className="bg-black text-white w-[20vw] h-[6vh] border rounded-md hover:bg-white hover:text-black transition-all duration-300">
                     Login
                   </button>
                 </Link>
                 <Link href="/sign-up">
-                  <button className="bg-blue-600 text-white w-[10vh] h-[6vh] border rounded-md hover:bg-blue-700 transition-all duration-300">
+                  <button className="bg-white border-none text-black w-[10vh] h-[6vh] border rounded-md hover:bg-blue-700 transition-all duration-300">
                     Sign Up
                   </button>
+                </Link>
+                <Link href="/search">
+              <FaSearch size={25} />
+
                 </Link>
               </div>
             )}
