@@ -109,13 +109,13 @@ const NavBar = () => {
               </Link>
 
 ) : (
-<div>
+<div className="flex">
 
 <Link href="/search"><FaSearch size={25} /></Link>
 
               <div className="flex w-max h-max items-center">
                 <Link href="/log-in">
-                <button className="bg-black text-white h-[6vh] border rounded-md hover:bg-white border-black border-[4px] hover:text-black transition-all duration-300" style="width:25vh;">Login</button>
+                <button className="bg-black text-white h-[6vh] border rounded-md hover:bg-white border-black border-[4px] hover:text-black transition-all duration-300" style="width:20vh;">Login</button>
                 </Link>
                 <Link href="/sign-up">
                   <button className="bg-white border-none text-black w-[10vh] h-[6vh] border rounded-md  transition-all duration-300">
