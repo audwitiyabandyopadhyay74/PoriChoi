@@ -16,9 +16,7 @@ const NavBar = () => {
   const pathname = usePathname();
   const [activePage, setActivePage] = useState("");
   const [user, setUser] = useState(null);
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isPostFormVisible, setIsPostFormVisible] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Update active page based on pathname
@@ -81,33 +79,18 @@ const NavBar = () => {
             </button>
           )}
           <div className="flex items-center gap-4 relative">
-            {/* <button
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-              onClick={() => toggleVisibility(setIsSearchVisible)}
-            >
-            </button> */}
-            {isSearchVisible && (
-              <input
-                type="text"
-                placeholder="Search..."
-                className="absolute right-10 top-12 w-48 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
-              />
-            )}
-
             {user ? (
               <Link href="/profile">
                 <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
                   <details>
-<summary>
-<Image                                                                                                                       
-                    src={user.photoURL || Avatar}
-                    alt="User Avatar"
-                    className="rounded-full w-10 h-10"
-                  />
-</summary>
-
+                    <summary>
+                      <Image
+                        src={user.photoURL || Avatar}
+                        alt="User Avatar"
+                        className="rounded-full w-10 h-10"
+                      />
+                    </summary>
                   </details>
-                  
                 </div>
               </Link>
             ) : (
@@ -123,8 +106,7 @@ const NavBar = () => {
                   </button>
                 </Link>
                 <Link href="/search">
-              <FaSearch size={25} />
-
+                  <FaSearch size={25} />
                 </Link>
               </div>
             )}
@@ -173,17 +155,6 @@ const NavBar = () => {
           )}
         </div>
       </nav>
-
-      {/* Search Input */}
-      {isSearchVisible && (
-        <div className="fixed bottom-16 left-0 right-0 px-4 pb-2 bg-white shadow-md z-40">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
-          />
-        </div>
-      )}
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
