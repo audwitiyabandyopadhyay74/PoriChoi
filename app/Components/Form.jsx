@@ -96,11 +96,11 @@ console.log(user)
 
   return (
     <div className={"w-[100%] h-[100%] flex items-center justify-center  "+Style } id='form' style={{position:"fixed"}}>
-      <div className="w-[75%] h-[80%] bg-white rounded-lg flex flex-col items-center z-[1000] justify-center relative border border-[2px] border-black">
-      <i className="fa-solid fa-xmark fa-2xl absolute top-10 right-4" onClick={hide}></i>
+      <div className="w-full h-full bg-white rounded-lg flex flex-col items-center z-[1000] justify-center relative border border-[2px] border-black">
+      <i className="fa-solid fa-mark fa-2xl absolute top-10 right-4" onClick={hide}></i>
 
         <div className="flex flex-col gap-[10px] h-max w-max">
-          <img src={selectedFile} className="max-w-[500px] max-h-[400px] rounded-md shadow-2xl" alt="Selected" />
+          <img src={selectedFile || Nopreview} className="max-w-[500px] max-h-[400px] rounded-md shadow-2xl" alt="Selected" />
           <input
             type="file"
             accept='image/png'
