@@ -9,6 +9,7 @@ import { CiLogin } from "react-icons/ci";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Form from "./Form";
+import Avatar from "../../download.png"
 import Logo from "../favicon.ico";
 
 const NavBar = () => {
@@ -97,11 +98,17 @@ const NavBar = () => {
             {user ? (
               <Link href="/profile">
                 <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                  <Image                                                                                                                       
-                    src={user.photoURL || Logo}
+                  <details>
+<summary>
+<Image                                                                                                                       
+                    src={user.photoURL || Avatar}
                     alt="User Avatar"
                     className="rounded-full w-10 h-10"
                   />
+</summary>
+
+                  </details>
+                  
                 </div>
               </Link>
             ) : (
