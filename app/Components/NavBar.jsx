@@ -109,7 +109,7 @@ const NavBar = () => {
               </Link>
 
 ) : (
-<div className="flex">
+<div className="flex gap-1">
 
 <Link href="/search"><FaSearch size={25} /></Link>
 
