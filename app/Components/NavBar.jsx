@@ -41,12 +41,18 @@ const NavBar = () => {
   const toggleVisibility = (setter) => setter((prev) => !prev);
 const toggleMenuVisibility = () =>{
   const item = document.getElementById("hideshow");
+  const icon = document.getElementById("icon1");
+
   if (item.classList.contains("hidden")){
     item.classList.add("visible");
+    Mahadev
     item.classList.remove("hidden");
+    icon.style.rotate = "180deg";
   }else{
     item.classList.add("hidden");
     item.classList.remove("visible");
+    icon.style.rotate = "360deg";
+
   }
 }
 
@@ -99,7 +105,7 @@ const toggleMenuVisibility = () =>{
                       className="rounded-full w-10 h-10"
                       onClick={toggleMenuVisibility}
                     />
-             
+             <i class="fa-solid fa-caret-up" onClick={toggleMenuVisibility} id="icon1" style={{fontSize:"20px"}}></i>
               </div>
             ) : (
               <div className="flex gap-1 items-center h-full w-max">
