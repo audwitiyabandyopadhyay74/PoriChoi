@@ -184,7 +184,7 @@ const toggleMenuVisibility = () =>{
           </div>
         </div>
       )}
-                  <div className=" h-max w-max absolute top-[4rem] right-[1px] bg-white rounded-md hidden " id="hideshow">
+                  <div className=" h-max w-max fixed top-[4rem] right-[1px] bg-white rounded-md hidden " id="hideshow">
                     <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-[10px]">
                       <Link href={"/my-account"}><li  className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
                       <Link href={"/my-account/settings"}><li className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
