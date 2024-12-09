@@ -82,7 +82,7 @@ const NavBar = () => {
           <div className="flex items-center gap-4 relative">
             {user ? (
               <div className="w-max h-full rounded-full flex items-center justify-center p-4 mt-4">
-                <details className="bg-white w-max h-max p-4 rounded-md marker:mt-[-50px]">
+                <details className="bg-white w-max h-full p-4 rounded-md marker:mt-[-50px]">
                   <summary>
                     <Image
                       src={user.photoURL || Avatar}
