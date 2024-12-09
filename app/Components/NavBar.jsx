@@ -81,13 +81,13 @@ const NavBar = () => {
           )}
           <div className="flex items-center gap-4 relative">
             {user ? (
-              <div className="w-max h-full bg-gray-200 rounded-full flex items-center justify-center p-4 mt-4">
-                <details className="bg-white w-max h-max p-4 rounded-md">
+              <div className="w-max h-full rounded-full flex items-center justify-center p-4 mt-4">
+                <details className="bg-white w-max h-max p-4 rounded-md marker:mt-[-50px]">
                   <summary>
                     <Image
                       src={user.photoURL || Avatar}
                       alt="User Avatar"
-                      className="rounded-full w-10 h-10 "
+                      className="rounded-full w-10 h-10"
                     />
                   </summary>
                   <p>
