@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../Components/NavBar';
 import SideBar from '../../Components/SideBar';
-import { auth, storage } from '../../firebase';
+import { auth, storage, firestore } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateDoc, doc } from 'firebase/firestore';
 import { updateProfile, onAuthStateChanged } from 'firebase/auth';
@@ -109,9 +109,9 @@ const Page = () => {
             <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4 ml-[-10px]" onSubmit={handleSubmit}>
               <div className="text-3xl font-semibold">Update Your Profile</div>
               <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
-              <input type="text" placeholder="Name" value={changedName} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
-              <input type="email" placeholder="Email" value={changedEmail} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
-              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+              <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
+              <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
+              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
               <label>Photo:</label>
               <input type="file" onChange={handleImageUpload} className={inputClassName} />
               <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
