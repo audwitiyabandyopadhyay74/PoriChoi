@@ -5,6 +5,9 @@ import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
 
+import Link from 'next/link';
+
+
 const Post = (props) => {
   const [url, setUrl] = useState('');
   const [user, setUser] = useState(null);
@@ -122,10 +125,10 @@ const Post = (props) => {
         <div className="text-3xl font-semibold w-full">{props.title}</div>
         <div className="text-1xl pl-[5px] font-medium">{props.date}</div>
         </div>
-        <a href={`post/${props.id}`}>
+        <Link href={`post/${props.id}`} key={props.id}>
 
         <img className="w-max h-max rounded-md" src={url || null} alt="" />
-        </a>
+        </Link>
         <div className="w-full">
           <div className="flex items-center justify-evenly w-full h-[10vh] bg-[#dad9d9] rounded-md">
             <div className="flex flex-col justify-center items-center cursor-pointer" onClick={handleLike}>

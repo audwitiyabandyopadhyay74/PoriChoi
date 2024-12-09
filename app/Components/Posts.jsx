@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Post from './Post';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
-import Link from 'next/link';
 
 async function fetchDatafromFirebase() {
   const querySnapshot = await getDocs(collection(firestore, 'posts'));
