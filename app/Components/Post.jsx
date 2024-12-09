@@ -122,7 +122,7 @@ const Post = (props) => {
         <div className="text-3xl font-semibold w-full">{props.title}</div>
         <div className="text-1xl pl-[5px] font-medium">{props.date}</div>
         </div>
-        <a href={`post/${props.id}`} key={props.id}>
+        <a href={`post/${props.id}`}>
 
         <img className="w-max h-max rounded-md" src={url || null} alt="" />
         </a>
