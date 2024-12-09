@@ -83,13 +83,13 @@ const NavBar = () => {
             {user ? (
               <div className="w-max h-full bg-gray-200 rounded-full flex items-center justify-center">
                 <details className="bg-white w-max h-max">
-                  <summar y>
+                  <summary>
                     <Image
                       src={user.photoURL || Avatar}
                       alt="User Avatar"
                       className="rounded-full w-10 h-10 bg-[#9b9898]"
                     />
-                  </summar>
+                  </summary>
                   <p>
                     <ul style={{ listStyleType: "none" }}>
                       <Link href={"/my-account"}><li><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
