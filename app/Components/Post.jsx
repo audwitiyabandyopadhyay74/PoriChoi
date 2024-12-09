@@ -122,10 +122,10 @@ const Post = (props) => {
         <div className="text-3xl font-semibold w-full">{props.title}</div>
         <div className="text-1xl pl-[5px] font-medium">{props.date}</div>
         </div>
-        <Link href={`post/${props.id}`} key={props.id}>
+        <a href={`post/${props.id}`} key={props.id}>
 
         <img className="w-max h-max rounded-md" src={url || null} alt="" />
-        </Link>
+        </a>
         <div className="w-full">
           <div className="flex items-center justify-evenly w-full h-[10vh] bg-[#dad9d9] rounded-md">
             <div className="flex flex-col justify-center items-center cursor-pointer" onClick={handleLike}>
