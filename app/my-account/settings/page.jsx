@@ -10,12 +10,22 @@ import { updateProfile, onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../../download.png';
 
+const countryCodes = [
+  { name: "United States", code: "+1" },
+  { name: "Canada", code: "+1" },
+  { name: "India", code: "+91" },
+  { name: "United Kingdom", code: "+44" },
+  { name: "Australia", code: "+61" },
+  // Add more countries and codes as needed
+];
+
 const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState("Name is not given");
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [countryCode, setCountryCode] = useState("");
 
   const [changedImage, setChangedImage] = useState(null);
   const [changedName, setChangedName] = useState("");
@@ -54,12 +64,16 @@ const Page = () => {
         photoURL = await getDownloadURL(imgRef);
       }
 
-      await updateProfile(user, {
+      const fullPhoneNumber = `${countryCode}${changedPhoneNumber || phoneNumber}`;
+
+      const updatedProfileData = {
         photoURL: photoURL,
         displayName: changedName || name,
         email: changedEmail || email,
-        phoneNumber: changedPhoneNumber || phoneNumber,
-      });
+        phoneNumber: fullPhoneNumber,
+      };
+
+      await updateProfile(user, updatedProfileData);
 
       await updateDoc(doc(firestore, 'userFollowingdata', user.uid), {
         userName: changedName || name,
@@ -111,7 +125,17 @@ const Page = () => {
               <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
               <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
               <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
-              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+              <div className="flex gap-2 items-center">
+                <select className={inputClassName} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+                  <option value="">Select Country Code</option>
+                  {countryCodes.map((country) => (
+                    <option key={country.code} value={country.code}>
+                      {country.name} ({country.code})
+                    </option>
+                  ))}
+                </select>
+                <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+              </div>
               <label>Photo:</label>
               <input type="file" onChange={handleImageUpload} className={inputClassName} />
               <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
