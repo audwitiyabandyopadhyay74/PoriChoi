@@ -87,18 +87,18 @@ const toggleMenuVisibility = () =>{
               </Link>
             ))}
           </div>
-          {user && (
-            <button
+          {/* {user && (aaaa
+          
+          )} */}
+          <div className="flex items-center gap-4 relative">
+            {user ? (
+              <div className="w-max h-full rounded-full flex items-center justify-center p-4 mt-4">
+               <button
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
             </button>
-          )}
-          <div className="flex items-center gap-4 relative">
-            {user ? (
-              <div className="w-max h-full rounded-full flex items-center justify-center p-4 mt-4">
-             
                     <Image
                       src={user.photoURL || Avatar}
                       alt="User Avatar"
