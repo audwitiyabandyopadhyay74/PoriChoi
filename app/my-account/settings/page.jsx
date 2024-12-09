@@ -30,6 +30,7 @@ const Page = () => {
         setName(currentUser.displayName || "Name is not given");
         setEmail(user.email || "Email is not given");
 setPhoneNumber(user.phoneNumber || "Phone Number is not given");
+alert(email)
       } else {
         setUser(null);
       }
