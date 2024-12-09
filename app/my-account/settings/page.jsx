@@ -93,7 +93,7 @@ const Page = () => {
         <div className="flex w-screen h-full justify-between gap-[200px]">
           <SideBar />
           <div className="block">
-            <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}>
+            <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4 ml-[-10px]" onSubmit={handleSubmit}>
               <div className="text-3xl font-semibold">Update Your Profile</div>
               <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
               <input type="text" value={changedName} placeholder='Name' onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
