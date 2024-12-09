@@ -16,7 +16,6 @@ const NavBar = () => {
   const pathname = usePathname();
   const [activePage, setActivePage] = useState("");
   const [user, setUser] = useState(null);
-  // const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isPostFormVisible, setIsPostFormVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -81,47 +80,38 @@ const NavBar = () => {
             </button>
           )}
           <div className="flex items-center gap-4 relative">
-            {/* <button
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-              onClick={() => toggleVisibility(setIsSearchVisible)}
-            >
-            </button> */}
-            
             {user ? (
-                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                  <details>
-<summary>
-<Image                                                                                                                       
-                    src={user.photoURL || Avatar}
-                    alt="User Avatar"
-                    className="rounded-full w-10 h-10"
-                  />
-</summary>
-<p>
-  <ul style={{listStyleType:"none"}}>
-    <Link href={"/my-account"}><li><i className="fa-user fa-solid" style={{fontSize:"20px"}}></i>My Account</li></Link>
-  </ul>
-</p>
-                  </details>  
-                  
-                </div>
-              
-
-) : (
-<div className="flex gap-1">
-
-<Link href="/search"><FaSearch size={25} /></Link>
-
-              <div className="flex w-max h-max items-center">
-                <Link href="/log-in">
-                <button className="bg-black text-white h-[6vh] border rounded-md hover:bg-white border-black border-[4px] hover:text-black transition-all duration-300" style="width:20vh;">Login</button>
-                </Link>
-                <Link href="/sign-up">
-                  <button className="bg-white border-none text-black w-[10vh] h-[6vh] border rounded-md  transition-all duration-300">
-                    Sign Up
-                  </button>
-                </Link>
+              <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                <details>
+                  <summary>
+                    <Image
+                      src={user.photoURL || Avatar}
+                      alt="User Avatar"
+                      className="rounded-full w-10 h-10"
+                    />
+                  </summary>
+                  <p>
+                    <ul style={{ listStyleType: "none" }}>
+                      <Link href={"/my-account"}><li><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
+                    </ul>
+                  </p>
+                </details>
               </div>
+            ) : (
+              <div className="flex gap-1">
+                <Link href="/search"><FaSearch size={25} /></Link>
+                <div className="flex w-max h-max items-center gap-2">
+                  <Link href="/log-in">
+                    <button className="bg-black text-white h-[6vh] border rounded-md hover:bg-white border-black border-[4px] hover:text-black transition-all duration-300" style={{ width: "20vh" }}>
+                      Login
+                    </button>
+                  </Link>
+                  <Link href="/sign-up">
+                    <button className="bg-white border-none text-black w-[10vh] h-[6vh] border rounded-md  transition-all duration-300">
+                      Sign Up
+                    </button>
+                  </Link>
+                </div>
               </div>
             )}
           </div>
@@ -169,9 +159,6 @@ const NavBar = () => {
           )}
         </div>
       </nav>
-      {/* my-account */}
-
-      {/* Search Input */}
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
