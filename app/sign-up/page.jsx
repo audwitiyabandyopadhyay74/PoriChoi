@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { auth, firestore } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
-import { onAuthStateChanged, updateProfile } from 'firebase/auth';
+import { onAuthStateChanged, updateProfile } from 'firebase/auth';  
 import icon from '../favicon.ico';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';

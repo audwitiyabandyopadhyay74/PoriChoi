@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/profile/settings/page.jsx",
+    "app/my-account/settings/page.jsx",
     "app/page.jsx"
 , "app/news/page.jsx"  ],
   "exclude": [

@@ -164,13 +164,13 @@ const [followerscount , setFollowersCount ] = useState(0)
               <div>0</div>
             )}
           </div>
-          <button
+          < 
             onClick={() => handleFollow(user.id)}
             disabled={Array.isArray(user.followers) && user.followers.includes(currentUser)}
             className={`p-2 text-white rounded ${Array.isArray(user.followers) && user.followers.includes(currentUser) ? 'bg-gray-400' : 'bg-blue-500 pulse'}`}
           >
             {Array.isArray(user.followers) && user.followers.includes(currentUser) ? 'Following' : 'Follow'}
-          </button>
+          </>
 
           <div className="mt-8">
             <h2 className="text-lg font-bold mb-4">Posts</h2>
@@ -179,7 +179,7 @@ const [followerscount , setFollowersCount ] = useState(0)
                 <Post key={post.id} {...post} />
               ))
             ) : (
-              <div>No posts found</div>
+              <div>No posts found !</div>
             )}
           </div>
         </div>

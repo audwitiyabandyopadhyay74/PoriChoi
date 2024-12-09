@@ -42,7 +42,7 @@ const Page = () => {
         <div className='bg-[#fff] w-[100%] lg:w-[50%]'>
           
           <Post key={Post.id} {...post} />
-        </div>  
+        </div>    
       ):  (
 <div className='w-screen h-screen flex items-center justify-center font-bold'>Loading...</div>      )}
     </div>
