@@ -5,7 +5,7 @@ import NavBar from '../../Components/NavBar';
 import SideBar from '../../Components/SideBar';
 import { auth, storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { updateDoc, collection } from 'firebase/firestore';
+import { updateDoc, doc } from 'firebase/firestore';
 import { updateProfile, onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../../download.png';
@@ -14,7 +14,7 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState("Name is not given");
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
 
   const [changedImage, setChangedImage] = useState(null);
@@ -28,9 +28,8 @@ const Page = () => {
         setUser(currentUser);
         setPhoto(currentUser.photoURL || Avatar);
         setName(currentUser.displayName || "Name is not given");
-        setEmail(user.email || "Email is not given");
-setPhoneNumber(user.phoneNumber || "Phone Number is not given");
-// alert(email)
+        setEmail(currentUser.email || "Email is not given");
+        setPhoneNumber(currentUser.phoneNumber || "Phone Number is not given");
       } else {
         setUser(null);
       }
@@ -52,13 +51,21 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       if (changedImage) {
         const imgRef = ref(storage, `/uploads/images/${changedImage.name}`);
         await uploadBytes(imgRef, changedImage);
-        finalphotoURL = await getDownloadURL(imgRef);
+        photoURL = await getDownloadURL(imgRef);
       }
-      await updateProfile(user, { photoURL: finalphotoURL, displayName: changedName, email: changedEmail,  phoneNumber: +91+changedPhoneNumber,  });
-      await updateDoc(collection(firestore, 'userFollowingdata'), {
+
+      await updateProfile(user, {
+        photoURL: photoURL,
+        displayName: changedName || name,
+        email: changedEmail || email,
+        phoneNumber: changedPhoneNumber || phoneNumber,
+      });
+
+      await updateDoc(doc(firestore, 'userFollowingdata', user.uid), {
         userName: changedName || name,
         pic: photoURL,
       });
+
       alert("Profile updated successfully!");
       document.location.reload();
     } catch (error) {
@@ -66,7 +73,7 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       alert('Error updating profile');
     }
   };
- 
+
   const handleDeleteAccount = () => {
     const confirmation = confirm("Are you sure you want to delete your account?");
     if (confirmation && user) {
@@ -102,10 +109,10 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
             <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4 ml-[-10px]" onSubmit={handleSubmit}>
               <div className="text-3xl font-semibold">Update Your Profile</div>
               <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
-              <input type="text" value={name}  onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
-              <input type="email"  value={email} placeholder={email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
-              <input type="number"  value={phoneNumber} placeholder={phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
-              Photo:
+              <input type="text" placeholder="Name" value={changedName} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
+              <input type="email" placeholder="Email" value={changedEmail} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
+              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+              <label>Photo:</label>
               <input type="file" onChange={handleImageUpload} className={inputClassName} />
               <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
             </form>
