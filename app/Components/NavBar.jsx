@@ -39,6 +39,16 @@ const NavBar = () => {
   }, [pathname]);
 
   const toggleVisibility = (setter) => setter((prev) => !prev);
+const toggleMenuVisibility = () =>{
+  const item = document.getElementsByClassName("hideshow");
+  if (item.classList.contains("hidden")){
+    item.classList.add("visible");
+    item.classList.remove("hidden");
+  }else{
+    item.classList.add("hidden");
+    item.classList.remove("visible");
+  }
+}
 
   // Classes for active and inactive links
   const baseClass =
@@ -87,6 +97,7 @@ const NavBar = () => {
                       src={user.photoURL || Avatar}
                       alt="User Avatar"
                       className="rounded-full w-10 h-10"
+                      onClick={toggleMenuVisibility}
                     />
              
               </div>
@@ -167,7 +178,7 @@ const NavBar = () => {
           </div>
         </div>
       )}
-                  <div className="hideshow h-max w-max absolute top-[4rem] right-[1px] py-5 p-4 bg-white rounded-md ">
+                  <div className="hideshow h-max w-max absolute top-[4rem] right-[1px] py-5 p-4 bg-white rounded-md  hidden ">
                     <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-1">
                       <Link href={"/my-account"}><li><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
                       <Link href={"/my-account/settings"}><li><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
