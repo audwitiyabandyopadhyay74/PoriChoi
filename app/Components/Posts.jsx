@@ -36,9 +36,7 @@ const Posts = () => {
     <div className="flex items-start justify-center w-screen h-screen">
       <div className="h-max w-[100%] lg:w-[50%] flex flex-col gap-[400px] p-4 bg-[#fff]">
         {posts.map((post) => (
-        <Link href={`post/${post.id}`} key={post.id}>
         <Post {...post} />
-    </Link>
     
         ))}
       </div>

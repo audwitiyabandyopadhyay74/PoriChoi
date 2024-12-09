@@ -112,7 +112,9 @@ const Post = (props) => {
   return (
     <div className=''>
       <div className='w-full h-max flex flex-col items-center mt-[220px]'>
+        
         <div className="flex items-center">
+
           <Image src={props.photoUrl || "https://yt3.ggpht.com/PEMn6YMvrLc8yX9nWB8VqurEVZzi3iRHHxYvBen3yNEbiRgSbk1Gmxycu5x2tfcScYisz4x3Ig=s176-c-k-c0x00ffffff-no-rj"} alt="" width={100} height={100} className='rounded-full w-[10vh] h-[10vh] scale-50' objectFit='cover' />
           <span className='font-bold text-2xl'>{props.username}</span>
         </div>
@@ -120,7 +122,10 @@ const Post = (props) => {
         <div className="text-3xl font-semibold w-full">{props.title}</div>
         <div className="text-1xl pl-[5px] font-medium">{props.date}</div>
         </div>
+        <Link href={`post/${props.id}`} key={props.id}>
+
         <img className="w-max h-max rounded-md" src={url || null} alt="" />
+        </Link>
         <div className="w-full">
           <div className="flex items-center justify-evenly w-full h-[10vh] bg-[#dad9d9] rounded-md">
             <div className="flex flex-col justify-center items-center cursor-pointer" onClick={handleLike}>
