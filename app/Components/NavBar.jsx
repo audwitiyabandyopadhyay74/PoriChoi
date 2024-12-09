@@ -77,7 +77,7 @@ const NavBar = () => {
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
-              <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
+              <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
             </button>
           )}
           <div className="flex items-center gap-4 relative">
@@ -88,7 +88,6 @@ const NavBar = () => {
             </button> */}
             
             {user ? (
-              <Link href="/my-account">
                 <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
                   <details>
 <summary>
@@ -106,7 +105,7 @@ const NavBar = () => {
                   </details>  
                   
                 </div>
-              </Link>
+              
 
 ) : (
 <div className="flex gap-1">
@@ -165,7 +164,7 @@ const NavBar = () => {
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
-              <i className="fa-solid fa-cloud-upload" style={{ fontSize: 20 }} />
+              <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
             </button>
           )}
         </div>
