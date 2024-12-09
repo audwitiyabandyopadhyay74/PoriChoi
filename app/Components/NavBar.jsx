@@ -82,7 +82,7 @@ const NavBar = () => {
           <div className="flex items-center gap-4 relative">
             {user ? (
               <div className="w-max h-full bg-gray-200 rounded-full flex items-center justify-center p-4">
-                <details className="bg-white w-max h-max">
+                <details className="bg-white w-max h-max p-4 rounded-md">
                   <summary>
                     <Image
                       src={user.photoURL || Avatar}
@@ -91,7 +91,7 @@ const NavBar = () => {
                     />
                   </summary>
                   <p>
-                    <ul style={{ listStyleType: "none" }}>
+                    <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-1">
                       <Link href={"/my-account"}><li><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
                       <Link href={"/my-account/settings"}><li><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
                     </ul>
