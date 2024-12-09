@@ -167,7 +167,7 @@ const NavBar = () => {
           </div>
         </div>
       )}
-                  <div className="hideshow h-max w-max absolute top-[4rem] right-[10px] py-5 p-4 bg-white rounded-md ">
+                  <div className="hideshow h-max w-max absolute top-[4rem] right-[1px] py-5 p-4 bg-white rounded-md ">
                     <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-1">
                       <Link href={"/my-account"}><li><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
                       <Link href={"/my-account/settings"}><li><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
