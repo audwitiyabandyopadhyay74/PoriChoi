@@ -81,7 +81,7 @@ const NavBar = () => {
           )}
           <div className="flex items-center gap-4 relative">
             {user ? (
-              <div className="w-max h-full bg-gray-200 rounded-full flex items-center justify-center p-4">
+              <div className="w-max h-full bg-gray-200 rounded-full flex items-center justify-center p-4 mt-4">
                 <details className="bg-white w-max h-max p-4 rounded-md">
                   <summary>
                     <Image
