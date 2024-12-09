@@ -90,12 +90,7 @@ const NavBar = () => {
                       className="rounded-full w-10 h-10"
                     />
                   </summary>
-                  <p>
-                    <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-1">
-                      <Link href={"/my-account"}><li><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
-                      <Link href={"/my-account/settings"}><li><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
-                    </ul>
-                  </p>
+
                 </details>
               </div>
             ) : (
@@ -175,7 +170,12 @@ const NavBar = () => {
           </div>
         </div>
       )}
-
+                  <div className="hideshow">
+                    <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-1">
+                      <Link href={"/my-account"}><li><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
+                      <Link href={"/my-account/settings"}><li><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
+                    </ul>
+                  </div>
       {/* Post Form */}
       {isPostFormVisible && (
         <Form className="fixed top-16 left-0 right-0 mx-auto z-40" />
