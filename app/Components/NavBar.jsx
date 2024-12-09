@@ -40,7 +40,7 @@ const NavBar = () => {
 
   const toggleVisibility = (setter) => setter((prev) => !prev);
 const toggleMenuVisibility = () =>{
-  const item = document.getElementsByClassName("hideshow");
+  const item = document.getElementById("hideshow");
   if (item.classList.contains("hidden")){
     item.classList.add("visible");
     item.classList.remove("hidden");
@@ -178,7 +178,7 @@ const toggleMenuVisibility = () =>{
           </div>
         </div>
       )}
-                  <div className="hideshow h-max w-max absolute top-[4rem] right-[1px] py-5 p-4 bg-white rounded-md  hidden ">
+                  <div className=" h-max w-max absolute top-[4rem] right-[1px] py-5 p-4 bg-white rounded-md  hidden " id="hideshow">
                     <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-1">
                       <Link href={"/my-account"}><li><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
                       <Link href={"/my-account/settings"}><li><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
