@@ -87,7 +87,7 @@ const NavBar = () => {
                     <Image
                       src={user.photoURL || Avatar}
                       alt="User Avatar"
-                      className="rounded-full w-10 h-10 bg-[#414040]"
+                      className="rounded-full w-10 h-10 "
                     />
                   </summary>
                   <p>
