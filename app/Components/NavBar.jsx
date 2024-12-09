@@ -105,7 +105,7 @@ const toggleMenuVisibility = () =>{
                       className="rounded-full w-10 h-10"
                       onClick={toggleMenuVisibility}
                     />
-             <i class="fa-solid fa-caret-up" onClick={toggleMenuVisibility} id="icon1" style={{fontSize:"20px"}}></i>
+             <i class="fa-solid fa-caret-up rotate-180" onClick={toggleMenuVisibility} id="icon1" style={{fontSize:"20px"}}></i>
               </div>
             ) : (
               <div className="flex gap-1 items-center h-full w-max">
