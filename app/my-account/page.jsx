@@ -62,7 +62,7 @@ if(user === null){
           <div className="text-3xl font-semibold">Check Your Profile</div>
           {/* <b className='w-[30vw] hidden'>ℹ️ You can also update one thing by just filling the input and clicking on the Update Your Profile</b>  */}
           <div className='w-screen lg:w-max flex flex-col flex-wrap justify-center items-center gap-[10px] '>
-          <input type="text" value={name || ''} placeholder={name}   onChange={(e) => setChangedName(e.target.value)} readOnly  className={inputClassName} />
+          <input type="text"   value={name || ''} placeholder={name} onChange={(e) => setChangedName(e.target.value)} readOnly  className={inputClassName} />
           <input type="text" value={email || ''} placeholder={email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} readOnly/>
           <input type="text" value={phoneNumber || ''} placeholder={phoneNumber} readOnly onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
         </div>

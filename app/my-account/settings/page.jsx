@@ -103,8 +103,8 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
               <div className="text-3xl font-semibold">Update Your Profile</div>
               <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
               <input type="text" value={name} placeholder='Name' onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
-              <input type="email" value={email} placeholder='Email' onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
-              <input type="number" value={phoneNumber} placeholder='Phone Number' onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+              <input type="email"  value={email || ''} placeholder={email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
+              <input type="number"  value={phoneNumber || ''} placeholder={phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
               Photo:
               <input type="file" onChange={handleImageUpload} className={inputClassName} />
               <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
