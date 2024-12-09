@@ -39,7 +39,7 @@ document.location.href = "/profile/update-profile"
   
   
 // const spanClassName = '';
-if(user === null){
+if(user === null){ 
   return(
     <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center  font-bold'>
             <NavBar />
@@ -49,7 +49,7 @@ if(user === null){
   )
 } else{ 
   return (
-    <div className=''>      <NavBar />
+    <>      <NavBar />
       <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 ">
         <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
         <h1 className='text-2xl font-semibold'>{name}</h1>
@@ -71,7 +71,7 @@ if(user === null){
         </form>
       </div>
       </div>
-    </div>
+    </>
   );
 }
 };
