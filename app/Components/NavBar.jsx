@@ -45,7 +45,7 @@ const toggleMenuVisibility = () =>{
 
   if (item.classList.contains("hidden")){
     item.classList.add("visible");
-    Mahadev
+    //Har Har Mahadev
     item.classList.remove("hidden");
     icon.style.rotate = "180deg";
   }else{
