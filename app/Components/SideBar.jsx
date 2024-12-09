@@ -41,7 +41,7 @@ const SideBar = () => {
   const active = "w-full py-4 flex items-center justify-center bg-white text-gray-800 font-semibold border-l-4 border-gray-800";
 
   return (
-    <div className="flex flex-col sm:flex-row h-full sm:h-screen w-full sm:w-1/4 bg-gray-800 sm:rounded-md">
+    <div className="flex flex-col sm:flex-row h-full sm:h-screen w-full sm:w-1/4 bg-gray-800 sm:rounded-md lg:absolute lg:left-0">
       <ul className="w-full">
         <li className={myAccount ? active : notActive} onClick={() => { document.location.href = '/my-account' }}>
           <i className='fa-solid fa-user' style={{ fontSize: '24px' }}></i> Your Profile
