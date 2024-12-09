@@ -98,7 +98,7 @@ const NavBar = () => {
                 </details>
               </div>
             ) : (
-              <div className="flex gap-1">
+              <div className="flex gap-1 items-center h-full w-max">
                 <Link href="/search"><FaSearch size={25} /></Link>
                 <div className="flex w-max h-max items-center gap-2">
                   <Link href="/log-in">
