@@ -51,9 +51,9 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       if (changedImage) {
         const imgRef = ref(storage, `/uploads/images/${changedImage.name}`);
         await uploadBytes(imgRef, changedImage);
-        photoURL = await getDownloadURL(imgRef);
+        finalphotoURL = await getDownloadURL(imgRef);
       }
-      await updateProfile(user, { displayName: changedName || name, photoURL });
+      await updateProfile(user, { photoURL: finalphotoURL, displayName: changedName, email: changedEmail,  phoneNumber: +91+changedPhoneNumber,  });
       await updateDoc(collection(firestore, 'userFollowingdata'), {
         userName: changedName || name,
         pic: photoURL,
@@ -65,7 +65,7 @@ setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       alert('Error updating profile');
     }
   };
-
+ 
   const handleDeleteAccount = () => {
     const confirmation = confirm("Are you sure you want to delete your account?");
     if (confirmation && user) {
