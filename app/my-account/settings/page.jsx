@@ -14,6 +14,9 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState("Name is not given");
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [email, setEmail] = useState('');
+
   const [changedImage, setChangedImage] = useState(null);
   const [changedName, setChangedName] = useState("");
   const [changedEmail, setChangedEmail] = useState("");
@@ -25,6 +28,8 @@ const Page = () => {
         setUser(currentUser);
         setPhoto(currentUser.photoURL || Avatar);
         setName(currentUser.displayName || "Name is not given");
+        setEmail(user.email || "Email is not given");
+setPhoneNumber(user.phoneNumber || "Phone Number is not given");
       } else {
         setUser(null);
       }
@@ -96,9 +101,10 @@ const Page = () => {
             <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4 ml-[-10px]" onSubmit={handleSubmit}>
               <div className="text-3xl font-semibold">Update Your Profile</div>
               <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
-              <input type="text" value={changedName} placeholder='Name' onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
-              <input type="text" value={changedEmail} placeholder='Email' onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
-              <input type="text" value={changedPhoneNumber} placeholder='Phone Number' onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+              <input type="text" value={name} placeholder='Name' onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
+              <input type="text" value={email} placeholder='Email' onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
+              <input type="text" value={phoneNumber} placeholder='Phone Number' onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+              Photo:
               <input type="file" onChange={handleImageUpload} className={inputClassName} />
               <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
             </form>
