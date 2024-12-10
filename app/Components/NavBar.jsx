@@ -99,8 +99,13 @@ const toggleMenuVisibility = () =>{
             >
               <div className="flex h-full w-max items-center gap-[10px]">
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
+              </button>
+
               <div className="w-max h-full flex justify-center items-center">
-                <div className="h-max w-max bg-[#afafaf] flex gap-1 rounded-full  items-center px-4">
+                <div className="h-max w-max bg-[#afafaf] flex gap-1 rounded-full  items-center px-4" 
+                                      onClick={toggleMenuVisibility}
+
+                >
                   
                 <Image
                       src={user.photoURL || Avatar}
@@ -112,7 +117,6 @@ const toggleMenuVisibility = () =>{
                 </div>
               </div>
               </div>
-            </button>
               </div>
             ) : (
               <div className="flex gap-1 items-center h-full w-max">
