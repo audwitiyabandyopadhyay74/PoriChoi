@@ -98,14 +98,19 @@ const toggleMenuVisibility = () =>{
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
-            </button>
-                    <Image
+              <div className="w-max h-full flex justify-center items-center">
+                <div className="h-max w-max bg-[#afafaf]">
+                  
+                <Image
                       src={user.photoURL || Avatar}
                       alt="User Avatar"
                       className="rounded-full w-10 h-10"
                       onClick={toggleMenuVisibility}
                     />
              <i class="fa-solid fa-caret-up rotate-180" onClick={toggleMenuVisibility} id="icon1" style={{fontSize:"20px"}}></i>
+                </div>
+              </div>
+            </button>
               </div>
             ) : (
               <div className="flex gap-1 items-center h-full w-max">
