@@ -99,7 +99,7 @@ const toggleMenuVisibility = () =>{
             >
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
               <div className="w-max h-full flex justify-center items-center">
-                <div className="h-max w-max bg-[#afafaf] flex gap-1 rounded-full">
+                <div className="h-max w-max bg-[#afafaf] flex gap-1 rounded-full  items-center px-4">
                   
                 <Image
                       src={user.photoURL || Avatar}
