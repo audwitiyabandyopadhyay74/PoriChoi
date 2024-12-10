@@ -97,7 +97,7 @@ const toggleMenuVisibility = () =>{
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
-              <div className="flex h-full w-max items-center gap-1">
+              <div className="flex h-full w-max items-center gap-[10px]">
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
               <div className="w-max h-full flex justify-center items-center">
                 <div className="h-max w-max bg-[#afafaf] flex gap-1 rounded-full  items-center px-4">
