@@ -6,7 +6,7 @@ import { auth} from '../firebase';
 // import { updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../download.png';
-import Post from '../../Components/Post';
+import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
 
 const Page = () => {
