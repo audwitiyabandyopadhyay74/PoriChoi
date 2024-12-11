@@ -30,7 +30,7 @@ const Page = () => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser && router.pathname === "/log-in") {
-        router.push("/dashboard"); // Replace with your desired post-login page
+        router.push("/"); // Replace with your desired post-login page
       }
     });
     return () => unsubscribe();
@@ -60,6 +60,7 @@ const Page = () => {
       await sendPasswordResetEmail(auth, email);
       toast.success(`Password reset link sent successfully to ${email}`);
     } catch (error) {
+      console.error(error);
       toast.error("Error sending password reset email. Please try again.", {
         theme: "colored",
       });
@@ -75,11 +76,13 @@ const Page = () => {
       router.push("/dashboard"); // Replace with your desired post-login page
     } catch (error) {
       console.error("Error signing in with Google:", error);
+
       toast.error("Failed to sign in with Google. Please try again.", {
         theme: "colored",
       });
     }
   };
+
 
   if (user) {
     return document.location.href="/"; // Placeholder for redirection logic
