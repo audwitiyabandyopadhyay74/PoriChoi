@@ -6,38 +6,54 @@ import { auth} from '../firebase';
 // import { updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../download.png';
-import SideBar from '../Components/SideBar';
-import {onAuthStateChanged} from 'firebase/auth'
+import Post from '../../Components/Post';
+import { collection, getDocs } from 'firebase/firestore';
+
 const Page = () => {
-  const [user, setUser] = useState(null);
+//   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState();
-  // const [changedName, setChangedName] = useState('');
-  // const [changedEmail, setChangedEmail] = useState('');
-  // const [changedPhoneNumber, setChangedPhoneNumber] = useState('');
-  // const [changedImage, setChangedImage] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+console.log(user, posts)
+  // Fetch user data on authentication state change
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         setPhoto(user.photoURL || Avatar);
-        setName(user.displayName || "Name is not given");
-        setEmail(user.email || "Email is not given");
-setPhoneNumber(user.phoneNumber || "Phone Number is not given");
+        setName(user.displayName || 'Name is not given');
       } else {
         setUser(null);
       }
     });
   }, []);
-  const handleSubmit = (e) => {
-document.location.href = "/profile/update-profile"
-    e.preventDefault();
+
+  // Fetch posts from Firestore
+  const fetchDataFromFirebase = async () => {
+    const querySnapshot = await getDocs(collection(firestore, 'posts'));
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return data;
   };
-  const inputClassName = 'w-max h-[6vh] rounded-md p-[10px] border-none outline-none scroll-y';
-  
-  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchDataFromFirebase();
+        setPosts(data);
+        setFilteredPosts(data.filter(post => post.author === name)); // Adjust filter based on your field
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    if (name) {
+      fetchData();
+    }
+  }, [name]);
 // const spanClassName = '';
 if(user === null){ 
   return(
@@ -57,18 +73,24 @@ if(user === null){
       <br />
       <div className="flex w-screen h-full justify-between">
       <div className="flex w-screen h-max lg:flex-row flex-col  gap-[200px] justify-center items-center">
-        <SideBar/>
-        <form className="h-[70vh] lg:w-max w-screen flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}>
-          <div className="text-3xl font-semibold">Check Your Profile</div>
+      <div className="h-max w-[30%] flex flex-col items-center justify-between gap-[400px]">
+        <span className="font-semibold text-3xl"></span>
+            {filteredPosts.map((post) => (
+              <Post key={post.id} {...post} />
+            ))}
+          </div>
+        {/* <SideBar/> */}
+        {/* {/* <form className="h-[70vh] lg:w-max w-screen flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}> */}
+          {/* <div className="text-3xl /font-semibold">Check Your Profile</div> */}
           {/* <b className='w-[30vw] hidden'>ℹ️ You can also update one thing by just filling the input and clicking on the Update Your Profile</b>  */}
-          <div className='w-screen lg:w-max flex flex-col flex-wrap justify-center items-center gap-[10px] '>
-          <input type="text"   value={name || ''} placeholder={name} onChange={(e) => setChangedName(e.target.value)} readOnly  className={inputClassName} />
-          <input type="text" value={email || ''} placeholder={email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} readOnly/>
-          <input type="text" value={phoneNumber || ''} placeholder={phoneNumber} readOnly onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
-        </div>
-          <input type="submit" value="Update My Profile" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
+          {/* <div className='w-screen lg:w-max flex flex-col flex-wrap justify-center items-center gap-[10px] '> */}
+          {/* <input type="text"   value={name || ''} placeholder={name} onChange={(e) => setChangedName(e.target.value)} readOnly  className={inputClassName} /> */}
+          {/* <input type="text" value={email || ''} placeholder={email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} readOnly/> */}
+          {/* <input type="text" value={phoneNumber || ''} placeholder={phoneNumber} readOnly onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} /> */}
+        {/* </div>  */}
+          {/* <input type="submit" value="Update My Profile" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' /> */}
         
-        </form>
+        {/* </form> */}
       </div>
       </div>
     </>
