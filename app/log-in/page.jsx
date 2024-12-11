@@ -82,7 +82,7 @@ const Page = () => {
   };
 
   if (user) {
-    return <p>Redirecting...</p>; // Placeholder for redirection logic
+    return document.location.href="/"; // Placeholder for redirection logic
   }
 
   return (

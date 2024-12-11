@@ -9,6 +9,9 @@ import { updateDoc, doc } from 'firebase/firestore';
 import { updateProfile, onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../../download.png';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import '../../toastify.css';
 
 const countryCodes = [
   { name: "United States", code: "+1" },
@@ -80,11 +83,11 @@ const Page = () => {
         pic: photoURL,
       });
 
-      alert("Profile updated successfully!");
+      toast.success("Profile updated successfully!", { theme: "colored" });
       document.location.reload();
     } catch (error) {
       console.error('Error updating profile:', error.message);
-      alert('Error updating profile');
+      toast.error('Error updating profile', { theme: "colored" });
     }
   };
 
@@ -92,8 +95,8 @@ const Page = () => {
     const confirmation = confirm("Are you sure you want to delete your account?");
     if (confirmation && user) {
       user.delete()
-        .then(() => alert("Account deleted successfully."))
-        .catch((error) => alert(`Error deleting account: ${error.message}`));
+        .then(() => toast.success("Account deleted successfully.", { theme: "colored" }))
+        .catch((error) => toast.error(`Error deleting account: ${error.message}`, { theme: "colored" }));
     }
   };
 
@@ -102,6 +105,12 @@ const Page = () => {
   if (user === null) {
     return (
       <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
+        <ToastContainer
+          toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
+          bodyClassName="text-sm font-medium text-white block p-3"
+          position="bottom-left"
+          autoClose={3000}
+        />
         <NavBar />
         <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
         <a href='/log-in'>
@@ -112,6 +121,12 @@ const Page = () => {
   } else {
     return (
       <div>
+        <ToastContainer
+          toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
+          bodyClassName="text-sm font-medium text-white block p-3"
+          position="bottom-left"
+          autoClose={3000}
+        />
         <NavBar />
         <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
           <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
@@ -140,7 +155,7 @@ const Page = () => {
               <input type="file" onChange={handleImageUpload} className={inputClassName} />
               <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
             </form>
-            <div className="block mt-8">
+              <div className="block mt-8">
               <div className="text-3xl">Delete Account</div>
               <button className='w-[10vh] h-[5vh] text-white rounded-md bg-red-600 hover:scale-110 cursor-pointer' onClick={handleDeleteAccount}>Delete</button>
             </div>
