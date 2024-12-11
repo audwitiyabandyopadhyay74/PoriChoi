@@ -2,17 +2,24 @@
 
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
-import { onAuthStateChanged, signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import icon from "../favicon.ico";
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../toastify.css";
-import { usePathname } from 'next/navigation';
+import { useRouter } from "next/router";
 
 const Page = () => {
   const googleProvider = new GoogleAuthProvider();
-  const pathname = usePathname();
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -20,14 +27,14 @@ const Page = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      if (user && pathname === "/log-in") {
-        setUser(user); // Set user to trigger redirect
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser && router.pathname === "/log-in") {
+        router.push("/dashboard"); // Replace with your desired post-login page
       }
     });
-    setErrorText("");
-  }, [email, password, pathname]);
+    return () => unsubscribe();
+  }, [router]);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
@@ -37,9 +44,12 @@ const Page = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Login successful", { theme: "colored" });
-      setUser(auth.currentUser); // Set user to trigger redirect
+      setUser(auth.currentUser);
     } catch (err) {
-      const errorMessage = err.code === "auth/user-not-found" ? "User not found" : "Invalid email or password";
+      const errorMessage =
+        err.code === "auth/user-not-found"
+          ? "User not found"
+          : "Invalid email or password";
       setErrorText(errorMessage);
       toast.error(errorMessage, { theme: "colored" });
     }
@@ -50,22 +60,29 @@ const Page = () => {
       await sendPasswordResetEmail(auth, email);
       toast.success(`Password reset link sent successfully to ${email}`);
     } catch (error) {
-      console.error("Error sending password reset email:", error);
+      toast.error("Error sending password reset email. Please try again.", {
+        theme: "colored",
+      });
     }
   };
 
   const signInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      setUser(auth.currentUser); // Set user to trigger redirect
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      setUser(user);
+      toast.success("Signed in with Google successfully!", { theme: "colored" });
+      router.push("/dashboard"); // Replace with your desired post-login page
     } catch (error) {
       console.error("Error signing in with Google:", error);
-      toast.error("The user is not signed up", { theme: "colored" });
+      toast.error("Failed to sign in with Google. Please try again.", {
+        theme: "colored",
+      });
     }
   };
 
   if (user) {
-    return <p>Redirecting...</p>; // Placeholder for redirection, replace with actual navigation logic if needed
+    return <p>Redirecting...</p>; // Placeholder for redirection logic
   }
 
   return (
@@ -77,10 +94,16 @@ const Page = () => {
         autoClose={3000}
       />
       <div className="w-full max-w-lg bg-white/70 backdrop-blur-md rounded-3xl shadow-xl border border-white/20 flex flex-col items-center py-10 px-6 sm:px-8 md:px-10 lg:px-12">
-        <Image src={icon} 
-        className="rounded-full w-24 h-24 bg-white p-2 shadow-lg transition-transform duration-300 transform hover:scale-110" alt="Icon" width={100} />
+        <Image
+          src={icon}
+          className="rounded-full w-24 h-24 bg-white p-2 shadow-lg transition-transform duration-300 transform hover:scale-110"
+          alt="Icon"
+          width={100}
+          height={100}
+        />
         <h2 className="text-4xl font-bold text-white mt-6 mb-4">Welcome Back</h2>
         <p className="text-gray-200 text-center mb-6">Sign in to your account to continue</p>
+
         <div className="w-full flex flex-col items-center gap-4">
           <input
             required
@@ -100,35 +123,45 @@ const Page = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <i
-              className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"} absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-500 cursor-pointer hover:text-purple-500 transition duration-150`}
+              className={`fa-solid ${
+                passwordVisible ? "fa-eye-slash" : "fa-eye"
+              } absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-500 cursor-pointer hover:text-purple-500 transition duration-150`}
               onClick={togglePasswordVisibility}
             ></i>
           </div>
         </div>
+
         <button
           className="w-full mt-8 py-3 bg-purple-500 text-white rounded-lg font-semibold shadow-lg hover:bg-purple-600 transition duration-300 transform hover:scale-105"
           onClick={login}
         >
           Login
         </button>
+
         <button
           className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
           onClick={signInWithGoogle}
         >
           <i className="fa-brands fa-google"></i> Sign in with Google
         </button>
+
         <div className="mt-5 text-sm text-white">
           Forgot password?{" "}
-          <span className="text-blue-400 cursor-pointer hover:underline" onClick={resetPassword}>
+          <span
+            className="text-blue-400 cursor-pointer hover:underline"
+            onClick={resetPassword}
+          >
             Reset it here
           </span>
         </div>
+
         {errorText && <span className="text-red-400 text-sm mt-2">{errorText}</span>}
+
         <div className="mt-6 text-sm text-white">
           Don’t have an account?{" "}
           <span
             className="text-blue-400 cursor-pointer hover:underline"
-            onClick={() => setUser(null)} // Replace with actual navigation logic if needed
+            onClick={() => router.push("/sign-up")}
           >
             Sign up
           </span>
