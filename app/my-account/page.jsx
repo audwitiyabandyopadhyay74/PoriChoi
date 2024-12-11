@@ -1,16 +1,16 @@
 "use client"
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../Components/NavBar';
-import { auth} from '../firebase';
-// import { ref, uploadBytes } from 'firebase/storage';
-// import { updateProfile, signOut, onAuthStateChanged } from 'firebase/auth';
+import { auth, firestore } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../download.png';
+// import SideBar from '../../Components/SideBar';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
 
 const Page = () => {
-//   const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [posts, setPosts] = useState([]);
