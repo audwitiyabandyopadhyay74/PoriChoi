@@ -25,16 +25,23 @@ const Page = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [user, setUser] = useState(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      if (currentUser && router.pathname === "/log-in") {
-        router.push("/"); // Replace with your desired post-login page
-      }
-    });
-    return () => unsubscribe();
-  }, [router]);
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+        if (currentUser && router.pathname === "/log-in") {
+          router.push("/"); // Replace with your desired post-login page
+        }
+      });
+      return () => unsubscribe();
+    }
+  }, [isClient, router]);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
@@ -76,16 +83,14 @@ const Page = () => {
       router.push("/dashboard"); // Replace with your desired post-login page
     } catch (error) {
       console.error("Error signing in with Google:", error);
-
       toast.error("Failed to sign in with Google. Please try again.", {
         theme: "colored",
       });
     }
   };
 
-
   if (user) {
-    return document.location.href="/"; // Placeholder for redirection logic
+    return <p>Redirecting...</p>; // Placeholder for redirection logic
   }
 
   return (

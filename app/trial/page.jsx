@@ -4,7 +4,7 @@ import Form from '../Components/Form'
 const page = () => {
   
   return (
-    <div>
+    <div> 
         <Form/>
     </div>
   )
