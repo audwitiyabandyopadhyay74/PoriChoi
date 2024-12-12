@@ -14,7 +14,9 @@ import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../toastify.css";
-import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+
+const useRouter = dynamic(() => import("next/router").then((mod) => mod.useRouter), { ssr: false });
 
 const Page = () => {
   const googleProvider = new GoogleAuthProvider();
@@ -25,23 +27,16 @@ const Page = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [user, setUser] = useState(null);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (isClient) {
-      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        if (currentUser && router.pathname === "/log-in") {
-          router.push("/"); // Replace with your desired post-login page
-        }
-      });
-      return () => unsubscribe();
-    }
-  }, [isClient, router]);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser && router?.pathname === "/log-in") {
+        router.push("/"); // Replace with your desired post-login page
+      }
+    });
+    return () => unsubscribe();
+  }, [router]);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
@@ -88,10 +83,6 @@ const Page = () => {
       });
     }
   };
-
-  if (!isClient) {
-    return null; // Prevent rendering on the server
-  }
 
   if (user) {
     return <p>Redirecting...</p>; // Placeholder for redirection logic
