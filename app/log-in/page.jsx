@@ -89,6 +89,10 @@ const Page = () => {
     }
   };
 
+  if (!isClient) {
+    return null; // Prevent rendering on the server
+  }
+
   if (user) {
     return <p>Redirecting...</p>; // Placeholder for redirection logic
   }
