@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { auth } from "../firebase";
+// import { auth } from "../firebase";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -15,12 +15,33 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../toastify.css";
 import dynamic from "next/dynamic";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const useRouter = dynamic(() => import("next/router").then((mod) => mod.useRouter), { ssr: false });
 
 const Page = () => {
+
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBhO91KP6Lu0nTEJBo7UTBr3X79cNJe4zQ",
+  authDomain: "porichoi-9112d.firebaseapp.com",
+  projectId: "porichoi-9112d",
+  storageBucket: "porichoi-9112d.appspot.com",
+  messagingSenderId: "702456184757",
+  appId: "1:702456184757:web:4881a1e59f939069d4a3fc",
+  measurementId: "G-KDX944BM03"
+};
+  const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
   const router = useRouter();
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
