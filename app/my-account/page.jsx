@@ -69,7 +69,7 @@ if(user === null){
   return (
     <>      <NavBar />
       <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 ">
-        <Image src={photo} width={100} height={100} className='r  ounded-full' alt='Profile Image' />
+        <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
         <h1 className='text-2xl font-semibold'>{name}</h1>
       </div>
       <br />
@@ -78,7 +78,7 @@ if(user === null){
       <div className="h-max w-[30%] flex flex-col items-center justify-between gap-[400px]">
       <span className="font-semibold text-3xl">My Posts</span>              
 
-            {filteredPosts.map((post) => (<div className='mt-[-100px]' key={post.id}>
+            {filteredPosts.map((post) => (<div className='mt-[-200px]' key={post.id}>
               <Post  {...post} />
               </div>
             ))}
