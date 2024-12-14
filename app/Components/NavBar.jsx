@@ -99,7 +99,10 @@ const toggleMenuVisibility = () =>{
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
-              <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
+              <div className="flex flex-col gap-1">
+              <i className="fa-solid fa-plus " style={{ fontSize: "20px" }} />
+Upload
+              </div>
               </button>
 
               <div className="w-max h-full flex justify-center items-center">
