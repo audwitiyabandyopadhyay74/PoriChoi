@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import localFont from "next/font/local";
 import "./globals.css";
+import footer from "./Components/Footer"
+import Footer from "./Components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +34,7 @@ export default function RootLayout({
         
         {children}
         <Script src="https://kit.fontawesome.com/dd02391768.js"></Script>
+        <Footer/>
       </body>
     </html>
   );

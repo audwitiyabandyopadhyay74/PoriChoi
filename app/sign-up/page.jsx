@@ -194,7 +194,7 @@ const SignUpPage = () => {
           className="w-full flex items-center justify-center py-3 mt-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
         >
           <i className="fa-brands fa-facebook mr-2"></i> Sign Up with Facebook
-</button>
+</button> 
 
         <div className="mt-5 text-center text-gray-600">
           Already have an account?{" "}

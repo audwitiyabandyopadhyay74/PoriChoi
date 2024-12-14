@@ -3,8 +3,11 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer>
-    THIS  WAS BEEN CREATED BY  Audwitiya Bandyopadhyay
-    </footer>
+<a href="/privacy-policy">Privacy Policy</a>    
+<a href="/terms-and-conditions">Terms And Condition</a>    
+
+
+</footer>
   );
 }
 
