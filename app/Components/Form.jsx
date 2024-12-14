@@ -80,7 +80,7 @@ console.log(user)
         photoUrl: userPhoto,
         like:0,
         Comments:{},
-        Shares: Shares+1 || 0,
+        Shares: 0,
       }).then(()=> document.location.reload());
       alert('Posted successfully');
       

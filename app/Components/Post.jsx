@@ -102,14 +102,16 @@ const Post = (props) => {
   };
 
   const toggleCommentInput = () => setShowCommentInput(!showCommentInput);
-        const handleShare = () => {
+        const handleShare = async() => {
             navigator.share({
               title: props.title,
               text: 'Check out this post!',
               url: window.location.href, // or a specific URL you want to share
             }).then(() => console.log('Post shared successfully!'))
             .catch((error) => console.error('Error sharing post:', error));
-   
+   await updateDoc(docRef,{
+    Shares:Shares+1
+   })
 
         };
   return (
