@@ -114,7 +114,7 @@ console.log(user)
             type="text"
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter Your Post's Title"
-            className="lg:w-[60vh] w-[80%] h-[6vh] rounded-md p-4 bg-[#e9e8e8e0]"
+            className="lg:w-[60vh] w-[80%] h-[130px] rounded-md p-4 bg-[#e9e8e8e0]"
           ></textarea>
 
           <button className="bg-[#ff0000] border-none outline-none rounded-md h-[30px] w-[50px] text-white" onClick={handleSubmit}>
