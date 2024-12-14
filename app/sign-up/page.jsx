@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { auth, firestore } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';  
 import icon from '../favicon.ico';
@@ -14,6 +14,10 @@ import { usePathname , redirect } from 'next/navigation';
 const SignUpPage = () => {
   const pathname = usePathname();
   const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -72,6 +76,47 @@ const SignUpPage = () => {
     }
   };
 
+  
+  const signInWithGithub = async () => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const user = result.user;
+      const userRef = collection(firestore, 'userFollowingdata');
+      const q = query(userRef, where("userName", "==", user.displayName));
+      const querySnapshot = await getDocs(q);
+      
+      if (querySnapshot.empty) {
+        await addDoc(userRef, {
+          userName: user.displayName,
+          pic: user.photoURL,
+          follower: 0,
+        });
+      }
+      setUser(user); // Set user to trigger redirect
+    } catch (error) {
+      setError(error.message.includes('auth/email-already-in-use') ? 'The email is already in use' : 'Google sign-in error. Please try again.');
+    }
+  };
+  const signInWithFacebook = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
+      const userRef = collection(firestore, 'userFollowingdata');
+      const q = query(userRef, where("userName", "==", user.displayName));
+      const querySnapshot = await getDocs(q);
+      
+      if (querySnapshot.empty) {
+        await addDoc(userRef, {
+          userName: user.displayName,
+          pic: user.photoURL,
+          follower: 0,
+        });
+      }
+      setUser(user); // Set user to trigger redirect
+    } catch (error) {
+      setError(error.message.includes('auth/email-already-in-use') ? 'The email is already in use' : 'Google sign-in error. Please try again.');
+    }
+  };
   if (user && pathname === "/sign-up") {
     return redirect("/"); // Replace with actual redirection logic if needed
   }
@@ -134,8 +179,22 @@ const SignUpPage = () => {
           onClick={signInWithGoogle}
           className="w-full flex items-center justify-center py-3 mt-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
         >
-          <i className="fa-brands fa-google mr-2"></i> Sign Up with Google
+          <i className="fa-brands fa-github mr-2"></i> Sign Up with Google
+         
         </button>
+        <button
+          onClick={signInWithGithub}
+          className="w-full flex items-center justify-center py-3 mt-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
+        >
+          <i className="fa-brands fa-github mr-2"></i> Sign Up with Github
+</button>
+
+<button
+          onClick={signInWithFacebook}
+          className="w-full flex items-center justify-center py-3 mt-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
+        >
+          <i className="fa-brands fa-facebook mr-2"></i> Sign Up with Facebook
+</button>
 
         <div className="mt-5 text-center text-gray-600">
           Already have an account?{" "}

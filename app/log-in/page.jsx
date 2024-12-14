@@ -8,6 +8,7 @@ import {
   sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
+  GithubAuthProvider, FacebookAuthProvider
 } from "firebase/auth";
 import icon from "../favicon.ico";
 import Image from "next/image";
@@ -41,6 +42,8 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
   const router = useRouter();
 
 
@@ -94,6 +97,35 @@ const auth = getAuth(app);
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      setUser(user);
+      toast.success("Signed in with Google successfully!", { theme: "colored" });
+      router.push("/"); // Replace with your desired post-login page
+    } catch (error) {
+      console.error("Error signing in with Google");
+      toast.error("Failed to sign in with Google. Please try again."+error, {
+        theme: "colored",
+      });
+    }
+  };
+  
+  const signInWithGithub = async () => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const user = result.user;
+      setUser(user);
+      toast.success("Signed in with Google successfully!", { theme: "colored" });
+      router.push("/"); // Replace with your desired post-login page
+    } catch (error) {
+      console.error("Error signing in with Google");
+      toast.error("Failed to sign in with Google. Please try again."+error, {
+        theme: "colored",
+      });
+    }
+  };
+  const signInWithFacebook = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
       const user = result.user;
       setUser(user);
       toast.success("Signed in with Google successfully!", { theme: "colored" });
@@ -169,6 +201,19 @@ const auth = getAuth(app);
         >
           <i className="fa-brands fa-google"></i> Sign in with Google
         </button>
+                <button
+          onClick={signInWithGithub}
+          className="w-full flex items-center justify-center py-3 mt-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
+        >
+          <i className="fa-brands fa-github mr-2"></i> Sign Up with Github
+</button>
+
+<button
+          onClick={signInWithFacebook}
+          className="w-full flex items-center justify-center py-3 mt-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
+        >
+          <i className="fa-brands fa-facebook mr-2"></i> Sign Up with Facebook
+</button>
 
         <div className="mt-5 text-sm text-white">
           Forgot password?{" "}
