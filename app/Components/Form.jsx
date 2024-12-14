@@ -108,14 +108,15 @@ console.log(user)
             placeholder="Select an image"
             className="lg:w-[60vh] w-[80%] h-[6vh] rounded-md p-1 bg-[#e9e8e8e0] text-center flex items-center"
             onChange={handleImageUpload}
-          />v
+          />
+<span className='text-semibold text-2xl'>Details</span>
           <textarea
             type="text"
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter Your Post's Title"
             className="lg:w-[60vh] w-[80%] h-[6vh] rounded-md p-4 bg-[#e9e8e8e0]"
           ></textarea>
-          
+
           <button className="bg-[#ff0000] border-none outline-none rounded-md h-[30px] w-[50px] text-white" onClick={handleSubmit}>
             Post
           </button>
