@@ -99,7 +99,7 @@ const auth = getAuth(app);
       router.push("/"); // Replace with your desired post-login page
     } catch (error) {
       console.error("Error signing in with Google:", error);
-      toast.error("Failed to sign in with Google. Please try again.", {
+      toast.error("Failed to sign in with Google. Please try again."+error, {
         theme: "colored",
       });
     }
