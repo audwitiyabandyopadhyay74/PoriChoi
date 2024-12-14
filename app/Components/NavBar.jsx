@@ -161,7 +161,7 @@ Upload
           {!user && (
             <>
               <Link href="/log-in" className={`${baseClass} flex flex-col items-center justify-center w-max h-full`}>
-                <CiLogin size={24} />
+                <CiLo gin size={24} />
                 <span className="text-xs">Log in</span>
               </Link>
               <Link href="/sign-up" className={`${baseClass} flex flex-col items-center justify-center w-max h-full`}>
