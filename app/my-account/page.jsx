@@ -44,7 +44,7 @@ console.log(user, posts)
       try {
         const data = await fetchDataFromFirebase();
         setPosts(data);
-        setFilteredPosts(data.filter(post => post.author === name)); // Adjust filter based on your field
+        setFilteredPosts(data.filter(post => post.username === name)); // Adjust filter based on your field
       } catch (error) {
         console.error('Error fetching data:', error);
       }
