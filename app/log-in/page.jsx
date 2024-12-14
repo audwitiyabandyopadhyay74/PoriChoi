@@ -210,7 +210,7 @@ const auth = getAuth(app);
 
 <button
           onClick={signInWithFacebook}
-          className="w-full flex items-center justify-center py-3 mt-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
+          className="w-full flex items-center justify-center py-3 mt-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
         >
           <i className="fa-brands fa-facebook mr-2"></i> Sign Up with Facebook
 </button>
