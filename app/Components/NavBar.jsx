@@ -81,7 +81,7 @@ const toggleMenuVisibility = () =>{
                 }`}
               >
                 {page === "home" && <FaHome size={28} />}
-                {page === "my account" && <FaUser size={28} />}
+                {page === "my-account" && <FaUser size={28} />}
                 {page === "news" && <FaNewspaper size={24} />}
                 <span className="text-xs capitalize">{page}</span>
               </Link>
