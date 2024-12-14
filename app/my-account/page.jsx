@@ -76,10 +76,11 @@ if(user === null){
       <div className="flex w-screen h-full justify-between">
       <div className="flex w-screen h-max lg:flex-row flex-col  gap-[200px] justify-center items-center">
       <div className="h-max w-[30%] flex flex-col items-center justify-between gap-[400px]">
-            {filteredPosts.map((post) => (<>
-              <span className="font-semibold text-3xl">My Posts</span>              
+      <span className="font-semibold text-3xl">My Posts</span>              
+
+            {filteredPosts.map((post) => (<div className='mt-[-100px]'>
               <Post key={post.id} {...post} />
-              </>
+              </div>
             ))}
           </div>
         {/* <SideBar/> */}
