@@ -9,6 +9,7 @@ import Avatar from '../download.png';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
 
+
 const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
@@ -54,6 +55,7 @@ console.log(user, posts)
       fetchData();
     }
   }, [name]);
+
 // const spanClassName = '';
 if(user === null){ 
   return(

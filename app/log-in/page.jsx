@@ -17,6 +17,7 @@ import "../toastify.css";
 import dynamic from "next/dynamic";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { redirect } from 'next/navigation';
 
 const useRouter = dynamic(() => import("next/router").then((mod) => mod.useRouter), { ssr: false });
 
@@ -106,7 +107,7 @@ const auth = getAuth(app);
   };
 
   if (user) {
-    return <p>Redirecting...</p>; // Placeholder for redirection logic
+    return redirect("/"); // Placeholder for redirection logic
   }
 
   return (

@@ -7,7 +7,9 @@ import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';  
 import icon from '../favicon.ico';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname , redirect } from 'next/navigation';
+// import { redirect } from 'next/navigation';
+
 
 const SignUpPage = () => {
   const pathname = usePathname();
@@ -71,7 +73,7 @@ const SignUpPage = () => {
   };
 
   if (user && pathname === "/sign-up") {
-    return <p>Redirecting...</p>; // Replace with actual redirection logic if needed
+    return redirect("/"); // Replace with actual redirection logic if needed
   }
 
   return (
