@@ -203,14 +203,14 @@ const auth = getAuth(app);
         </button>
                 <button
           onClick={signInWithGithub}
-          className="w-full flex items-center justify-center py-3 mt-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
+          className="w-full mt-5 py-3 bg-gray-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
         >
           <i className="fa-brands fa-github mr-2"></i> Sign Up with Github
 </button>
 
 <button
           onClick={signInWithFacebook}
-          className="w-full flex items-center justify-center py-3 mt-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50"
+          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
         >
           <i className="fa-brands fa-facebook mr-2"></i> Sign Up with Facebook
 </button>
