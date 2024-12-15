@@ -4,7 +4,7 @@ import { auth, firestore, storage } from '../firebase';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
-
+import Userpic from "../download.png"
 import Link from 'next/link';
 
 
@@ -120,7 +120,7 @@ const Post = (props) => {
         
         <div className="flex items-center">
 
-          <Image src={props.photoUrl || "https://yt3.ggpht.com/PEMn6YMvrLc8yX9nWB8VqurEVZzi3iRHHxYvBen3yNEbiRgSbk1Gmxycu5x2tfcScYisz4x3Ig=s176-c-k-c0x00ffffff-no-rj"} alt="" width={100} height={100} className='rounded-full w-[10vh] h-[10vh] scale-50' objectFit='cover' />
+          <Image src={props.photoUrl || Userpic} alt="" width={100} height={100} className='rounded-full w-[10vh] h-[10vh] scale-50' objectFit='cover' />
           <span className='font-bold text-2xl'>{props.username}</span>
         </div>
         <div className="flex flex-col gap-4 w-full items-start p-4 ">
