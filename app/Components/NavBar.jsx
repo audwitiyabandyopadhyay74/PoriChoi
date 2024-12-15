@@ -66,7 +66,7 @@ const toggleMenuVisibility = () =>{
       {/* Desktop Navbar */}
       <nav className="hidden md:flex fixed top-0 left-0 right-0 h-16 bg-white shadow-md z-50">
         <div className="flex items-center justify-between w-full px-8">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2" onClick={()=>{document.location. href="/";}}>
             <Image src={Logo} alt="Logo" className="w-12 h-12" />
             <h1 className="text-2xl font-bold">Porichoi</h1>
           </div>
