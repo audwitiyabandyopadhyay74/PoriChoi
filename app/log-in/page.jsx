@@ -205,14 +205,14 @@ const auth = getAuth(app);
           onClick={signInWithGithub}
           className="w-full mt-5 py-3 bg-gray-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg transition duration-300 transform hover:scale-105"
         >
-          <i className="fa-brands fa-github mr-2"></i> Sign Up with Github
+          <i className="fa-brands fa-github mr-2"></i> Sign in with Github
 </button>
 
 <button
           onClick={signInWithFacebook}
           className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
         >
-          <i className="fa-brands fa-facebook mr-2"></i> Sign Up with Facebook
+          <i className="fa-brands fa-facebook mr-2"></i> Sign in with Facebook
 </button>
 
         <div className="mt-5 text-sm text-white">
