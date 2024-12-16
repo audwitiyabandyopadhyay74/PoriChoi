@@ -19,6 +19,7 @@ setUserpic(user.photoURL);
   })
 })
 const MoblieNav = () => {
+  if(user){
   return (
     <nav className='lg:hidden visible fixed w-screen h-16 flex flex-col items-center justify-center'>
       
@@ -35,7 +36,23 @@ PoriChoi
 </div>
 
       </nav>
-  );
+  );} else{
+    <nav className='lg:hidden visible fixed w-screen h-16 flex flex-col items-center justify-center'>
+      
+    <Image src={logo} alt="Logo" className="w-12 h-12" />
+PoriChoi
+<div className="w-full flex items-center justify-center gap-[40%]">
+<div className="userpic">
+<Image src={Avatar } width={250} height={250} className='rounded-full'/>
+</div>
+<div className="search">
+<Link href="/search"><FaSearch size={25} /></Link>
+
+</div>
+</div>
+
+    </nav>
+  }
 }
 
 export default MoblieNav;
