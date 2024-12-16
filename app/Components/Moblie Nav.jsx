@@ -1,3 +1,4 @@
+"use client";
 import React,{useState,useEffect} from 'react';
 import logo from '../favicon.ico'
 import Image from 'next/image';
