@@ -12,6 +12,7 @@ import Avatar from '../../download.png';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../toastify.css';
+import MoblieNav from '@/app/Components/Moblie Nav';
 
 const countryCodes = [
   { name: "United States", code: "+1" },
@@ -128,6 +129,7 @@ const Page = () => {
           autoClose={3000}
         />
         <NavBar />
+        <MoblieNav/>
         <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
           <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
           <h1 className='text-2xl font-semibold'>{name}</h1>

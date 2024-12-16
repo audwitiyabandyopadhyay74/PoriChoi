@@ -8,6 +8,7 @@ import Avatar from '../download.png';
 // import SideBar from '../../Components/SideBar';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
+import MoblieNav from '../Components/Moblie Nav';
 
 
 const Page = () => {
@@ -61,6 +62,8 @@ if(user === null){
   return(
     <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center  font-bold'>
             <NavBar />
+      <MoblieNav />
+
 <span className="text-3xl  h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span><a href='/log-in'>
 <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button></a>
 </div>
@@ -68,6 +71,8 @@ if(user === null){
 } else{ 
   return (
     <>      <NavBar />
+      <MoblieNav />
+
       <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 ">
         <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
         <h1 className='text-2xl font-semibold'>{name}</h1>

@@ -121,7 +121,7 @@ Upload
               </div>
             ) : (
               <div className="flex gap-1 items-center h-full w-max">
-                <Link href="/search"><FaSearch size={25} /></Link>
+                  <Link href="/search"><FaSearch size={25} /></Link>
                 <div className="flex w-max h-max items-center gap-2">
                   <Link href="/log-in">
                     <button className="bg-black text-white h-[6vh] border rounded-md hover:bg-white border-black border-[2px] hover:text-black transition-all duration-300" style={{ width: "20vh" }}>
@@ -177,6 +177,7 @@ Upload
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
+              Upload
             </button>
           )}
         </div>
