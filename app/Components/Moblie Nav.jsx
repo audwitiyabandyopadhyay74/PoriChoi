@@ -32,6 +32,7 @@ PoriChoi
 <div className="search">
 <Link href="/search"><FaSearch size={25} /></Link>
 
+
 </div>
 </div>
 
