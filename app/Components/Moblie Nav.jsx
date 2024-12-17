@@ -24,9 +24,9 @@ const MobileNav = () => {
     // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
-
+if(user){
   return (
-    <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center ${user ? 'top-[-4rem] right-[1px] bg-white rounded-md' : ''}`}>
+    <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center`}>
       {/* Logo and branding */}
       <Image src={logo} alt="Logo" className="w-12 h-12" />
       <span>PoriChoi</span>
@@ -49,7 +49,31 @@ const MobileNav = () => {
         </div>
       </div>
     </nav>
-  );
+  );}else{
+    <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center`}>
+      {/* Logo and branding */}
+      <Image src={logo} alt="Logo" className="w-12 h-12" />
+      <span>PoriChoi</span>
+
+      {/* User profile picture and search icon */}
+      <div className="w-full flex items-center justify-center gap-[40%]">
+        <div className="userpic">
+          <Image
+            src={Avatar}
+            width={250}
+            height={250}
+            className="rounded-full"
+            alt="User profile"
+          />
+        </div>
+        <div className="search">
+          <Link href="/search">
+            <FaSearch size={25} />
+          </Link>
+        </div>
+      </div>
+    </nav>
+  }
 };
 
 export default MobileNav;
