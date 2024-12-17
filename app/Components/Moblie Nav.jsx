@@ -1,3 +1,5 @@
+// MobileNav.js
+
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
@@ -8,9 +10,11 @@ import logo from '../favicon.ico';
 import Avatar from '../download.png';
 
 const MobileNav = () => {
+  // State for user and userpic
   const [user, setUser] = useState(null);
   const [userpic, setUserpic] = useState('');
 
+  // Fetch user data on component mount
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -23,9 +27,11 @@ const MobileNav = () => {
 
   return (
     <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center ${user ? 'top-[-4rem] right-[1px] bg-white rounded-md' : ''}`}>
+      {/* Logo and branding */}
       <Image src={logo} alt="Logo" className="w-12 h-12" />
       <span>PoriChoi</span>
 
+      {/* User profile picture and search icon */}
       <div className="w-full flex items-center justify-center gap-[40%]">
         <div className="userpic">
           <Image
