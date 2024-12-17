@@ -1,6 +1,7 @@
 "use client"; // Mark this file to run on the client side
 
 import React, { useState, useEffect } from 'react';
+import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Link from 'next/link';
