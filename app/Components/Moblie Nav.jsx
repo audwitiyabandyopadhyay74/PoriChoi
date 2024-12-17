@@ -45,7 +45,7 @@ if(user){
       <Image src={logo} alt="Logo" className="w-12 h-12" />
       <span>PoriChoi</span>
       {/* User profile picture and search icon */}
-      <div className="w-full flex items-center justify-center gap-[40%]">
+      <div className="w-full flex items-center justify-evenly gap-[40%]">
         <div className="userpic">
           <div className="w-max h-full flex justify-center items-center">
                 <div className="h-max w-max bg-[#afafaf] flex gap-1 rounded-full  items-center px-4">
