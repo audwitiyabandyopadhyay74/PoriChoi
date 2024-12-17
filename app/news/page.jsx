@@ -31,8 +31,8 @@ const NewsPage = () => {
   return (
     <div className='flex flex-col gap-4'>
       <ToastContainer/>
-      <NavBar className="fixed top-0 w-full" />
       <MoblieNav className="fixed top-0 w-full" />
+      <NavBar className="fixed top-0 w-full" />
 
       <div className="flex flex-wrap items-center justify-center pt-24 sm:pt-32 gap-4 px-4 sm:px-8 lg:px-16">
         {newsData.map((news) => (

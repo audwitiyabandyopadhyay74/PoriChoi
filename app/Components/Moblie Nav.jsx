@@ -21,7 +21,7 @@ setUserpic(user.photoURL);
 const MoblieNav = () => {
   if(user){
   return (
-    <nav className='lg:hidden visible fixed w-screen h-16 flex flex-col items-center justify-center'>
+    <nav className='lg:hidden visible fixed w-screen h-16 flex flex-col items-center justify-center top-[-4rem] right-[1px] bg-white rounded-md hidden'>
       
       <Image src={logo} alt="Logo" className="w-12 h-12" />
 PoriChoi

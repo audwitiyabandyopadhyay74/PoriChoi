@@ -8,6 +8,7 @@ import NavBar from "../../Components/NavBar";
 import Image from 'next/image';
 import Post from '@/app/Components/Post';
 import { onAuthStateChanged } from 'firebase/auth';
+import MoblieNav from '../../Components/Moblie Nav';
 
 const Page = () => {
   const [user, setUser] = useState(null);
@@ -138,6 +139,7 @@ const [followerscount , setFollowersCount ] = useState(0)
 
   return (
     <>
+    <MoblieNav/>
       <NavBar />
       <div className="w-screen flex flex-col items-center justify-center">
         <div className="bg-white w-full lg:w-1/2 p-1">
