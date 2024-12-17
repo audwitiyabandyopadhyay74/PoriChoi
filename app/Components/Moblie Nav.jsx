@@ -51,7 +51,7 @@ if(user){
                 <div className="h-max w-max bg-[#afafaf] flex gap-1 rounded-full  items-center px-4">
                   
                 <Image
-                      src={user.photoURL || Avatar}
+                      src={userpic || Avatar}
                       alt="User Avatar"
                       className="rounded-full w-10 h-10"
                       onClick={toggleMenuVisibility}
