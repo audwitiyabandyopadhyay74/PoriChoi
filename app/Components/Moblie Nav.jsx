@@ -1,23 +1,23 @@
-"use client";
 import React, { useState, useEffect } from 'react';
-import logo from '../favicon.ico'
+import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
-import { onAuthStateChanged } from "firebase/auth"
-import Avatar from '../download.png'
-import { FaSearch } from "react-icons/fa";
-import Link from "next/link";
+import Link from 'next/link';
+import { FaSearch } from 'react-icons/fa';
+
+import logo from '../favicon.ico';
+import Avatar from '../download.png';
 
 const MobileNav = () => {
   const [user, setUser] = useState(null);
-  const [userpic, setUserpic] = useState("");
+  const [userpic, setUserpic] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setUserpic(user?.photoURL || "");
+      setUserpic(user?.photoURL || '');
     });
 
-    // Cleanup subscription on unmount
+    // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
 
@@ -25,14 +25,14 @@ const MobileNav = () => {
     <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center ${user ? 'top-[-4rem] right-[1px] bg-white rounded-md' : ''}`}>
       <Image src={logo} alt="Logo" className="w-12 h-12" />
       <span>PoriChoi</span>
-      
+
       <div className="w-full flex items-center justify-center gap-[40%]">
         <div className="userpic">
-          <Image 
-            src={userpic || Avatar} 
-            width={250} 
-            height={250} 
-            className='rounded-full'
+          <Image
+            src={userpic || Avatar}
+            width={250}
+            height={250}
+            className="rounded-full"
             alt="User profile"
           />
         </div>
