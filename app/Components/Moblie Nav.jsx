@@ -58,13 +58,13 @@ if(user){
                     />
              <i class="fa-solid fa-caret-up rotate-180" onClick={toggleMenuVisibility} id="icon1" style={{fontSize:"20px"}}></i>
                 </div>              </div>
+              </div>
 
                 <div className="search">
           <Link href="/search">
             <FaSearch size={25} />
           </Link>
         </div>
-              </div>
               </div>
 
   
