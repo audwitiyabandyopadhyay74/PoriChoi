@@ -42,7 +42,7 @@ if(user){
   return (
     <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center`}>
       {/* Logo and branding */}
-      <div className="logo-and-branding absolute top-[100px]">
+      <div className="logo-and-branding absolute top-[50px]">
       <Image src={logo} alt="Logo" className="w-12 h-12 " />
       <span>PoriChoi</span></div>
       {/* User profile picture and search icon */}
