@@ -12,9 +12,9 @@ const MobileNav = () => {
   const [userpic, setUserpic] = useState("");
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setUserpic(currentUser?.photoURL || "");
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setUserpic(user?.photoURL || "");
     });
 
     // Cleanup subscription on unmount
