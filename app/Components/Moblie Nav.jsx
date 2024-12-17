@@ -1,5 +1,7 @@
 // MobileNav.js
 
+"use client"; // Mark this file to run on the client side
+
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
@@ -10,11 +12,9 @@ import logo from '../favicon.ico';
 import Avatar from '../download.png';
 
 const MobileNav = () => {
-  // State for user and userpic
   const [user, setUser] = useState(null);
   const [userpic, setUserpic] = useState('');
 
-  // Fetch user data on component mount
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
