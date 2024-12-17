@@ -42,8 +42,9 @@ if(user){
   return (
     <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center`}>
       {/* Logo and branding */}
-      <Image src={logo} alt="Logo" className="w-12 h-12" />
-      <span>PoriChoi</span>
+      <div className="logo-and-branding absolute top-[200px]">
+      <Image src={logo} alt="Logo" className="w-12 h-12 " />
+      <span>PoriChoi</span></div>
       {/* User profile picture and search icon */}
       <div className="w-screen flex items-center justify-between p-4 gap-[40%]">
         <div className="userpic">
