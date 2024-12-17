@@ -100,7 +100,7 @@ const toggleMenuVisibility = () =>{
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
               <div className="flex flex-col gap-1">
-              <i className="fa-solid fa-plus " style={{ fontSize: "20px" }} /> <br />
+              <i className="fa-solid fa-plus " style={{ fontSize: "20px" }} /> 
 Upload
               </div>
               </button>
@@ -175,7 +175,7 @@ Upload
             <button
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
-            >
+            > <br />
               <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
               Upload
             </button>
@@ -197,7 +197,7 @@ Upload
           </div>
         </div>
       )}
-                  <div className=" h-max w-max fixed top-[4rem] lg:right-[1px] left-[10px] bg-white rounded-md hidden " id="hideshow">
+                  <div className=" h-max w-max fixed top-[4rem] lg:right-[1px]lg:left-0 left-[10px] bg-white rounded-md hidden " id="hideshow">
                     <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-[10px]">
                       <Link href={"/my-account"}><li  className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
                       <Link href={"/my-account/settings"}><li className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
