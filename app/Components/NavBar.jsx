@@ -100,7 +100,7 @@ const toggleMenuVisibility = () =>{
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             >
               <div className="flex flex-col gap-1">
-              <i className="fa-solid fa-plus " style={{ fontSize: "20px" }} />
+              <i className="fa-solid fa-plus " style={{ fontSize: "20px" }} /> <br />
 Upload
               </div>
               </button>

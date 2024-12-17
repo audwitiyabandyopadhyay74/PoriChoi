@@ -22,6 +22,22 @@ const MobileNav = () => {
     // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
+  const toggleMenuVisibility = () =>{
+    const item = document.getElementById("hideshow");
+    const icon = document.getElementById("icon1");
+  
+    if (item.classList.contains("hidden")){
+      item.classList.add("visible");
+      //Har Har Mahadev
+      item.classList.remove("hidden");
+      icon.style.rotate = "180deg";
+    }else{
+      item.classList.add("hidden");
+      item.classList.remove("visible");
+      icon.style.rotate = "360deg";
+  
+    }
+  }
 if(user){
   return (
     <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center`}>
@@ -31,20 +47,27 @@ if(user){
       {/* User profile picture and search icon */}
       <div className="w-full flex items-center justify-center gap-[40%]">
         <div className="userpic">
-          <Image
-            src={userpic || Avatar}
-            width={250}
-            height={250}
-            className="rounded-full"
-            alt="User profile"
-          />
-        </div>
+          <div className="w-max h-full flex justify-center items-center">
+                <div className="h-max w-max bg-[#afafaf] flex gap-1 rounded-full  items-center px-4">
+                  
+                <Image
+                      src={user.photoURL || Avatar}
+                      alt="User Avatar"
+                      className="rounded-full w-10 h-10"
+                      onClick={toggleMenuVisibility}
+                    />
+             <i class="fa-solid fa-caret-up rotate-180" onClick={toggleMenuVisibility} id="icon1" style={{fontSize:"20px"}}></i>
+                </div>
+              </div>
+              </div>
+              </div>
+
         <div className="search">
           <Link href="/search">
             <FaSearch size={25} />
           </Link>
         </div>
-      </div>
+      
     </nav>
   );}else{
     <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center`}>
