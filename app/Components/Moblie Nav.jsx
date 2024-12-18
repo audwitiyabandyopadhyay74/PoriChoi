@@ -40,11 +40,13 @@ const MobileNav = () => {
   }
 if(user){
   return (
-    <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center`}>
+    <nav className={`lg:hidden fixed w-screen h-16 flex flex-col items-center justify-center `}>
+      {/* <span className='text-3xl font-bold'>PoriChoi</span> */}
+
       {/* Logo and branding */}
       <div className="logo-and-branding absolute top-[20px]">
-      <Image src={logo} alt="Logo" className="w-12 h-12 " />
-      <span>PoriChoi</span></div>
+      <Image src={logo} alt="Logo" className="w-12 h-12 bg-white rounded-full " />
+      </div>
       {/* User profile picture and search icon */}
       <div className="w-screen flex items-center justify-between p-4 gap-[40%]">
         <div className="userpic">
@@ -54,7 +56,7 @@ if(user){
                 <Image
                       src={userpic || Avatar}
                       alt="User Avatar"
-                      className="rounded-full w-10 h-10"
+                      className="rounded-full w-10 h-10  "
                       onClick={toggleMenuVisibility}
                     />
              <i class="fa-solid fa-caret-up rotate-180" onClick={toggleMenuVisibility} id="icon1" style={{fontSize:"20px"}}></i>
