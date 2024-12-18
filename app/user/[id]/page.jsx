@@ -63,6 +63,7 @@ const [followerscount , setFollowersCount ] = useState(0)
           
         if (matchedUser) {
           setUser(matchedUser);
+          console.log(matchedUser)
 
           const userFollowers = data.filter(follower => follower.followingId === matchedUser.id);
           console.log(userFollowers)
