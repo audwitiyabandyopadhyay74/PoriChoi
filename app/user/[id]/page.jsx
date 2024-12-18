@@ -143,6 +143,7 @@ const [followerscount , setFollowersCount ] = useState(0)
       <NavBar />
       <div className="w-screen flex flex-col items-center justify-center">
         <div className="bg-white w-full lg:w-1/2 p-1">
+        <div className="flex w-screen h-max p-4">
           <div className="flex flex-col w-full h-full">
             <div className="flex items-center mt-10">
               <Image 
@@ -165,7 +166,7 @@ const [followerscount , setFollowersCount ] = useState(0)
             ) : (
               <div>0</div>
             )}
-          </div>
+          </div></div>
           <button
             onClick={() => handleFollow(user.id)}
             disabled={Array.isArray(user.followers) && user.followers.includes(currentUser)}
