@@ -65,6 +65,7 @@ const [followerscount , setFollowersCount ] = useState(0)
           setUser(matchedUser);
 
           const userFollowers = data.filter(follower => follower.followingId === matchedUser.id);
+          console.log(userFollowers)
           setFollowersCount(userFollowers.length || userData);
 
           const userPosts = await fetchUserPosts(matchedUser.userName);
