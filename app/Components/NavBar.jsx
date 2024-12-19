@@ -94,6 +94,15 @@ const toggleMenuVisibility = () =>{
             {user ? (
               <div className="w-max h-full rounded-full flex items-center justify-center p-4 mt-4">
                               <div className="flex h-full w-max items-center gap-[10px]">
+                              {
+  user && (
+    <button 
+    className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
+    onClick={()=>{document.location.href = "/search"}}    >
+<i className="fa-solid fa-search" style={{ fontSize: "24px" }}></i>
+    </button>
+  )
+}
 
                <button
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
@@ -170,15 +179,7 @@ Upload
               </Link>
             </>
           )}
-{
-  user && (
-    <button 
-    className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-    onClick={()=>{document.location.href = "/search"}}    >
-<i className="fa-solid fa-search" style={{ fontSize: "24px" }}></i>
-    </button>
-  )
-}
+
           {user && (
             <button
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
