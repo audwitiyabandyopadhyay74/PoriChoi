@@ -51,9 +51,7 @@ const Page = () => {
 
     try {
       const userDoc = await getDoc(userDocRef);
-      const currentUserDoc = await getDoc(currentUserDocRef);
       const userFollowers = userDoc.data()?.followers || [];
-      const currentUserFollowings = currentUserDoc.data()?.followings || [];
 
       if (!userFollowers.includes(currentUser)) {
         await updateDoc(userDocRef, {
