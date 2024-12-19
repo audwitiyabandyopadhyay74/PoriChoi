@@ -8,7 +8,7 @@ import NavBar from "../../Components/NavBar";
 import Image from 'next/image';
 import Post from '@/app/Components/Post';
 import { onAuthStateChanged } from 'firebase/auth';
-import MobileNav from '../../Components/MobileNav';
+import MobileNav from '../../Components/Moblie Nav';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Page = () => {
