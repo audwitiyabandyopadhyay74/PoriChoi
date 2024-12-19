@@ -54,6 +54,7 @@ const Page = () => {
       }));
     } catch (error) {
       toast.error('An error occurred:');
+      console.error('Error fetching data:', error);
       return [];
     }
   };
