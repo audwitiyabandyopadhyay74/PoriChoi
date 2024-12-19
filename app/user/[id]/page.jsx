@@ -8,18 +8,24 @@ import NavBar from "../../Components/NavBar";
 import Image from 'next/image';
 import Post from '@/app/Components/Post';
 import { onAuthStateChanged } from 'firebase/auth';
-import MoblieNav from '../../Components/Moblie Nav';
+import MobileNav from '../../Components/MobileNav';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Page = () => {
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [followers, setFollowers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [userData, setUserData] = useState([]);
   const pathname = usePathname();
-const [followerscount , setFollowersCount ] = useState(0)
+  const [followersCount, setFollowersCount] = useState(0);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user ? user.uid : null);
+    });
+  }, []);
 
   const fetchUserData = async () => {
     const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
@@ -47,7 +53,7 @@ const [followerscount , setFollowersCount ] = useState(0)
         ...doc.data(),
       }));
     } catch (error) {
-      console.error('Error fetching data from Firebase:', error);
+      toast.error('An error occurred:');
       return [];
     }
   };
@@ -58,15 +64,12 @@ const [followerscount , setFollowersCount ] = useState(0)
         setLoading(true);
         const data = await fetchUserData();
 
-        const userId = pathname.replace("/user/", ""); 
+        const userId = pathname.replace("/user/", "");
         const matchedUser = data.find(user => user.id === userId);
-          
+
         if (matchedUser) {
           setUser(matchedUser);
-          console.log(matchedUser)
-
           const userFollowers = data.filter(follower => follower.followingId === matchedUser.id);
-          console.log(userFollowers)
           setFollowersCount(userFollowers.length || userData);
 
           const userPosts = await fetchUserPosts(matchedUser.userName);
@@ -86,16 +89,6 @@ const [followerscount , setFollowersCount ] = useState(0)
   }, [pathname]);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user.uid);
-      } else {
-        setCurrentUser(null);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
     const fetchUserData = async () => {
       const data = await fetchDataFromFirebase();
       setUserData(data);
@@ -105,7 +98,7 @@ const [followerscount , setFollowersCount ] = useState(0)
 
   const handleFollow = async (userId) => {
     if (!currentUser) {
-      console.log("No user is currently logged in.");
+      toast.error("Please Be Logged in To Access More Features!");
       return;
     }
 
@@ -127,9 +120,6 @@ const [followerscount , setFollowersCount ] = useState(0)
               : user
           )
         );
-        console.log("User followed successfully:", userId);
-      } else {
-        console.log("User is already followed.");
       }
     } catch (error) {
       console.error("Error following user:", error);
@@ -141,34 +131,42 @@ const [followerscount , setFollowersCount ] = useState(0)
 
   return (
     <>
-    <MoblieNav/>
+      <MobileNav />
       <NavBar />
+
       <div className="w-screen flex flex-col items-center justify-center">
+        <ToastContainer 
+          toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
+          bodyClassName="text-sm font-medium text-white block p-3"
+          position="bottom-left"
+          autoClose={3000}
+        />
         <div className="bg-white w-full lg:w-1/2 p-1">
-        <div className="flex w-full h-[20vh] items-center justify-between p-4">
-          <div className="flex flex-col w-full h-full">
-            <div className="flex items-center mt-10">
-              <Image 
-                src={user?.pic || "https://via.placeholder.com/150"} 
-                alt="User" 
-                width={100}
-                height={100}
-                className="rounded-full w-24 h-24"  
-              />
-              <span className="ml-4 text-xl font-semibold">
-                {user ? user.userName : 'User Not Found'}
-              </span>
+          <div className="flex w-full h-[20vh] items-center justify-between p-4">
+            <div className="flex flex-col w-full h-full">
+              <div className="flex items-center mt-10">
+                <Image 
+                  src={user?.pic || "https://via.placeholder.com/150"} 
+                  alt="User" 
+                  width={100}
+                  height={100}
+                  className="rounded-full w-24 h-24"  
+                />
+                <span className="ml-4 text-xl font-semibold">
+                  {user ? user.userName : 'User Not Found'}
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <h2 className="text-lg font-bold mb-4">Followers</h2>
+              {followersCount > 0 ? (
+                followersCount
+              ) : (
+                <div>0</div>
+              )}
             </div>
           </div>
-
-          <div className="mt-8">
-            <h2 className="text-lg font-bold mb-4">Followers</h2>
-            {followerscount > 0 ? (
-              followerscount
-            ) : (
-              <div>0</div>
-            )}
-          </div></div>
           <button
             onClick={() => handleFollow(user.id)}
             disabled={Array.isArray(user.followers) && user.followers.includes(currentUser)}
@@ -184,7 +182,7 @@ const [followerscount , setFollowersCount ] = useState(0)
                 <Post key={post.id} {...post} />
               ))
             ) : (
-              <div>No posts found !</div>
+              <div>No posts were uploaded by the user!</div>
             )}
           </div>
         </div>
