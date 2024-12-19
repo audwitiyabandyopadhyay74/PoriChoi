@@ -83,7 +83,7 @@ const toggleMenuVisibility = () =>{
                 {page === "home" && <FaHome size={28} />}
                 {page === "my-account" && <FaUser size={28} />}
                 {page === "news" && <FaNewspaper size={24} />}
-                <span className="text-xs capitalize">{page}</span>
+                <span className="text-xs capitalize">{page.replace("-"," ")}</span>
               </Link>
             ))}
           </div>
@@ -154,7 +154,7 @@ Upload
               {page === "home" && <FaHome size={24} />}
               {page === "my-account" && <FaUser size={24} />}
               {page === "news" && <FaNewspaper size={24} />}
-              <span className="text-xs capitalize">{page}</span>
+              <span className="text-xs capitalize">{page.replace("-"," ")}</span>
             </Link>
           ))}
 
@@ -170,13 +170,20 @@ Upload
               </Link>
             </>
           )}
-
+{
+  user && (
+    <button 
+    className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
+    onClick={()=>{document.location.href = "/search"}}    >
+<i className="fa-solid fa-search" style={{ fontSize: "24px" }}></i>
+    </button>
+  )
+}
           {user && (
             <button
               className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
               onClick={() => toggleVisibility(setIsPostFormVisible)}
             > <br />
-              <i className="fa-solid fa-cloud-upload" style={{ fontSize: "20px" }} />
               Upload
             </button>
           )}
