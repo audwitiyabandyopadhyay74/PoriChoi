@@ -51,9 +51,12 @@ const Page = () => {
 
     try {
       const userDoc = await getDoc(userDocRef);
+      const currentUserDoc = await getDoc(currentUserDocRef);
       const userFollowers = userDoc.data()?.followers || [];
+      const currentUserFollowings = currentUserDoc.data()?.followings || [];
 
       if (!userFollowers.includes(currentUser)) {
+        // Follow user
         await updateDoc(userDocRef, {
           followers: arrayUnion(currentUser),
         });
@@ -64,13 +67,14 @@ const Page = () => {
         setUserData((prevData) =>
           prevData.map((user) =>
             user.id === userId
-              ? { ...user, followers: [...(user.followers || []), currentUser] }
+              ? { ...user, followers: [...userFollowers, currentUser] }
               : user.id === currentUser
-              ? { ...user, followings: [...(user.followings || []), userId] }
+              ? { ...user, followings: [...currentUserFollowings, userId] }
               : user
           )
         );
       } else {
+        // Unfollow user
         await updateDoc(userDocRef, {
           followers: arrayRemove(currentUser),
         });
@@ -81,9 +85,9 @@ const Page = () => {
         setUserData((prevData) =>
           prevData.map((user) =>
             user.id === userId
-              ? { ...user, followers: user.followers.filter((follower) => follower !== currentUser) }
+              ? { ...user, followers: userFollowers.filter((follower) => follower !== currentUser) }
               : user.id === currentUser
-              ? { ...user, followings: user.followings.filter((following) => following !== userId) }
+              ? { ...user, followings: currentUserFollowings.filter((following) => following !== userId) }
               : user
           )
         );
