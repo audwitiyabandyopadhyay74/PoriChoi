@@ -205,7 +205,7 @@ Upload
           </div>
         </div>
       )}
-( <div className="h-max w-max fixed top-[4rem] sm:left-[10px] lg:right-[10px] lg:left-auto rounded-md bg-white" id="hideshow"> <ul style={{ listStyleType: "none" }} className="flex flex-col gap-[10px]"> <Link href="/my-account"> <li className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"> <i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account </li> </Link> <Link href="/my-account/settings"> <li className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"> <i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings </li> </Link> </ul> </div>       {/* Post Form */}
+<div className="h-max w-max fixed top-[4rem] sm:left-[10px] lg:right-[10px] lg:left-auto rounded-md bg-white" id="hideshow"> <ul style={{ listStyleType: "none" }} className="flex flex-col gap-[10px]"> <Link href="/my-account"> <li className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"> <i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account </li> </Link> <Link href="/my-account/settings"> <li className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"> <i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings </li> </Link> </ul> </div>       {/* Post Form */}
       {isPostFormVisible && (
         <Form className="fixed top-16 left-0 right-0 mx-auto z-40" />
       )}
