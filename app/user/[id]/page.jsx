@@ -160,7 +160,7 @@ const Page = () => {
               <h2 className="text-lg font-bold mb-4">Followers</h2>
               <div>{followersCount}</div>
             </div>
-          </div>
+          </div> <br />
           <button
             onClick={() => handleFollow(user.id)}
             className={`p-2 text-white rounded  h-[4vh] w-[50%] absolute left-[50%] right-[50%]${
