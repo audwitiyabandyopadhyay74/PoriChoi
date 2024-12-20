@@ -8,7 +8,7 @@ import NavBar from "../../Components/NavBar";
 import Image from "next/image";
 import Post from "@/app/Components/Post";
 import { onAuthStateChanged } from "firebase/auth";
-import MobileNav from "../../Components/Moblie Nav";
+import MobileNav from "../../Components/MobileNav";
 import { toast, ToastContainer } from "react-toastify";
 
 const Page = () => {
@@ -87,10 +87,8 @@ const Page = () => {
       const userDocRef = doc(firestore, "userFollowingdata", userId);
       const currentUserDocRef = doc(firestore, "userFollowingdata", currentUser);
       const userDoc = await getDoc(userDocRef);
-      const currentUserDoc = await getDoc(currentUserDocRef);
 
       const userFollowers = userDoc.data()?.followers || [];
-      const currentUserFollowings = currentUserDoc.data()?.followings || [];
 
       if (!userFollowers.includes(currentUser)) {
         // Follow user
@@ -162,10 +160,10 @@ const Page = () => {
               <h2 className="text-lg font-bold mb-4">Followers</h2>
               <div>{followersCount}</div>
             </div>
-          </div> <br />
+          </div>
           <button
             onClick={() => handleFollow(user.id)}
-            className={`p-2 text-white rounded w-[50%] h-[4vh] left-[50%] right-[50%] ${
+            className={`p-2 text-white rounded ${
               Array.isArray(user.followers) && user.followers.includes(currentUser) ? "bg-gray-400" : "bg-blue-500 pulse"
             }`}
           >
