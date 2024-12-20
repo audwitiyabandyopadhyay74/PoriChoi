@@ -163,8 +163,8 @@ const Page = () => {
           </div> <br />
           <div className="flex items-center justify-center w-full h-[4vh]">
           <button
-            onClick={() => handleFollow(user.id)}
-            className={`p-2 text-white rounded  h-[4vh] w-[50%] ${
+            onClick={() => handleFollow(user.id)} 
+            className={`p-4 text-white rounded  h-[4vh] w-[50%] ${
               Array.isArray(user.followers) && user.followers.includes(currentUser) ? "bg-gray-400" : "bg-blue-500 pulse"
             }`}
           >
