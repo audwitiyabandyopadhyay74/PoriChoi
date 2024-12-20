@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { firestore, auth } from "../../firebase";
-import { collection, getDocs, query, where, getDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { collection, getDocs, query, where, getDoc, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { usePathname } from "next/navigation";
 import NavBar from "../../Components/NavBar";
 import Image from "next/image";
 import Post from "@/app/Components/Post";
 import { onAuthStateChanged } from "firebase/auth";
-import MobileNav from "../../Components/Moblie Nav";
+import MobileNav from "../../Components/MobileNav";
 import { toast, ToastContainer } from "react-toastify";
 
 const Page = () => {
@@ -85,18 +85,44 @@ const Page = () => {
 
     try {
       const userDocRef = doc(firestore, "userFollowingdata", userId);
+      const currentUserDocRef = doc(firestore, "userFollowingdata", currentUser);
       const userDoc = await getDoc(userDocRef);
+      const currentUserDoc = await getDoc(currentUserDocRef);
+
       const userFollowers = userDoc.data()?.followers || [];
+      const currentUserFollowings = currentUserDoc.data()?.followings || [];
 
       if (!userFollowers.includes(currentUser)) {
+        // Follow user
         await updateDoc(userDocRef, {
           followers: arrayUnion(currentUser),
         });
+        await updateDoc(currentUserDocRef, {
+          followings: arrayUnion(userId),
+        });
 
         setFollowersCount((prevCount) => prevCount + 1);
+        setUser((prevUser) => ({
+          ...prevUser,
+          followers: [...prevUser.followers, currentUser],
+        }));
+      } else {
+        // Unfollow user
+        await updateDoc(userDocRef, {
+          followers: arrayRemove(currentUser),
+        });
+        await updateDoc(currentUserDocRef, {
+          followings: arrayRemove(userId),
+        });
+
+        setFollowersCount((prevCount) => prevCount - 1);
+        setUser((prevUser) => ({
+          ...prevUser,
+          followers: prevUser.followers.filter((follower) => follower !== currentUser),
+        }));
       }
     } catch (error) {
-      console.error("Error following user:", error);
+      console.error("Error following/unfollowing user:", error);
     }
   };
 
@@ -136,15 +162,14 @@ const Page = () => {
               <h2 className="text-lg font-bold mb-4">Followers</h2>
               <div>{followersCount}</div>
             </div>
-          </div>
+          </div> <br />
           <button
             onClick={() => handleFollow(user.id)}
-            disabled={Array.isArray(user.followers) && user.followers.includes(currentUser)}
-            className={`p-2 text-white rounded ${
+            className={`p-2 text-white rounded w-[50%] h-[] left-[50%] right-[50%] ${
               Array.isArray(user.followers) && user.followers.includes(currentUser) ? "bg-gray-400" : "bg-blue-500 pulse"
             }`}
           >
-            {Array.isArray(user.followers) && user.followers.includes(currentUser) ? "Following" : "Follow"}
+            {Array.isArray(user.followers) && user.followers.includes(currentUser) ? "Unfollow" : "Follow"}
           </button>
 
           <div className="mt-8">
