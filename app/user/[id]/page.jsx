@@ -165,7 +165,7 @@ const Page = () => {
           </div> <br />
           <button
             onClick={() => handleFollow(user.id)}
-            className={`p-2 text-white rounded w-[50%] h-[] left-[50%] right-[50%] ${
+            className={`p-2 text-white rounded w-[50%] h-[4vh] left-[50%] right-[50%] ${
               Array.isArray(user.followers) && user.followers.includes(currentUser) ? "bg-gray-400" : "bg-blue-500 pulse"
             }`}
           >
