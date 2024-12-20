@@ -205,7 +205,7 @@ Upload
           </div>
         </div>
       )}
-                  <div className=" h-max w-max fixed top-[4rem] lg:right-[1px] lg:left-[0px] left-[10px] bg-white rounded-md hidden " id="hideshow">
+                  <div className="h-max w-max fixed top-[4rem] sm:left-[10px] lg:right-[10px] lg:left-[0px]" id="hideshow">
                     <ul style={{ listStyleType: "none" }}  className="flex flex-col gap-[10px]">
                       <Link href={"/my-account"}><li  className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"><i className="fa-solid fa-user" style={{ fontSize: "20px" }}></i> My Account</li></Link>
                       <Link href={"/my-account/settings"}><li className="flex gap-1 hover:bg-[#777777e0] py-5 p-4"><i className="fa-solid fa-gear" style={{ fontSize: "20px" }}></i>Settings</li></Link>
