@@ -81,6 +81,7 @@ console.log(user)
         like:0,
         Comments:{},
         Shares: 0,
+        
       }).then(()=> document.location.reload());
       alert('Posted successfully');
       
