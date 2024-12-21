@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../Components/NavBar';
-import SideBar from '../../Components/SideBar';
+// import SideBar from '../../Components/SideBar';
 import { auth, storage, firestore } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateDoc, doc } from 'firebase/firestore';
