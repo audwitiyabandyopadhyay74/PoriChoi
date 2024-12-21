@@ -122,48 +122,45 @@ const Page = () => {
   } else {
     return (
       <div>
-        <ToastContainer
-          toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
-          bodyClassName="text-sm font-medium text-white block p-3"
-          position="bottom-left"
-          autoClose={3000}
-        />
-        <NavBar />
-        <MoblieNav/>
-        <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
-          <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
-          <h1 className='text-2xl font-semibold'>{name}</h1>
-        </div>
-        <div className="flex w-screen h-full justify-between gap-[200px]">
-          <SideBar />
-          <div className="absolute left-[50%] right-[50%]">
-            <form className="h-[70vh] w-max flex items-center justify-center flex-col gap-4 ml-[-10px]" onSubmit={handleSubmit}>
-              <div className="text-3xl font-semibold">Update Your Profile</div>
-              <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
-              <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
-              <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
-              <div className="flex gap-2 items-center">
-                <select className={inputClassName} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
-                  <option value="">Select Country Code</option>
-                  {countryCodes.map((country) => (
-                    <option key={country.code} value={country.code}>
-                      {country.name} ({country.code})
-                    </option>
-                  ))}
-                </select>
-                <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
-              </div>
-              <label>Photo:</label>
-              <input type="file" onChange={handleImageUpload} className={inputClassName} />
-              <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
-            </form>
-              <div className="block mt-8">
-              <div className="text-3xl">Delete Account</div>
-              <button className='w-[10vh] h-[5vh] text-white rounded-md bg-red-600 hover:scale-110 cursor-pointer' onClick={handleDeleteAccount}>Delete</button>
-            </div>
-          </div>
-        </div>
+      <ToastContainer
+        toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
+        bodyClassName="text-sm font-medium text-white block p-3"
+        position="bottom-left"
+        autoClose={3000}
+      />
+      <NavBar />
+      <MoblieNav/>
+      <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
+        <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
+        <h1 className='text-2xl font-semibold'>{name}</h1>
       </div>
+      <div className="flex w-screen h-screen items-center items-center justify-center ">
+           <form className="flex flex-col gap-4 h-max justify-center items-center" onSubmit={handleSubmit}>
+            <div className="text-3xl font-semibold">Update Your Profile</div>
+            <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
+            <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
+            <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
+            <div className="flex gap-2 items-center">
+              <select className={inputClassName.replace("w-[30vw]","w-[5vw]") + "absolute left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+                <option value="">Select Country Code</option>
+                {countryCodes.map((country) => (
+                  <option key={country.code} value={country.code}>
+                    {country.name} ({country.code})
+                  </option>
+                ))}
+              </select>
+              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+            </div>
+            <label>Photo:</label>
+            <input type="file" onChange={handleImageUpload} className={inputClassName} />
+            <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
+         <div className="block mt-8">
+            <div className="text-3xl">Delete Account</div>
+            <button className='w-[10vh] h-[5vh] text-white rounded-md bg-red-600 hover:scale-110 cursor-pointer' onClick={handleDeleteAccount}>Delete</button>
+          </div>    
+          </form>
+        </div>
+    </div>      
     );
   }
 };
