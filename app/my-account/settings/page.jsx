@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../toastify.css';
 import MoblieNav from '@/app/Components/Moblie Nav';
+import { readFile } from 'fs';
 
 const countryCodes = [
   { name: "United States", code: "+1" },
@@ -56,9 +57,10 @@ const Page = () => {
     if (file) {
       setChangedImage(file);
       const render = new FileReader()
-      render.onload = () => {
+      render.onloaded = () => {
         setUpdatedPhoto(render.result)
       }
+      render.readAsDataURL(render.result)
     }
   };
 
