@@ -8,7 +8,7 @@ import NavBar from "../../Components/NavBar";
 import Image from "next/image";
 import Post from "@/app/Components/Post";
 import { onAuthStateChanged } from "firebase/auth";
-import MobileNav from "../../Components/Mobile Nav";
+import MobileNav from "../../Components/MobileNav";
 import { toast, ToastContainer } from "react-toastify";
 
 const Page = () => {
@@ -18,6 +18,7 @@ const Page = () => {
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
   const [followersCount, setFollowersCount] = useState(0);
+  const [followingsCount, setFollowingsCount] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -59,6 +60,7 @@ const Page = () => {
       if (userData) {
         setUser(userData);
         setFollowersCount(userData.followers?.length || 0);
+        setFollowingsCount(userData.followings?.length || 0);
 
         const userPosts = await fetchUserPosts(userData.userName);
         setPosts(userPosts);
@@ -89,6 +91,7 @@ const Page = () => {
       const userDoc = await getDoc(userDocRef);
 
       const userFollowers = userDoc.data()?.followers || [];
+      const currentFollowings = (await getDoc(currentUserDocRef)).data()?.followings || [];
 
       if (!userFollowers.includes(currentUser)) {
         // Follow user
@@ -100,6 +103,7 @@ const Page = () => {
         });
 
         setFollowersCount((prevCount) => prevCount + 1);
+        setFollowingsCount((prevCount) => prevCount + 1);
         setUser((prevUser) => ({
           ...prevUser,
           followers: [...prevUser.followers, currentUser],
@@ -114,16 +118,13 @@ const Page = () => {
         });
 
         setFollowersCount((prevCount) => prevCount - 1);
+        setFollowingsCount((prevCount) => prevCount - 1);
         setUser((prevUser) => ({
           ...prevUser,
           followers: prevUser.followers.filter((follower) => follower !== currentUser),
         }));
       }
-
-      // Re-render follower count
-      const updatedUserDoc = await getDoc(userDocRef);
-      setFollowersCount(updatedUserDoc.data()?.followers.length || 0);
-      loadUserData(); // Re-render following count
+      loadUserData(); // Re-render follower and following count
     } catch (error) {
       console.error("Error following/unfollowing user:", error);
     }
@@ -164,6 +165,10 @@ const Page = () => {
             <div className="mt-8">
               <h2 className="text-lg font-bold mb-4">Followers</h2>
               <div>{followersCount}</div>
+            </div>
+            <div className="mt-8">
+              <h2 className="text-lg font-bold mb-4">Followings</h2>
+              <div>{followingsCount}</div>
             </div>
           </div> <br />
           <div className="flex items-center justify-center w-full h-[4vh]">
