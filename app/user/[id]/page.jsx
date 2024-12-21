@@ -8,7 +8,7 @@ import NavBar from "../../Components/NavBar";
 import Image from "next/image";
 import Post from "@/app/Components/Post";
 import { onAuthStateChanged } from "firebase/auth";
-import MobileNav from "../../Components/Moblie Nav";
+import MobileNav from "../../Components/MobileNav";
 import { toast, ToastContainer } from "react-toastify";
 
 const Page = () => {
@@ -50,30 +50,30 @@ const Page = () => {
     }));
   };
 
-  useEffect(() => {
-    const loadUserData = async () => {
-      try {
-        setLoading(true);
-        const userId = pathname.replace("/user/", "");
-        const userData = await fetchUserData(userId);
+  const loadUserData = async () => {
+    try {
+      setLoading(true);
+      const userId = pathname.replace("/user/", "");
+      const userData = await fetchUserData(userId);
 
-        if (userData) {
-          setUser(userData);
-          setFollowersCount(userData.followers?.length || 0);
+      if (userData) {
+        setUser(userData);
+        setFollowersCount(userData.followers?.length || 0);
 
-          const userPosts = await fetchUserPosts(userData.userName);
-          setPosts(userPosts);
-        } else {
-          setUser(null);
-        }
-      } catch (error) {
-        setError("Error fetching user data");
-        console.error("Error:", error);
-      } finally {
-        setLoading(false);
+        const userPosts = await fetchUserPosts(userData.userName);
+        setPosts(userPosts);
+      } else {
+        setUser(null);
       }
-    };
+    } catch (error) {
+      setError("Error fetching user data");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadUserData();
   }, [pathname]);
 
@@ -87,8 +87,10 @@ const Page = () => {
       const userDocRef = doc(firestore, "userFollowingdata", userId);
       const currentUserDocRef = doc(firestore, "userFollowingdata", currentUser);
       const userDoc = await getDoc(userDocRef);
+      const currentUserDoc = await getDoc(currentUserDocRef);
 
       const userFollowers = userDoc.data()?.followers || [];
+      const currentUserFollowings = currentUserDoc.data()?.followings || [];
 
       if (!userFollowers.includes(currentUser)) {
         // Follow user
@@ -119,6 +121,11 @@ const Page = () => {
           followers: prevUser.followers.filter((follower) => follower !== currentUser),
         }));
       }
+
+      // Re-render follower count and following count
+      const updatedUserDoc = await getDoc(userDocRef);
+      setFollowersCount(updatedUserDoc.data()?.followers.length || 0);
+      loadUserData(); // Re-render following count
     } catch (error) {
       console.error("Error following/unfollowing user:", error);
     }
@@ -127,7 +134,7 @@ const Page = () => {
   if (loading) return <div className="w-screen h-screen flex items-center justify-center font-bold">Loading...</div>;
   if (error) return <div>{error}</div>;
 
-  return (
+  return (  
     <>
       <MobileNav />
       <NavBar />
