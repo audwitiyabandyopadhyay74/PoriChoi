@@ -8,7 +8,7 @@ import NavBar from "../../Components/NavBar";
 import Image from "next/image";
 import Post from "@/app/Components/Post";
 import { onAuthStateChanged } from "firebase/auth";
-import MobileNav from "../../Components/Moblie Nav";
+import MobileNav from "../../Components/Mobile Nav";
 import { toast, ToastContainer } from "react-toastify";
 
 const Page = () => {
@@ -87,10 +87,8 @@ const Page = () => {
       const userDocRef = doc(firestore, "userFollowingdata", userId);
       const currentUserDocRef = doc(firestore, "userFollowingdata", currentUser);
       const userDoc = await getDoc(userDocRef);
-      const currentUserDoc = await getDoc(currentUserDocRef);
 
       const userFollowers = userDoc.data()?.followers || [];
-      const currentUserFollowings = currentUserDoc.data()?.followings || [];
 
       if (!userFollowers.includes(currentUser)) {
         // Follow user
@@ -122,7 +120,7 @@ const Page = () => {
         }));
       }
 
-      // Re-render follower count and following count
+      // Re-render follower count
       const updatedUserDoc = await getDoc(userDocRef);
       setFollowersCount(updatedUserDoc.data()?.followers.length || 0);
       loadUserData(); // Re-render following count
