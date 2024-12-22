@@ -342,7 +342,7 @@ const Page = () => {
     }
   };
 
-  const inputClassName = 'w-[30vw] h-[6vh] rounded-md p-1 border-none outline-none';
+  const inputClassName = 'w-[8rem] h-[6vh] rounded-md p-1 border-none outline-none';
 
   if (user === null) {
     return (
@@ -386,7 +386,7 @@ const Page = () => {
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
             <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
             <div className="flex gap-2 items-center">
-              <select className={inputClassName.replace("w-[30vw]","w-[5vw]") + "absolute left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+              <select className={inputClassName.replace("w-[30vw]","w-[8rem]") + "absolute left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
                 <option value="">Select Country Code</option>
                 {countryCodes.map((country) => (
                   <option key={country.code} value={country.code}>
