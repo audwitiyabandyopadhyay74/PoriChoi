@@ -76,6 +76,7 @@ const Page = () => {
         phoneNumber: fullPhoneNumber,
       };
 
+      console.log(countryCode)
       await updateProfile(user, updatedProfileData);
 
       await updateDoc(doc(firestore, 'userFollowingdata', user.uid), {
