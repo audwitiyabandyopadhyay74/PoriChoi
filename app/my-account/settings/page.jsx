@@ -371,10 +371,10 @@ const Page = () => {
       />
       <NavBar />
       <MoblieNav/>
-      <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
+      {/* <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4">
         <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
         <h1 className='text-2xl font-semibold'>{name}</h1>
-      </div>  
+      </div>   */}
       <div className="flex w-screen h-screen items-center items-center justify-center ">
            <form className="flex flex-col gap-4 h-max justify-center items-center" onSubmit={handleSubmit}>
             <div className="text-3xl font-semibold">Update Your Profile</div>
