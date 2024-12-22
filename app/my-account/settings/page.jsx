@@ -325,6 +325,12 @@ const Page = () => {
         pic: photoURL,
       });
 
+      
+      await updateDoc(doc(firestore, '', user.uid), {
+        userName: changedName || name,
+        pic: photoURL,
+      });
+
       toast.success("Profile updated successfully!", { theme: "colored" });
       document.location.reload();
     } catch (error) {
@@ -343,6 +349,11 @@ const Page = () => {
   };
 
   const inputClassName = 'w-[8rem] h-[6vh] rounded-md p-1 border-none outline-none';
+  // const padding = 'w-[8rem] h-[6vh] rounded-md p-1 border-none outline-none';
+
+  const padding = {
+    padding:'30px 20px'
+  }
 
   if (user === null) {
     return (
@@ -383,10 +394,10 @@ const Page = () => {
         <Image src={updatedphoto} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
         <input type="file" onChange={handleImageUpload} className={inputClassName} />
 
-            <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
-            <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
+            <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} style={padding} />
+            <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName}  style={padding}/>
             <div className="flex gap-2 items-center">
-              <select className={inputClassName.replace("w-[30vw]","w-[8rem]") + "absolute left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+              <select className={inputClassName.replace("w-[30vw]","w-[8rem]") + "absolute left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)} style={padding}>
                 <option value="">Select Country Code</option>
                 {countryCodes.map((country) => (
                   <option key={country.code} value={country.code}>
@@ -394,7 +405,7 @@ const Page = () => {
                   </option>
                 ))}
               </select>
-              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} style={padding} />
             </div>
             {/* <label>Photo:</label> */}
             <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' />
