@@ -377,7 +377,7 @@ const Page = () => {
       </div>   */}
       <div className="flex w-screen h-screen items-center items-center justify-center ">
         <span className='absolute top-[5rem]  left-[4rem]'>My Account/Settings</span>
-           <form className="flex flex-col gap-4 h-max justify-center items-center mt-[10px]" onSubmit={handleSubmit}>
+           <form className="flex flex-col gap-4 h-max justify-center items-center mt-[100px]" onSubmit={handleSubmit}>
             <div className="text-3xl font-semibold">Update Your Profile</div>
             <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
         <Image src={updatedphoto} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
