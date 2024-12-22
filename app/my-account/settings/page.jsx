@@ -9,7 +9,7 @@ import { updateDoc, doc } from 'firebase/firestore';
 import { updateProfile, onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../../download.png';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast  } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../toastify.css';
 import MoblieNav from '@/app/Components/Moblie Nav';
@@ -23,7 +23,6 @@ const Page = () => {
   const [name, setName] = useState("Name is not given");
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [countryCode, setCountryCode] = useState("");
   const [updatedphoto, setUpdatedPhoto] = useState(Avatar);
   const [changedImage, setChangedImage] = useState(null);
   const [changedName, setChangedName] = useState("");
@@ -49,11 +48,11 @@ const Page = () => {
     const file = e.target.files[0];
     if (file) {
       setChangedImage(file);
-      const render = new FileReader()
-      render.onloaded = () => {
-        setUpdatedPhoto(render.result)
+      const reader = new FileReader();
+      reader.onloadend = () =>{
+          setUpdatedPhoto(reader.result);
       }
-      render.readAsDataURL(render.result)
+      reader.readAsDataURL(file);
     }
   };
 
@@ -67,7 +66,7 @@ const Page = () => {
         photoURL = await getDownloadURL(imgRef);
       }
 
-      const fullPhoneNumber = `${countryCode}${changedPhoneNumber || phoneNumber}`;
+      const fullPhoneNumber = `${countryCodes}${changedPhoneNumber || phoneNumber}`;
 
       const updatedProfileData = {
         photoURL: photoURL,
@@ -150,7 +149,7 @@ const Page = () => {
            <form className="flex flex-col gap-4 h-max w-max justify-center items-center mt-[100px]" onSubmit={handleSubmit}>
             <div className="text-3xl font-semibold">Update Your Profile</div>
             <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
-        <Image src={updatedphoto} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
+        <Image src={updatedphoto || photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
         <input type="file" onChange={handleImageUpload} className={inputClassName} />
 
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} style={padding} />
