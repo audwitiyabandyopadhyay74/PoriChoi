@@ -1,4 +1,4 @@
-const countryCodes = [
+const countryCodeISO = [
     { "country": "Afghanistan", "code": "93", "iso": "AF" },
     { "country": "Albania", "code": "355", "iso": "AL" },
     { "country": "Algeria", "code": "213", "iso": "DZ" },
@@ -242,6 +242,6 @@ const countryCodes = [
     // Add more countries and codes as needed
 ];
 
-if (countryCodes.length > 0) {
+if (countryCodeISO.length > 0) {
     console.log("hi");
 }
