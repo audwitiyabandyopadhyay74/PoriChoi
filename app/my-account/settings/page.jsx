@@ -350,7 +350,7 @@ const Page = () => {
   };
 
   const inputClassName = 'w-full h-[6vh] rounded-md p-1 border-none outline-none';
-  const padding = { padding: "0px" };
+  const padding = { padding: "4px" };
 
   if (user === null) {
     return (
