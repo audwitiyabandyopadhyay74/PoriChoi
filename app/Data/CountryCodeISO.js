@@ -241,3 +241,7 @@ const countryCodes = [
     { "country": "Zimbabwe", "code": "263", "iso": "ZW" }
     // Add more countries and codes as needed
 ];
+
+if (countryCodes.length > 0) {
+    console.log("hi");
+}
