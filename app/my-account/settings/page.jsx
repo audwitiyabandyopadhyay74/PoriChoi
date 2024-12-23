@@ -146,7 +146,7 @@ const Page = () => {
             <div className="flex gap-2 items-center">
               <select className={inputClassName.replace("w-[8rem]", "w-[30vw]") + " absolute left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)} style={padding}>
                 <option value="">Select Country Code</option>
-                {countryCodes.map((country) => (
+                {CountryCodeISO.map((country) => (
                   <option key={country.code} value={country.code}>
                     {country.country} ({country.iso}) ({country.code})
                   </option>
