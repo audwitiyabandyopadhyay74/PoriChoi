@@ -282,6 +282,7 @@ const Page = () => {
         setName(currentUser.displayName || "Name is not given");
         setEmail(currentUser.email || "Email is not given");
         setPhoneNumber(currentUser.phoneNumber || "Phone Number is not given");
+        console.log(currentUser);
       } else {
         setUser(null);
       }
