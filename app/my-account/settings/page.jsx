@@ -238,7 +238,7 @@ const CountryCodeISO = [
   { "country": "Turkey", "code": "90", "iso": "TR" },
   { "country": "Turkmenistan", "code": "993", "iso": "TM" },
   { "country": "Turks and Caicos Islands", "code": "1-649", "iso": "TC" },
-  { "country": "Tuvalu", "code": "688", "iso": "TV" },
+  { "country": "Tuvalu", "code": "68  8", "iso": "TV" },
   { "country": "U.S. Virgin Islands", "code": "1-340", "iso": "VI" },
   { "country": "Uganda", "code": "256", "iso": "UG" },
   { "country": "Ukraine", "code": "380", "iso": "UA" },
@@ -247,7 +247,7 @@ const CountryCodeISO = [
   { "country": "United States", "code": "1", "iso": "US" },
   { "country": "Uruguay", "code": "598", "iso": "UY" },
   { "country": "Uzbekistan", "code": "998", "iso": "UZ" },
-  { "country": "Vanuatu", "code": "678", "iso": "VU" },
+  { "country": "Vanuatu", "code": "678", "iso": "VU" }, 
   { "country": "Vatican", "code": "379", "iso": "VA" },
   { "country": "Venezuela", "code": "58", "iso": "VE" },
   { "country": "Vietnam", "code": "84", "iso": "VN" },
@@ -349,8 +349,8 @@ const Page = () => {
     }
   };
 
-  const inputClassName = 'w-[8rem] h-[6vh] rounded-md p-1 border-none outline-none';
-  const padding = { padding: "30px 200px" };
+  const inputClassName = 'rounded-md p-1 border-none outline-none';
+  const padding = { padding: "" };
 
   if (user === null) {
     return (
