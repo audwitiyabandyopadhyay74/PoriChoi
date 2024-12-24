@@ -262,7 +262,7 @@ const CountryCodeISO = [
 
 const Page = () => {
   const [user, setUser] = useState(null);
-  const [photo, setPhoto] = useState(Avatar);
+  const [photo, setPhoto] = useState();
   const [name, setName] = useState("Name is not given");
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
