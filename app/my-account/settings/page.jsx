@@ -275,14 +275,14 @@ const Page = () => {
 
   
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        setPhoto(currentUser.photoURL || Avatar);
-        setName(currentUser.displayName || "Name is not given");
-        setEmail(currentUser.email || "Email is not given");
-        setPhoneNumber(currentUser.phoneNumber || "Phone Number is not given");
-        console.log(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setPhoto(user.photoURL || Avatar);
+        setName(user.displayName || "Name is not given");
+        setEmail(user.email || "Email is not given");
+        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
+        console.log(user);
       } else {
         setUser(null);
       }
