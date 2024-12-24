@@ -266,7 +266,7 @@ const Page = () => {
   const [name, setName] = useState("Name is not given");
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [updatedPhoto, setUpdatedPhoto] = useState(Avatar);
+  const [updatedPhoto, setUpdatedPhoto] = useState();
   const [changedImage, setChangedImage] = useState(null);
   const [changedName, setChangedName] = useState("");
   const [changedEmail, setChangedEmail] = useState("");
