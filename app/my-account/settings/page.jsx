@@ -381,10 +381,11 @@ const Page = () => {
         <NavBar />
         <MoblieNav />
         <div className="flex w-screen h-screen items-center justify-center">
-          <span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span>
-          <form className="flex flex-col gap-4  justify-center items-center mt-[100px]" onSubmit={handleSubmit}>
-            <div className="text-3xl font-semibold">Update Your Profile</div>
-            <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b>
+
+          <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
+          <form className="flex flex-col gap-4 justify-center items-center mt-[100px]" onSubmit={handleSubmit}>
+            {/* <div className="text-3xl font-semibold">Update Your Profile</div>
+            <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b> */}
             <Image src={updatedPhoto || photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
             <input type="file" onChange={handleImageUpload} className={inputClassName} />
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} style={padding} />
@@ -400,7 +401,7 @@ const Page = () => {
               </select>
               <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} style={padding} />
             </div>
-            <input type="submit" value="Update" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
+            <input type="submit" value="Save Changes" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
             <div className="block mt-8">
               <div className="text-3xl">Delete Account</div>
               <button type="button" className='w-[10vh] h-[5vh] text-white rounded-md bg-red-600 hover:scale-110 cursor-pointer' onClick={handleDeleteAccount}>Delete</button>
