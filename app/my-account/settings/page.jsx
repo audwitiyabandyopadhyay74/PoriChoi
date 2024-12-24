@@ -328,7 +328,7 @@ const Page = () => {
         pic: photoURL,
       });
 
-      await updateDoc(doc(firestore, 'userProfileData', user.uid), {
+      await updateDoc(doc(firestore, 'userProfileData', user.name), {
         userName: changedName || name,
         pic: photoURL,
       });
@@ -336,7 +336,7 @@ const Page = () => {
       toast.success("Profile updated successfully!", { theme: "colored" });
       document.location.reload();
     } catch (error) {
-      console.error('Error updating profile:', error.message);
+        console.error('Error updating profile:', error.message);
       toast.error('Error updating profile', { theme: "colored" });
     }
   };
@@ -381,9 +381,13 @@ const Page = () => {
         <NavBar />
         <MoblieNav />
         <div className="flex w-screen h-screen items-center justify-center">
+        <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
 
-          <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
-          <form className="flex flex-col gap-4 justify-center items-center mt-[100px]" onSubmit={handleSubmit}>
+        <div className="w-[65%] h-[60vh] flex gap-4 bg-white rounded-md shadow-md p-2">
+          <div className="flex h-full w-[24vh] border-r border-r-black">
+
+          </div>
+        <form className="flex flex-col gap-4 justify-center items-center mt-[100px]" onSubmit={handleSubmit}>
             {/* <div className="text-3xl font-semibold">Update Your Profile</div>
             <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b> */}
             <Image src={updatedPhoto || photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
@@ -407,6 +411,9 @@ const Page = () => {
               <button type="button" className='w-[10vh] h-[5vh] text-white rounded-md bg-red-600 hover:scale-110 cursor-pointer' onClick={handleDeleteAccount}>Delete</button>
             </div>
           </form>
+        </div>
+
+          
         </div>
       </div>
     );
