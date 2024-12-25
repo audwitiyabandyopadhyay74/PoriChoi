@@ -351,7 +351,7 @@ const Page = () => {
     }
   };
 
-  const inputClassName = 'w-full h-[6vh] rounded-md p-1 border-none outline-none shadow-md border';
+  const inputClassName = 'w-[24vh] h-[6vh] rounded-md p-1 border-none outline-none shadow-md border';
   const padding = { padding: "4px" };
 
   if (user === null) {
