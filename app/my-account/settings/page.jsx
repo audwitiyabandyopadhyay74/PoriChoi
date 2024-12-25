@@ -399,7 +399,7 @@ const Page = () => {
             {/* <div className="text-3xl font-semibold">Update Your Profile</div>
           <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b> */}
             <Image src={updatedPhoto || photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
-            <input type="file" onChange={handleImageUpload} className={inputClassName} />
+            <input type="file" onChange={handleImageUpload} className={inputClassName + "rounded-full "} />
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} style={padding} />
             <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} style={padding} />
             <div className="flex gap-2 items-center ">
