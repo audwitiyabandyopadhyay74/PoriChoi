@@ -387,7 +387,7 @@ const Page = () => {
 
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <div className="flex items-start h-full w-[20%] border-r border-r-black">
-<ul className="flex flex-col justify-center items-center gap-4">
+  <ul className="flex flex-col  items-center gap-4">
   <li className='h-[5vh] w-[80%] flex items-center justify center gap-4'><i class="fa-solid fa-user"></i> Profile</li>
   <li><i class="fa-solid fa-envelope-circle-check"></i>Verify Email</li>
   <li><i class="fa-solid fa-phone"></i>Verify Phone Number</li>
