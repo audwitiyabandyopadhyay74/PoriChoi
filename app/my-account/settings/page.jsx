@@ -12,6 +12,7 @@ import Avatar from '../../download.png';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../toastify.css';
+import "../style.css";
 import MoblieNav from '@/app/Components/Moblie Nav';
 // import { CountryCodeISO } from "../../Data/CountryCodeISO";
 
@@ -371,7 +372,8 @@ const Page = () => {
     );
   } else {
     return (
-      <div>
+      <>
+
         <ToastContainer
           toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
           bodyClassName="text-sm font-medium text-white block p-3"
@@ -415,7 +417,7 @@ const Page = () => {
             </div>
           
         </div>
-      </div>
+      </>
     );
   }
 };
