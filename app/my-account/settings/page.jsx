@@ -385,7 +385,7 @@ const Page = () => {
         <div className="flex w-screen h-screen items-center justify-center relative">
         <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
 
-        <div className="w-[65%] h-[60vh] flex gap-4 bg-white rounded-md shadow-md p-2">
+        <div className="w-[65%] h-[90vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <div className="flex h-full w-[20%] border-r border-r-black">
 
           </div>
