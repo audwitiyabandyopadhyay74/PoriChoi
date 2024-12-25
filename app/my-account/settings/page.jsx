@@ -351,11 +351,11 @@ const Page = () => {
     }
   };
 
-  const inputClassName = 'w-full h-[6vh] rounded-md p-1 border-none outline-none';
+  const inputClassName = 'w-full h-[6vh] rounded-md p-1 border-none outline-none shadow-md border';
   const padding = { padding: "4px" };
 
   if (user === null) {
-    return (
+    return (  
       <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
         <ToastContainer
           toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
@@ -382,14 +382,14 @@ const Page = () => {
         />
         <NavBar />
         <MoblieNav />
-        <div className="flex w-screen h-screen items-center justify-center">
+        <div className="flex w-screen h-screen items-center justify-center relative">
         <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
 
         <div className="w-[65%] h-[60vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <div className="flex h-full w-[20%] border-r border-r-black">
 
           </div>
-        <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] " onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
             {/* <div className="text-3xl font-semibold">Update Your Profile</div>
           <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b> */}
             <Image src={updatedPhoto || photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
