@@ -352,6 +352,7 @@ const Page = () => {
   };
 
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-1 border-none outline-none shadow-md border';
+  const optionClassName = "h-[5vh] w-[80%] flex items-center justify center gap-4 p-2";
   const padding = { padding: "4px" };
 
   if (user === null) {
@@ -387,11 +388,11 @@ const Page = () => {
 
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <div className="flex items-start h-full w-[20%] border-r border-r-black">
-  <ul className="flex flex-col  items-center gap-4">
-  <li className='h-[5vh] w-[80%] flex items-center justify center gap-4'><i class="fa-solid fa-user"></i> Profile</li>
-  <li><i class="fa-solid fa-envelope-circle-check"></i>Verify Email</li>
-  <li><i class="fa-solid fa-phone"></i>Verify Phone Number</li>
-  <li><i class="fa-solid fa-trash"></i>Delete Account</li>
+  <ul className="flex flex-col  items-center gap-[20px]">
+  <li className={optionClassName}><i class="fa-solid fa-user"></i> Profile</li>
+  <li className={optionClassName}><i class="fa-solid fa-envelope-circle-check"></i>Verify Email</li>
+  <li className={optionClassName}><i class="fa-solid fa-phone"></i>Verify Phone Number</li>
+  <li className={optionClassName}><i class="fa-solid fa-trash"></i>Delete Account</li>
 </ul>
           </div>
         <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
