@@ -351,7 +351,7 @@ const Page = () => {
     }
   };
 
-  const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-1 border-none outline-none shadow-md border';
+  const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
   const optionClassName = "h-[5vh] w-[80%] flex items-center justify center gap-4 p-2";
   const padding = { padding: "4px" };
 
