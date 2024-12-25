@@ -386,8 +386,13 @@ const Page = () => {
         <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
 
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
-          <div className="flex h-full w-[20%] border-r border-r-black">
-
+          <div className="flex items-start h-full w-[20%] border-r border-r-black">
+<ul className="flex flex-col justify-center items-center gap-4">
+  <li className='h-[5vh] w-[80%] flex items-center justify center gap-4'><i class="fa-solid fa-user"></i> Profile</li>
+  <li><i class="fa-solid fa-envelope-circle-check"></i>Verify Email</li>
+  <li><i class="fa-solid fa-phone"></i>Verify Phone Number</li>
+  <li><i class="fa-solid fa-trash"></i>Delete Account</li>
+</ul>
           </div>
         <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
             {/* <div className="text-3xl font-semibold">Update Your Profile</div>
