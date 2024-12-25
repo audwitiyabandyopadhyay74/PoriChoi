@@ -384,18 +384,18 @@ const Page = () => {
         <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
 
         <div className="w-[65%] h-[60vh] flex gap-4 bg-white rounded-md shadow-md p-2">
-          <div className="flex h-full w-[24vh] border-r border-r-black">
+          <div className="flex h-full w-[20%] border-r border-r-black">
 
           </div>
-        <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[calc(24vh - 100%)]" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] " onSubmit={handleSubmit}>
             {/* <div className="text-3xl font-semibold">Update Your Profile</div>
-            <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b> */}
+          <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b> */}
             <Image src={updatedPhoto || photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
             <input type="file" onChange={handleImageUpload} className={inputClassName} />
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} style={padding} />
             <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} style={padding} />
-            <div className="flex gap-2 items-center">
-              <select className={inputClassName.replace("w-full", "w-[30vw]") + " absolute left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)} style={padding}>
+            <div className="flex gap-2 items-center ">
+              <select className={inputClassName.replace("w-full", "w-[30vw]") + " relative left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)} style={padding}>
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
                   <option key={country.code} value={country.code}>
@@ -406,13 +406,13 @@ const Page = () => {
               <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} style={padding} />
             </div>
             <input type="submit" value="Save Changes" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
-            <div className="block mt-8">
+         
+          </form>
+        </div>
+   <div className="block mt-8">
               <div className="text-3xl">Delete Account</div>
               <button type="button" className='w-[10vh] h-[5vh] text-white rounded-md bg-red-600 hover:scale-110 cursor-pointer' onClick={handleDeleteAccount}>Delete</button>
             </div>
-          </form>
-        </div>
-
           
         </div>
       </div>
