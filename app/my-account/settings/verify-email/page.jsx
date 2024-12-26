@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../../Components/NavBar';
 import { auth } from '../../../firebase';
-import { updateProfile, onAuthStateChanged } from 'firebase/auth';
+import { updateProfile, onAuthStateChanged, sendEmailVerification } from 'firebase/auth';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import '../toastify.css';
@@ -33,7 +33,17 @@ const Page = () => {
     })
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handlesendverificationlink = ()=>{
+    sendEmailVerification(user).then(() => {
+      toast.success(`Verification link sent to ${email} `, { theme: "colored" });
+    }).catch((error) => {
+      toast.error("Error while sending verification link", { theme: "colored" });
+      console.log(error);
+    });
+    handleSubmit();
+  }
+
+   async function handleSubmit (e) {
     e.preventDefault();
     try {
       const updatedProfileData = {
@@ -91,9 +101,9 @@ const Page = () => {
                 <li className={optionClassName}><i className="fa-solid fa-trash"></i> Delete Account</li>
               </ul>
             </div>
-            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
+            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handlesendverificationlink}>
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
-              <button className={isVerified?'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]':'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} value={isVerified?"Verified":"Verify Email"} disabled={isVerified?true:false}>Verify Email</button>
+              <button className={isVerified?'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]':'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} value={isVerified?"Verified":"Verify Email"} d                                                                                                                                                                                                                                                                                                                                                    isabled={isVerified?true:false}>Verify Email</button>
             </form>
           </div>
         </div>
