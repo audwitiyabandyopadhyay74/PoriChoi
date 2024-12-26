@@ -15,7 +15,7 @@ const Page = () => {
   const [email, setEmail] = useState('');
   const [changedEmail, setChangedEmail] = useState("");
   const [isVerified, setIsVerified] = useState(false);
-  const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
+  const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
 
   useEffect(() => {
   onAuthStateChanged(auth, (user) => {
@@ -25,6 +25,7 @@ const Page = () => {
         setName(user.displayName || "Name is not given");
         setEmail(user.email || "Email is not given");
         setPhoneNumber(user.phoneNumber || "Phone Number is not given");
+        setIsVerified(user.emailVerified);
         console.log(user);
       } else {
         setUser(null);
