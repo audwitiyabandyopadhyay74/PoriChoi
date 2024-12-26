@@ -32,7 +32,7 @@ const Page = () => {
       }
     })
   }, []);
-
+alert(email)
   const handlesendverificationlink = ()=>{
     sendEmailVerification(user).then(() => {
       toast.success(`Verification link sent to ${email} `, { theme: "colored" });
@@ -101,9 +101,10 @@ const Page = () => {
                 <li className={optionClassName}><i className="fa-solid fa-trash"></i> Delete Account</li>
               </ul>
             </div>
-            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handlesendverificationlink}>
+            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" >
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
               <input 
+              onSubmit={handlesendverificationlink}
               type="submit"
               className={isVerified?'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]':'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} 
               value={isVerified?"Verified":"Verify Email"} 
