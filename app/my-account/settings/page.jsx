@@ -352,7 +352,7 @@ const Page = () => {
   };
 
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
-  const optionClassName = "h-[5vh] w-[95%] flex items-center justify center gap-4 p-[30px] shadow-md cursor-pointer cursor-pointer";
+  const optionClassName = "h-[5vh] w-[95%] flex items-center justify center gap-4 p-[30px] shadow-md cursor-pointer cursor-pointer bg-white";
   const padding = { padding: "4px" };
 
   if (user === null) {
@@ -392,7 +392,7 @@ const Page = () => {
   <li className={optionClassName}><i class="fa-solid fa-user"></i> Profile</li>
   <li className={optionClassName}><i class="fa-solid fa-envelope-circle-check"></i>Verify Email</li>
   <li className={optionClassName}><i class="fa-solid fa-phone"></i>Verify Phone Number</li>
-  <li className={optionClassName}><i class="fa-solid fa-trash"></i>Delete Account</li>
+  <li className={optionClassName.replace("bg-white","bg-red-600")}><i class="fa-solid fa-trash"></i>Delete Account</li>
 </ul>
           </div>
         <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
