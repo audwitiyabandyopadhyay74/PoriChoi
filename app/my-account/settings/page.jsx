@@ -352,7 +352,7 @@ const Page = () => {
   };
 
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
-  const optionClassName = "h-[5vh] w-[100vh] flex items-center justify center gap-4 p-[30px] shadow-md cursor-pointer cursor-pointer";
+  const optionClassName = "h-[5vh] w-[95%] flex items-center justify center gap-4 p-[30px] shadow-md cursor-pointer cursor-pointer";
   const padding = { padding: "4px" };
 
   if (user === null) {
@@ -387,7 +387,7 @@ const Page = () => {
         <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
 
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
-          <div className="flex items-start h-full w-[20%] border-r border-r-black">
+          <div className="flex items-start h-full w-[25%] border-r border-r-black">
   <ul className="flex flex-col  items-center gap-[20px]">
   <li className={optionClassName}><i class="fa-solid fa-user"></i> Profile</li>
   <li className={optionClassName}><i class="fa-solid fa-envelope-circle-check"></i>Verify Email</li>
