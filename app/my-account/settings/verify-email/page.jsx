@@ -2,10 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../Components/NavBar';
-import { auth,  firestore } from '../../firebase';
-import { updateDoc, doc } from 'firebase/firestore';
+import { auth } from '../../../firebase';
 import { updateProfile, onAuthStateChanged } from 'firebase/auth';
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import '../toastify.css';
@@ -14,9 +12,6 @@ import MoblieNav from '@/app/Components/Moblie Nav';
 
 const Page = () => {
   const [user, setUser] = useState(null);
-  const [photo, setPhoto] = useState();
-  const [name, setName] = useState("Name is not given");
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [changedEmail, setChangedEmail] = useState("");
   const [isVerified, setIsVerified] = useState(false);
@@ -40,25 +35,11 @@ const Page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let photoURL = photo;
       const updatedProfileData = {
-        photoURL: photoURL,
-        displayName: name,
         email: changedEmail || email,
-        phoneNumber: phoneNumber,
       };
 
-      await updateProfile(user, updatedProfileData);
-
-      await updateDoc(doc(firestore, 'userFollowingdata', user.uid), {
-        userName: name,
-        pic: photoURL,
-      });
-
-      await updateDoc(doc(firestore, 'userProfileData', user.uid), {
-        userName: name,
-        pic: photoURL,
-      });
+      await updateProfile(user, updatedProfileData)
 
       toast.success("Profile updated successfully!", { theme: "colored" });
       setIsVerified(true);
