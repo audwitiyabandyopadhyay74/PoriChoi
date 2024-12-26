@@ -6,7 +6,6 @@ import { auth,  firestore } from '../../firebase';
 import { updateDoc, doc } from 'firebase/firestore';
 import { updateProfile, onAuthStateChanged } from 'firebase/auth';
 
-import Avatar from '../../download.png';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import '../toastify.css';
