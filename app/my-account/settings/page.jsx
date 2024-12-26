@@ -342,14 +342,7 @@ const Page = () => {
     }
   };
 
-  const handleDeleteAccount = () => {
-    const confirmation = confirm("Are you sure you want to delete your account?");
-    if (confirmation && user) {
-      user.delete()
-        .then(() => toast.success("Account deleted successfully.", { theme: "colored" }))
-        .catch((error) => toast.error(`Error deleting account: ${error.message}`, { theme: "colored" }));
-    }
-  };
+
 
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
   const optionClassName = "h-[5vh] w-[95%] flex items-center justify center gap-4 p-[30px] shadow-md cursor-pointer cursor-pointer";
@@ -417,10 +410,7 @@ const Page = () => {
          
           </form>
         </div>
-   <div className="block mt-8">
-              <div className="text-3xl">Delete Account</div>
-              <button type="button" className='w-[10vh] h-[5vh] text-white rounded-md bg-red-600 hover:scale-110 cursor-pointer' onClick={handleDeleteAccount}>Delete</button>
-            </div>
+
           
         </div>
       </>
