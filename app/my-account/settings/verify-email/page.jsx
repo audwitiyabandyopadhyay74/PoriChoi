@@ -103,7 +103,11 @@ const Page = () => {
             </div>
             <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handlesendverificationlink}>
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
-              <button className={isVerified?'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]':'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} value={isVerified?"Verified":"Verify Email"} d                                                                                                                                                                                                                                                                                                                                                    isabled={isVerified?true:false}>Verify Email</button>
+              <input 
+              type="submit"
+              className={isVerified?'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]':'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} 
+              value={isVerified?"Verified":"Verify Email"} 
+              disabled={isVerified?true:false}/>
             </form>
           </div>
         </div>
