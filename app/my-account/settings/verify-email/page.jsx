@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import NavBar from '../../Components/NavBar';
+import NavBar from '../../../Components/NavBar';
 import { auth } from '../../../firebase';
 import { updateProfile, onAuthStateChanged } from 'firebase/auth';
 import { ToastContainer, toast } from "react-toastify";
