@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import NavBar from '../../Components/NavBar';
+import NavBar from '../../../Components/NavBar';
 import { auth } from '../../../firebase';
 import { updateProfile, onAuthStateChanged } from 'firebase/auth';
 import { ToastContainer, toast } from "react-toastify";
@@ -15,9 +15,10 @@ const Page = () => {
   const [email, setEmail] = useState('');
   const [changedEmail, setChangedEmail] = useState("");
   const [isVerified, setIsVerified] = useState(false);
+  const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         setPhoto(user.photoURL || Avatar);
@@ -28,8 +29,7 @@ const Page = () => {
       } else {
         setUser(null);
       }
-    });
-    return () => unsubscribe();
+    })
   }, []);
 
   const handleSubmit = async (e) => {
@@ -91,7 +91,7 @@ const Page = () => {
               </ul>
             </div>
             <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
-              <input type="email" value={email} onChange={(e) => setChangedEmail(e.target.value)} />
+              <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
               <button className={isVerified?'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]':'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} value={isVerified?"Verified":"Verify Email"} disabled={isVerified?true:false}>Verify Email</button>
             </form>
           </div>
