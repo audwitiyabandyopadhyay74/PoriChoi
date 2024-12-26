@@ -9,8 +9,8 @@ import { updateProfile, onAuthStateChanged } from 'firebase/auth';
 import Avatar from '../../download.png';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import '../../toastify.css';
-import "../style.css";
+// import '../toastify.css';
+import "../../style.css";
 import MoblieNav from '@/app/Components/Moblie Nav';
 
 const Page = () => {
