@@ -12,6 +12,7 @@ const SideBar = () => {
         <li className={optionClassName}><i className="fa-solid fa-user"></i> Profile</li>
         <li className={optionClassName}><i className="fa-solid fa-envelope-circle-check"></i> Verify Email</li>
         <li className={optionClassName}><i className="fa-solid fa-phone"></i> Verify Phone Number</li>
+        <li className={optionClassName}><i className="fa-solid fa-phone"></i> Reset Password</li>
         <li className={optionClassName}><i className="fa-solid fa-trash"></i> Delete Account</li>
       </ul>
     </div>

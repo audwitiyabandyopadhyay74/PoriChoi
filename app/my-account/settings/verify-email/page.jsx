@@ -18,12 +18,18 @@ const Page = () => {
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(user);
         setEmail(user.email || "Email is not given");
         setIsVerified(user.emailVerified);
         console.log(user.emailVerified);
+        await sendEmailVerification(user).then(() => {
+          toast.success(`Verification link sent to ${email} `, { theme: "colored" });
+        }).catch((error) => {
+          toast.error("Error while sending verification link", { theme: "colored" });
+          console.log(error);
+        });
       } else {
         setUser(null);
       }
@@ -31,7 +37,7 @@ const Page = () => {
   }, []);
 console.log(email)
   const handlesendverificationlink = async()=>{
-  await  sendEmailVerification(user).then(() => {
+  await sendEmailVerification(user).then(() => {
       toast.success(`Verification link sent to ${email} `, { theme: "colored" });
     }).catch((error) => {
       toast.error("Error while sending verification link", { theme: "colored" });

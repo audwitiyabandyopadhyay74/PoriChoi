@@ -226,8 +226,8 @@ const auth = getAuth(app);
         </div>
 
         {errorText && <span className="text-red-400 text-sm mt-2">{errorText}</span>}
-
         <div className="mt-6 text-sm text-white">
+        <a href="/sign-up">
           Don’t have an account?{" "}
           <span
             className="text-blue-400 cursor-pointer hover:underline"
@@ -235,6 +235,8 @@ const auth = getAuth(app);
           >
             Sign up
           </span>
+          </a>
+
         </div>
       </div>
     </div>
