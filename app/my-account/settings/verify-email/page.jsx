@@ -31,7 +31,7 @@ const Page = () => {
       }
     })
   }, []);
-alert(email)
+console.log(email)
   const handlesendverificationlink = ()=>{
     sendEmailVerification(user).then(() => {
       toast.success(`Verification link sent to ${email} `, { theme: "colored" });
