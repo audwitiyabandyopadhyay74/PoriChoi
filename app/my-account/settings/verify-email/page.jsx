@@ -21,10 +21,7 @@ const Page = () => {
   onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setPhoto(user.photoURL || Avatar);
-        setName(user.displayName || "Name is not given");
         setEmail(user.email || "Email is not given");
-        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
         setIsVerified(user.emailVerified);
         console.log(user.emailVerified);
       } else {
