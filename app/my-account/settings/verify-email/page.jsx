@@ -15,7 +15,6 @@ const Page = () => {
   const [email, setEmail] = useState('');
   const [changedEmail, setChangedEmail] = useState("");
   const [isVerified, setIsVerified] = useState(false);
-  const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
 
   useEffect(() => {
   onAuthStateChanged(auth, (user) => {
@@ -26,7 +25,7 @@ const Page = () => {
         setEmail(user.email || "Email is not given");
         setPhoneNumber(user.phoneNumber || "Phone Number is not given");
         setIsVerified(user.emailVerified);
-        console.log(user);
+        console.log(user.emailVerified);
       } else {
         setUser(null);
       }
@@ -53,14 +52,12 @@ alert(email)
       await updateProfile(user, updatedProfileData)
 
       toast.success("Profile updated successfully!", { theme: "colored" });
-      setIsVerified(true);
-      document.location.reload();
     } catch (error) {
         console.error('Error updating profile:', error.message);
       toast.error('Error updating profile', { theme: "colored" });
     }
   };
-
+  const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
   const optionClassName = "h-[5vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer";
 
   if (user === null) {
