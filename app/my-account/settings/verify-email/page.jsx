@@ -32,8 +32,8 @@ const Page = () => {
     })
   }, []);
 console.log(email)
-  const handlesendverificationlink = ()=>{
-    sendEmailVerification(user).then(() => {
+  const handlesendverificationlink = async()=>{
+  await  sendEmailVerification(user).then(() => {
       toast.success(`Verification link sent to ${email} `, { theme: "colored" });
     }).catch((error) => {
       toast.error("Error while sending verification link", { theme: "colored" });
