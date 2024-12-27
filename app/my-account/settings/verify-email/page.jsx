@@ -2,11 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../../Components/NavBar';
-import { auth } from '../../../firebase';
-import { updateProfile, onAuthStateChanged, sendEmailVerification } from 'firebase/auth';
+import { auth, sendEmailVerification, updateProfile, onAuthStateChanged } from 'firebase/auth';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import '../toastify.css';
 import "../../style.css";
 import MoblieNav from '@/app/Components/Moblie Nav';
 import SideBar from '../../../Components/SideBar';
@@ -18,49 +16,50 @@ const Page = () => {
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
-  onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(user);
         setEmail(user.email || "Email is not given");
         setIsVerified(user.emailVerified);
         console.log(user.emailVerified);
-        await sendEmailVerification(user).then(() => {
-          toast.success(`Verification link sent to ${email} `, { theme: "colored" });
-        }).catch((error) => {
-          toast.error("Error while sending verification link", { theme: "colored" });
-          console.log(error);
-        });
+        if (!user.emailVerified) {
+          await sendEmailVerification(user).then(() => {
+            toast.success(`Verification link sent to ${user.email}`, { theme: "colored" });
+          }).catch((error) => {
+            toast.error("Error while sending verification link", { theme: "colored" });
+            console.log(error);
+          });
+        }
       } else {
         setUser(null);
       }
-    })
+    });
+    return () => unsubscribe();
   }, []);
-console.log(email)
-  const handlesendverificationlink = async()=>{
-  await sendEmailVerification(user).then(() => {
-      toast.success(`Verification link sent to ${email} `, { theme: "colored" });
+
+  const handleSendVerificationLink = async () => {
+    await sendEmailVerification(user).then(() => {
+      toast.success(`Verification link sent to ${email}`, { theme: "colored" });
     }).catch((error) => {
       toast.error("Error while sending verification link", { theme: "colored" });
       console.log(error);
     });
-    handleSubmit();
-  }
+  };
 
-   async function handleSubmit (e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const updatedProfileData = {
         email: changedEmail || email,
       };
-
-      await updateProfile(user, updatedProfileData)
-
+      await updateProfile(user, updatedProfileData);
       toast.success("Profile updated successfully!", { theme: "colored" });
     } catch (error) {
-        console.error('Error updating profile:', error.message);
+      console.error('Error updating profile:', error.message);
       toast.error('Error updating profile', { theme: "colored" });
     }
   };
+
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
 
   if (user === null) {
@@ -93,15 +92,12 @@ console.log(email)
         <div className="flex w-screen h-screen items-center justify-center relative">
           <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings</span>
           <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
-      <SideBar/>
-            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" >
+            <SideBar />
+            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
-              <input 
-              onSubmit={handlesendverificationlink}
-              type="submit"
-              className={isVerified?'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]':'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} 
-              value={isVerified?"Verified":"Verify Email"} 
-              disabled={isVerified?true:false}/>
+              <button type="submit" className={isVerified ? 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]' : 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} disabled={isVerified}>
+                {isVerified ? "Verified" : "Verify Email"}
+              </button>
             </form>
           </div>
         </div>
