@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import '../toastify.css';
 import "../../style.css";
 import MoblieNav from '@/app/Components/Moblie Nav';
+import SideBar from '../../../Components/SideBar';
 
 const Page = () => {
   const [user, setUser] = useState(null);
@@ -58,7 +59,6 @@ console.log(email)
     }
   };
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
-  const optionClassName = "h-[5vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer";
 
   if (user === null) {
     return (
@@ -90,14 +90,7 @@ console.log(email)
         <div className="flex w-screen h-screen items-center justify-center relative">
           <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings</span>
           <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
-            <div className="flex items-start h-full w-[25%] border-r border-r-black">
-              <ul className="flex flex-col items-center gap-[20px]">
-                <li className={optionClassName}><i className="fa-solid fa-user"></i> Profile</li>
-                <li className={optionClassName}><i className="fa-solid fa-envelope-circle-check"></i> Verify Email</li>
-                <li className={optionClassName}><i className="fa-solid fa-phone"></i> Verify Phone Number</li>
-                <li className={optionClassName}><i className="fa-solid fa-trash"></i> Delete Account</li>
-              </ul>
-            </div>
+      <SideBar/>
             <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" >
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
               <input 
