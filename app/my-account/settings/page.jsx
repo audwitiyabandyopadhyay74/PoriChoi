@@ -345,7 +345,7 @@ const Page = () => {
 
 
 
-  const inputClassName = 'w-[45vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
+  const inputClassName = 'w-[65vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
   const padding = { padding: "4px" };
 
   if (user === null) {
