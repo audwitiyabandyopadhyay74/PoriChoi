@@ -51,8 +51,8 @@ const Page = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-   await console.log("Email changed to: ", changedEmail,e.message);
+  const handleSubmit = (e) => {
+  console.log("Email changed to: ", changedEmail,e.message);
   };
 
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
