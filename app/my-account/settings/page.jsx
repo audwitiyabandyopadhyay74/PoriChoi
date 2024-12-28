@@ -345,7 +345,8 @@ const Page = () => {
 
 
 
-  const inputClassName = 'w-[65vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border';
+  const inputClassName = `w-[${document.getElementsByTagName("input").length * aphabetsize}]max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border`;
+const aphabetsize  = "1vh";
   const padding = { padding: "4px" };
 
   if (user === null) {
@@ -385,9 +386,9 @@ const Page = () => {
             {/* <div className="text-3xl font-semibold">Update Your Profile</div>
           <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b> */}
             <Image src={updatedPhoto || photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
-            <input type="file" onChange={handleImageUpload} className={inputClassName + "rounded-full "} />
-            <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} style={padding} />
-            <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} style={padding} />
+            <input type="file"   onChange={handleImageUpload} className={inputClassName + "rounded-full "} />
+            <input type="text"   placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} style={padding} />
+            <input type="email"   placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} style={padding} />
             <div className="flex gap-2 items-center ">
               <select className={inputClassName.replace("w-full", "w-[30vw]") + " relative left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)} style={padding}>
                 <option value="">Select Country Code</option>
@@ -397,7 +398,7 @@ const Page = () => {
                   </option>
                 ))}
               </select>
-              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} style={padding} />
+              <input type="tel"   placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} style={padding} />
             </div>
             <input type="submit" value="Save Changes" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
          
