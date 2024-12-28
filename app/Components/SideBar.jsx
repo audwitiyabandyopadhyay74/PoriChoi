@@ -16,11 +16,11 @@ const SideBar = () => {
 
   if (pathname === "/my-account/settings") {
     setProfile(true);
-  } else if (pathname === "/my-account/settings/verify-email") {
+  } if (pathname === "/my-account/settings/verify-email") {
     setVerifyEmail(true);
-  } else if (pathname === "/my-account/settings/verify-phone-number") {
+  } if (pathname === "/my-account/settings/verify-phone-number") {
     setVerifyPhoneNumber(true);
-  } else if (pathname === "/my-account/settings/rest-password") {
+  } if (pathname === "/my-account/settings/rest-password") {
     setResetPassword(true);
   } else {
     setDeleteAccount(true);
