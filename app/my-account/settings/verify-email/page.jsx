@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../../Components/NavBar';
-import { auth, sendEmailVerification, updateProfile, onAuthStateChanged } from 'firebase/auth';
+import { sendEmailVerification, updateProfile, onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../../firebase';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../style.css";
