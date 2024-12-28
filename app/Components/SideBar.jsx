@@ -1,12 +1,12 @@
-'use client';
+'use client'; 
 
 import React from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-const SideBar = () => {
+    
+  const SideBar = () => {
   const [profile, setProfile] = React.useState()
   const[verifyemail, setVerifyEmail] = React.useState()
   const[verifyphonenumber, setVerifyPhoneNumber] = React.useState()
