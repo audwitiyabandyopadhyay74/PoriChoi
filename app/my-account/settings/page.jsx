@@ -339,7 +339,11 @@ const Page = () => {
       document.location.reload();
     } catch (error) {
         console.error('Error updating profile:', error.message);
-      toast.error('Error updating profile', { theme: "colored" });
+        if(error.message === "FirebaseError: Firebase: Error (auth/too-many-requests)."){
+      toast.error('Too Many Requests', { theme: "colored" });
+
+        }else{
+      toast.error('Error updating profile', { theme: "colored" });}
     }
   };
 
