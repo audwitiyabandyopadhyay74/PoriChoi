@@ -17,7 +17,7 @@ const Page = () => {
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth,  (user) => {
       if (user) {
         setUser(user);
         setEmail(user.email || "Email is not given");
