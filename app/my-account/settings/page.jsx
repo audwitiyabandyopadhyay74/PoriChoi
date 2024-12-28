@@ -346,7 +346,7 @@ const Page = () => {
 
 
   const inputClassName = `w-[${document.getElementsByTagName("input").length * aphabetsize}] min-w-[40vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border`;
-const aphabetsize  = "1vh";
+const aphabetsize  = "4vh";
   const padding = { padding: "4px" };
 
   if (user === null) {
