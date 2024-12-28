@@ -22,14 +22,6 @@ const Page = () => {
         setEmail(user.email || "Email is not given");
         setIsVerified(user.emailVerified);
         console.log(user.emailVerified);
-        if (!user.emailVerified) {
-          await sendEmailVerification(user).then(() => {
-            toast.success(`Verification link sent to ${user.email}`, { theme: "colored" });
-          }).catch((error) => {
-            toast.error("Error while sending verification link", { theme: "colored" });
-            console.log(error);
-          });
-        }
       } else {
         setUser(null);
       }
@@ -37,17 +29,11 @@ const Page = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleSendVerificationLink = async () => {
-    await sendEmailVerification(user).then(() => {
+  const handleSendVerificationLink = async (e) => {
+    try {
+      await sendEmailVerification(user);
       toast.success(`Verification link sent to ${email}`, { theme: "colored" });
-    }).catch((error) => {
-      toast.error("Error while sending verification link", { theme: "colored" });
-      console.log(error);
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+       e.preventDefault();
     try {
       const updatedProfileData = {
         email: changedEmail || email,
@@ -58,6 +44,14 @@ const Page = () => {
       console.error('Error updating profile:', error.message);
       toast.error('Error updating profile', { theme: "colored" });
     }
+    } catch (error) {
+      toast.error("Error while sending verification link", { theme: "colored" });
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+   await console.log("Email changed to: ", changedEmail,e.message);
   };
 
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
@@ -95,7 +89,7 @@ const Page = () => {
             <SideBar />
             <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
-              <button type="submit" className={isVerified ? 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]' : 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} disabled={isVerified}>
+              <button type="button" onClick={handleSendVerificationLink} className={isVerified ? 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]' : 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} disabled={isVerified}>
                 {isVerified ? "Verified" : "Verify Email"}
               </button>
             </form>
