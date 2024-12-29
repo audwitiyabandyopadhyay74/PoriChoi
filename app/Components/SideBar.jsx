@@ -33,27 +33,27 @@ const SideBar = () => {
     <div className="flex items-start h-full w-[25%] border-r border-r-black">
       <ul className="flex flex-col items-center gap-[20px]">
         <Link href="/my-account/settings">
-          <li className={profile ? optionClassNameActive : optionClassName}>
+          <li className={optionClassName}>
             <i className="fa-solid fa-user"></i> Profile
           </li>
         </Link>
         <Link href="/my-account/settings/verify-email">
-          <li className={verifyEmail ? optionClassNameActive : optionClassName}>
+          <li className={optionClassName}>
             <i className="fa-solid fa-envelope-circle-check"></i> Verify Email
           </li>
         </Link>
         <Link href="/my-account/settings/verify-phone-number">
-          <li className={verifyPhoneNumber ? optionClassNameActive : optionClassName}>
+          <li className={optionClassName}>
             <i className="fa-solid fa-phone"></i> Verify Phone Number
           </li>
         </Link>
         <Link href="/my-account/settings/rest-password">
-          <li className={resetPassword ? optionClassNameActive : optionClassName}>
+          <li className={optionClassName}>
             <i className="fa-solid fa-phone"></i> Reset Password
           </li>
         </Link>
         <Link href="/my-account/settings/delete-account">
-          <li className={deleteAccount ? optionClassNameActive : optionClassName}>
+          <li className={ optionClassName}>
             <i className="fa-solid fa-trash"></i> Delete Account
           </li>
         </Link>
