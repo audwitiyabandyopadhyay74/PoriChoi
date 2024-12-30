@@ -47,7 +47,7 @@ const Page = () => {
     }
     } catch (error) {
       toast.error("Error while sending verification link", { theme: "colored" });
-      console.log(error);
+      console.log(error.message);
     }
   };
 

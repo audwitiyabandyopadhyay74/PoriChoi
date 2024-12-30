@@ -260,22 +260,18 @@ const CountryCodeISO = [
   { "country": "Zimbabwe", "code": "263", "iso": "ZW" }
   // Add more countries and codes as needed
 ];
-
-
 const Page = () => {
   const [user, setUser] = useState(null);
-  const [photo, setPhoto] = useState();
+  const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState("Name is not given");
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [updatedPhoto, setUpdatedPhoto] = useState();
   const [changedImage, setChangedImage] = useState(null);
   const [changedName, setChangedName] = useState("");
   const [changedEmail, setChangedEmail] = useState("");
   const [changedPhoneNumber, setChangedPhoneNumber] = useState("");
   const [countryCode, setCountryCode] = useState("");
 
-  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -284,7 +280,6 @@ const Page = () => {
         setName(user.displayName || "Name is not given");
         setEmail(user.email || "Email is not given");
         setPhoneNumber(user.phoneNumber || "Phone Number is not given");
-        console.log(user);
       } else {
         setUser(null);
       }
@@ -292,13 +287,13 @@ const Page = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleImageUpload = async (e) => {
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setChangedImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUpdatedPhoto(reader.result);
+        setPhoto(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -309,15 +304,14 @@ const Page = () => {
     try {
       let photoURL = photo;
       if (changedImage) {
-        const imgRef = ref(storage, `/uploads/images/${changedImage.name}`);
+        const imgRef = ref(storage, `uploads/images/${changedImage.name}`);
         await uploadBytes(imgRef, changedImage);
         photoURL = await getDownloadURL(imgRef);
       }
 
       const fullPhoneNumber = `${countryCode}${changedPhoneNumber || phoneNumber}`;
-
       const updatedProfileData = {
-        photoURL: photoURL,
+        photoURL,
         displayName: changedName || name,
         email: changedEmail || email,
         phoneNumber: fullPhoneNumber,
@@ -330,7 +324,7 @@ const Page = () => {
         pic: photoURL,
       });
 
-      await updateDoc(doc(firestore, 'userProfileData', user.name), {
+      await updateDoc(doc(firestore, 'userProfileData', user.uid), {
         userName: changedName || name,
         pic: photoURL,
       });
@@ -338,29 +332,16 @@ const Page = () => {
       toast.success("Profile updated successfully!", { theme: "colored" });
       document.location.reload();
     } catch (error) {
-        console.error('Error updating profile:', error.message);
-        if(error.message === "FirebaseError: Firebase: Error (auth/too-many-requests)."){
-      toast.error('Too Many Requests', { theme: "colored" });
-
-        }else{
-      toast.error('Error updating profile', { theme: "colored" });}
+      console.error('Error updating profile:', error.message);
+      toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" });
     }
   };
 
-
-
   const inputClassName = "w-[90vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
-  const padding = { padding: "4px" };
 
   if (user === null) {
-    return (  
+    return (
       <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
-        <ToastContainer
-          toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
-          bodyClassName="text-sm font-medium text-white block p-3"
-          position="bottom-left"
-          autoClose={3000}
-        />
         <NavBar />
         <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
         <a href='/log-in'>
@@ -368,32 +349,24 @@ const Page = () => {
         </a>
       </div>
     );
-  } else {
-    return (
-      <>
+  }
 
-        <ToastContainer
-          toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
-          bodyClassName="text-sm font-medium text-white block p-3"
-          position="bottom-left"
-          autoClose={3000}
-        />
-        <NavBar />
-        <MoblieNav />
-        <div className="flex w-screen h-screen items-center justify-center relative">
-        <span className='absolute top-[5rem] left-[4rem]' onClick={()=>{document.location.href ="/my-account"}}>My Account/Settings</span>
-
+  return (
+    <>
+      <NavBar />
+      <MoblieNav />
+      <ToastContainer />
+      <div className="flex w-screen h-screen items-center justify-center relative">
+        <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings</span>
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
-       <SideBar/>
-        <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
-            {/* <div className="text-3xl font-semibold">Update Your Profile</div>
-          <b className='w-[30vw]'>ℹ️ You can also update one thing by just filling the input and clicking on Update.</b> */}
-            <Image src={updatedPhoto || photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
-            <input type="file"   onChange={handleImageUpload} className={inputClassName + "rounded-full "} />
-            <input type="text"   placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} style={padding} />
-            <input type="email"   placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} style={padding} />
-            <div className="flex gap-2 items-center ">
-              <select className={inputClassName.replace("w-full", "w-[30vw]") + " relative left-[-50px]"} value={countryCode} onChange={(e) => setCountryCode(e.target.value)} style={padding}>
+          <SideBar />
+          <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
+            <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
+            <input type="file" onChange={handleImageUpload} className={`${inputClassName} rounded-full`} />
+            <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
+            <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
+            <div className="flex gap-2 items-center">
+              <select className={`${inputClassName.replace("w-full", "w-[30vw]")} relative left-[-50px]`} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
                   <option key={country.code} value={country.code}>
@@ -401,18 +374,14 @@ const Page = () => {
                   </option>
                 ))}
               </select>
-              <input type="tel"   placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} style={padding} />
+              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
             </div>
             <input type="submit" value="Save Changes" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
-         
           </form>
         </div>
-
-          
-        </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 };
 
 export default Page;
