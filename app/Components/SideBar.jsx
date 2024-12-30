@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const SideBar = () => {
@@ -32,31 +32,31 @@ const SideBar = () => {
   return (
     <div className="flex items-start h-full w-[25%] border-r border-r-black">
       <ul className="flex flex-col items-center gap-[20px]">
-        <Link href="/my-account/settings">
+        <a href="/my-account/settings">
           <li className={profile?optionClassNameActive:optionClassName}>
             <i className="fa-solid fa-user"></i> Profile
           </li>
-        </Link>
-        <Link href="/my-account/settings/verify-email">
+        </a>
+        <a href="/my-account/settings/verify-email">
           <li className={verifyEmail?optionClassNameActive:optionClassName}>
             <i className="fa-solid fa-envelope-circle-check"></i> Verify Email
           </li>
-        </Link>
-        <Link href="/my-account/settings/verify-phone-number">
+        </a>
+        <a href="/my-account/settings/verify-phone-number">
           <li className={verifyPhoneNumber?optionClassNameActive:optionClassName}>
             <i className="fa-solid fa-phone"></i> Verify Phone Number
           </li>
-        </Link>
-        <Link href="/my-account/settings/rest-password">
+        </a>
+        <a href="/my-account/settings/rest-password">
           <li className={resetPassword?optionClassNameActive:optionClassName}>
             <i className="fa-solid fa-phone"></i> Reset Password
           </li>
-        </Link>
-        <Link href="/my-account/settings/delete-account">
+        </a>
+        <a href="/my-account/settings/delete-account">
           <li className={deleteAccount?optionClassNameActive:optionClassName}>
             <i className="fa-solid fa-trash"></i> Delete Account
           </li>
-        </Link>
+        </a>
         <li className={`${optionClassName} bg-red-600`} onClick={() => signOut(auth)}>
           <i className="fa-solid fa-right-from-bracket"></i> Logout
         </li>

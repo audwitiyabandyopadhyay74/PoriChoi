@@ -48,7 +48,7 @@ console.log(user, posts)
         setPosts(data);
         setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error.message);
       }
     };
 
