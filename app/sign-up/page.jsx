@@ -123,7 +123,7 @@ const SignUpPage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg relative transform transition hover:scale-105">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg  relative transform transition hover:scale-105">
         <Image src={icon} alt="Icon" className="mx-auto w-16 mb-6" width={100}/>
         
         <h2 className="text-3xl font-semibold text-gray-800 text-center mb-4">Sign Up</h2>
@@ -177,21 +177,21 @@ const SignUpPage = () => {
 
         <button
           onClick={signInWithGoogle}
-          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2  hover:bg-blue-700 transition duration-300 transform hover:scale-105"
         >
           <i className="fa-brands fa-google mr-2"></i> Sign Up with Google
          
         </button>
         <button
           onClick={signInWithGithub}
-          className="w-full mt-5 py-3 bg-gray-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg  transition duration-300 transform hover:scale-105"
+          className="w-full mt-5 py-3 bg-gray-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2   transition duration-300 transform hover:scale-105"
         >
           <i className="fa-brands fa-github mr-2"></i> Sign Up with Github
 </button>
 
 <button
           onClick={signInWithFacebook}
-          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg  transition duration-300 transform hover:scale-105"
+          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2   transition duration-300 transform hover:scale-105"
         >
           <i className="fa-brands fa-facebook mr-2"></i> Sign Up with Facebook
 </button> 
