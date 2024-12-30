@@ -331,9 +331,9 @@ const Page = () => {
 
       toast.success("Profile updated successfully!", { theme: "colored" });
       document.location.reload();
-    } catch () {
+    } catch (error) {
       // console.error('Error updating profile:', error.message);
-      // toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" });
+      toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" });
     }
   }
 
