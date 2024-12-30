@@ -301,7 +301,7 @@ const Page = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
+    // try {
       let photoURL = photo;
       if (changedImage) {
         const imgRef = ref(storage, `uploads/images/${changedImage.name}`);
@@ -331,10 +331,10 @@ const Page = () => {
   
       toast.success("Profile updated successfully!", { theme: "colored" });
       // document.location.reload();
-    } catch (error) {
-      // console.error('Error updating profile:', error.message);
-      toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" });
-    }
+    // } catch (error) {
+    //   // console.error('Error updating profile:', error.message);
+    //   toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" });
+    // }
   };
     const inputClassName = "w-[90vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
 
@@ -365,7 +365,7 @@ const Page = () => {
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
             <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
             <div className="flex gap-2 items-center">
-              <select className={`${inputClassName.replace("w-full", "w-[30vw]")} relative left-[-50px]`} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+              <select className={`${inputClassName.replace("w-full", "w-[10vw]")} relative left-[-50px]`} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
                   <option key={country.code} value={country.code}>

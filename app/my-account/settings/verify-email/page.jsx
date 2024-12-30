@@ -22,7 +22,7 @@ const Page = () => {
         setUser(user);
         setEmail(user.email || "Email is not given");
         setIsVerified(user.emailVerified);
-        console.log(user.emailVerified);
+        // console.log(user.emailVerified);
       } else {
         setUser(null);
       }
@@ -30,8 +30,9 @@ const Page = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleSendVerificationLink = async (e) => {
-    try {
+
+const handleSendVerificationLink = async (e) => {
+    // try {
       await sendEmailVerification(user);
       toast.success(`Verification link sent to ${email}`, { theme: "colored" });
        e.preventDefault();
@@ -40,20 +41,18 @@ const Page = () => {
         email: changedEmail || email,
       };
       await updateProfile(user, updatedProfileData);
-      toast.success("Profile updated successfully!", { theme: "colored" });
+      toast.success("Email Verified Successfully!", { theme: "colored" });
     } catch (error) {
-      console.error('Error updating profile:', error.message);
-      toast.error('Error updating profile', { theme: "colored" });
+      console.error('Got A Error During Verifying Email:', error.message);
+      toast.error('Error Verifying Email:', { theme: "colored" });
     }
-    } catch (error) {
-      toast.error("Error while sending verification link", { theme: "colored" });
-      console.log(error.message);
-    }
+    // } catch (error) {
+    //   toast.error("Error while sending verification link", { theme: "colored" });
+    //   // console.log(error.message);
+    // }
   };
-
-  const handleSubmit = () => {
-  console.log("Email changed to: ", changedEmail);
-  };
+// console.log("Email changed to: ", changedEmail);
+// const handleSubmit = () => {
 
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
 
@@ -88,9 +87,9 @@ const Page = () => {
           <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings</span>
           <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
             <SideBar />
-            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
+            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute"  onSubmit={handleSendVerificationLink}>
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
-              <button type="button" onClick={handleSendVerificationLink} className={isVerified ? 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]' : 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} disabled={isVerified}>
+              <button type="submit"  className={isVerified ? 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]' : 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} disabled={isVerified}>
                 {isVerified ? "Verified" : "Verify Email"}
               </button>
             </form>
