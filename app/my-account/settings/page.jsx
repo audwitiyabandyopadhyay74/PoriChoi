@@ -261,7 +261,82 @@ const CountryCodeISO = [
   // Add more countries and codes as needed
 ];
 const Page = () => {
-const [user, setUser] = useState(null); const [photo, setPhoto] = useState(Avatar); const [name, setName] = useState("Name is not given"); const [phoneNumber, setPhoneNumber] = useState(''); const [email, setEmail] = useState(''); const [changedImage, setChangedImage] = useState(null); const [changedName, setChangedName] = useState(""); const [changedEmail, setChangedEmail] = useState(""); const [changedPhoneNumber, setChangedPhoneNumber] = useState(""); const [countryCode, setCountryCode] = useState(""); useEffect(() => { const unsubscribe = onAuthStateChanged(auth, (user) => { if (user) { setUser(user); setPhoto(user.photoURL || Avatar); setName(user.displayName || "Name is not given"); setEmail(user.email || "Email is not given"); setPhoneNumber(user.phoneNumber || "Phone Number is not given"); } else { setUser(null); } }); return () => unsubscribe(); }, []); const handleImageUpload = (e) => { const file = e.target.files[0]; if (file) { setChangedImage(file); const reader = new FileReader(); reader.onloadend = () => { setPhoto(reader.result); }; reader.readAsDataURL(file); } }; const handleSubmit = async (e) => { e.preventDefault(); try { let photoURL = photo; if (changedImage) { const imgRef = ref(storage, `uploads/images/${changedImage.name}`); await uploadBytes(imgRef, changedImage); photoURL = await getDownloadURL(imgRef); } const fullPhoneNumber = `${countryCode}${changedPhoneNumber || phoneNumber}`; const updatedProfileData = { photoURL, displayName: changedName || name, email: changedEmail || email, phoneNumber: fullPhoneNumber, }; await updateProfile(user, updatedProfileData); await updateDoc(doc(firestore, 'userFollowingdata', user.uid), { userName: changedName || name, pic: photoURL, }); await updateDoc(doc(firestore, 'userProfileData', user.uid), { userName: changedName || name, pic: photoURL, }); toast.success("Profile updated successfully!", { theme: "colored" }); document.location.reload(); } catch (error) { console.error('Error updating profile:', error.message); toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" }); } };  const inputClassName = "w-[90vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
+  const [user, setUser] = useState(null);
+  const [photo, setPhoto] = useState(Avatar);
+  const [name, setName] = useState("Name is not given");
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [changedImage, setChangedImage] = useState(null);
+  const [changedName, setChangedName] = useState("");
+  const [changedEmail, setChangedEmail] = useState("");
+  const [changedPhoneNumber, setChangedPhoneNumber] = useState("");
+  const [countryCode, setCountryCode] = useState("");
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setPhoto(user.photoURL || Avatar);
+        setName(user.displayName || "Name is not given");
+        setEmail(user.email || "Email is not given");
+        setPhoneNumber(user.phoneNumber || "Phone Number is not given");
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+  
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setChangedImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let photoURL = photo;
+      if (changedImage) {
+        const imgRef = ref(storage, `uploads/images/${changedImage.name}`);
+        await uploadBytes(imgRef, changedImage);
+        photoURL = await getDownloadURL(imgRef);
+      }
+  
+      const fullPhoneNumber = `${countryCode}${changedPhoneNumber || phoneNumber}`;
+      const updatedProfileData = {
+        photoURL,
+        displayName: changedName || name,
+        email: changedEmail || email,
+        phoneNumber: fullPhoneNumber,
+      };
+  
+      await updateProfile(user, updatedProfileData);
+  
+      await updateDoc(doc(firestore, 'userFollowingdata', user.uid), {
+        userName: changedName || name,
+        pic: photoURL,
+      });
+  
+      await updateDoc(doc(firestore, 'userProfileData', user.uid), {
+        userName: changedName || name,
+        pic: photoURL,
+      });
+  
+      toast.success("Profile updated successfully!", { theme: "colored" });
+      // document.location.reload();
+    } catch (error) {
+      // console.error('Error updating profile:', error.message);
+      toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" });
+    }
+  };
+    const inputClassName = "w-[90vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
 
   if (user === null) {
     return (
@@ -281,47 +356,16 @@ const [user, setUser] = useState(null); const [photo, setPhoto] = useState(Avata
       <MoblieNav />
       <ToastContainer />
       <div className="flex w-screen h-screen items-center justify-center relative">
-        <a href="/my-account">
-          <span className="absolute top-[5rem] left-[4rem]">My Account/Settings</span>
-        </a>
+       <a href='/my-account'><span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span></a>
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <SideBar />
-          <form
-            className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute"
-            onSubmit={handleSubmit}
-          >
-            <Image
-              src={photo}
-              width={100}
-              height={100}
-              className="rounded-full p-[10px]"
-              alt="Profile Image"
-            />
-            <input
-              type="file"
-              onChange={handleImageUpload}
-              className={`${inputClassName} rounded-full`}
-            />
-            <input
-              type="text"
-              placeholder="Name"
-              value={changedName || name}
-              onChange={(e) => setChangedName(e.target.value)}
-              className={inputClassName}
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={changedEmail || email}
-              onChange={(e) => setChangedEmail(e.target.value)}
-              className={inputClassName}
-            />
+          <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
+            <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
+            <input type="file" onChange={handleImageUpload} className={`${inputClassName} rounded-full`} />
+            <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
+            <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
             <div className="flex gap-2 items-center">
-              <select
-                className={`${inputClassName.replace("w-full", "w-[30vw]")} relative left-[-50px]`}
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-              >
+              <select className={`${inputClassName.replace("w-full", "w-[30vw]")} relative left-[-50px]`} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
                   <option key={country.code} value={country.code}>
@@ -329,24 +373,13 @@ const [user, setUser] = useState(null); const [photo, setPhoto] = useState(Avata
                   </option>
                 ))}
               </select>
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                value={changedPhoneNumber || phoneNumber}
-                onChange={(e) => setChangedPhoneNumber(e.target.value)}
-                className={inputClassName}
-              />
+              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
             </div>
-            <input
-              type="submit"
-              value="Save Changes"
-              className="lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer"
-            />
+            <input type="submit" value="Save Changes" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
           </form>
         </div>
       </div>
     </>
   );
-  
 }
 export default Page;
