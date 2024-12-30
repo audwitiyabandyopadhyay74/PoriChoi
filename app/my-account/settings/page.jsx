@@ -357,7 +357,7 @@ const Page = () => {
       <MoblieNav />
       <ToastContainer />
       <div className="flex w-screen h-screen items-center justify-center relative">
-        <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings</span>
+       <a href='/my-account'><span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span></a>
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <SideBar />
           <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
