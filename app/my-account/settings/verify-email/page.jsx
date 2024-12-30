@@ -36,16 +36,16 @@ const handleSendVerificationLink = async (e) => {
       await sendEmailVerification(user);
       toast.success(`Verification link sent to ${email}`, { theme: "colored" });
        e.preventDefault();
-    try {
+    // try {
       const updatedProfileData = {
         email: changedEmail || email,
       };
       await updateProfile(user, updatedProfileData);
       toast.success("Email Verified Successfully!", { theme: "colored" });
-    } catch (error) {
-      console.error('Got A Error During Verifying Email:', error.message);
-      toast.error('Error Verifying Email:', { theme: "colored" });
-    }
+    // } catch (error) {
+    //   console.error('Got A Error During Verifying Email:', error.message);
+    //   toast.error('Error Verifying Email:', { theme: "colored" });
+    // }
     // } catch (error) {
     //   toast.error("Error while sending verification link", { theme: "colored" });
     //   // console.log(error.message);
