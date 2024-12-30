@@ -15,45 +15,38 @@ const Page = () => {
   const [email, setEmail] = useState('');
   const [changedEmail, setChangedEmail] = useState("");
   const [isVerified, setIsVerified] = useState(false);
-
+  
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth,  (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         setEmail(user.email || "Email is not given");
         setIsVerified(user.emailVerified);
-        // console.log(user.emailVerified);
       } else {
         setUser(null);
       }
     });
     return () => unsubscribe();
   }, []);
-
-
-const handleSendVerificationLink = async (e) => {
-    // try {
+  
+  const handleSendVerificationLink = async (e) => {
+    e.preventDefault();
+    try {
       await sendEmailVerification(user);
       toast.success(`Verification link sent to ${email}`, { theme: "colored" });
-       e.preventDefault();
-    // try {
+  
       const updatedProfileData = {
         email: changedEmail || email,
       };
+  
       await updateProfile(user, updatedProfileData);
       toast.success("Email Verified Successfully!", { theme: "colored" });
-    // } catch (error) {
-    //   console.error('Got A Error During Verifying Email:', error.message);
-    //   toast.error('Error Verifying Email:', { theme: "colored" });
-    // }
-    // } catch (error) {
-    //   toast.error("Error while sending verification link", { theme: "colored" });
-    //   // console.log(error.message);
-    // }
+    } catch (error) {
+      toast.error("Error while sending verification link or updating profile", { theme: "colored" });
+      console.error('Error:', error.message);
+    }
   };
-// console.log("Email changed to: ", changedEmail);
-// const handleSubmit = () => {
-
+  
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
 
   if (user === null) {
