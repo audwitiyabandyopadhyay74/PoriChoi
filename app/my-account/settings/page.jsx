@@ -336,6 +336,7 @@ const Page = () => {
     //   toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" });
     // }
   };
+  
     const inputClassName = "w-[90vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
 
   if (user === null) {
