@@ -179,7 +179,7 @@ const SignUpPage = () => {
           onClick={signInWithGoogle}
           className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
         >
-          <i className="fa-brands fa-github mr-2"></i> Sign Up with Google
+          <i className="fa-brands fa-google mr-2"></i> Sign Up with Google
          
         </button>
         <button

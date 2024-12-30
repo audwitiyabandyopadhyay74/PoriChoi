@@ -153,7 +153,7 @@ const auth = getAuth(app);
       <div className="w-full max-w-lg bg-white/70 backdrop-blur-md rounded-3xl shadow-xl border border-white/20 flex flex-col items-center py-10 px-6 sm:px-8 md:px-10 lg:px-12">
         <Image
           src={icon}
-          className="rounded-full w-24 h-24 bg-white p-2 shadow-lg transition-transform duration-300 transform hover:scale-110"
+          className="rounded-full w-24 h-24 bg-white p-2  transition-transform duration-300 transform hover:scale-110"
           alt="Icon"
           width={100}
           height={100}
@@ -189,28 +189,28 @@ const auth = getAuth(app);
         </div>
 
         <button
-          className="w-full mt-8 py-3 bg-purple-500 text-white rounded-lg font-semibold shadow-lg hover:bg-purple-600 transition duration-300 transform hover:scale-105"
+          className="w-full mt-8 py-3 bg-purple-500 text-white rounded-lg font-semibold  hover:bg-purple-600 transition duration-300 transform hover:scale-105"
           onClick={login}
         >
           Login
         </button>
 
         <button
-          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shad   ow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
           onClick={signInWithGoogle}
         >
           <i className="fa-brands fa-google"></i> Sign in with Google
         </button>
                 <button
           onClick={signInWithGithub}
-          className="w-full mt-5 py-3 bg-gray-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg transition duration-300 transform hover:scale-105"
+          className="w-full mt-5 py-3 bg-gray-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2  transition duration-300 transform hover:scale-105"
         >
           <i className="fa-brands fa-github mr-2"></i> Sign in with Github
 </button>
 
 <button
           onClick={signInWithFacebook}
-          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+          className="w-full mt-5 py-3 bg-blue-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2  hover:bg-blue-700 transition duration-300 transform hover:scale-105"
         >
           <i className="fa-brands fa-facebook mr-2"></i> Sign in with Facebook
 </button>
