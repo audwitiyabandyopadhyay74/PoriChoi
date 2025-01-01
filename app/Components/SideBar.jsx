@@ -7,12 +7,12 @@ import { auth } from '../firebase';
 // import { usePathname } from 'next/navigation';
 
 const SideBar = () => {
-  const [profile, setProfile] = useState(false);
-  const [verifyEmail, setVerifyEmail] = useState(false);
-  const [verifyPhoneNumber, setVerifyPhoneNumber] = useState(false);
-  const [resetPassword, setResetPassword] = useState(false);
-  const [deleteAccount, setDeleteAccount] = useState(false);
-  const pathname = usePathname();
+  // const [profile, setProfile] = useState(false);
+  // const [verifyEmail, setVerifyEmail] = useState(false);
+  // const [verifyPhoneNumber, setVerifyPhoneNumber] = useState(false);
+  // const [resetPassword, setResetPassword] = useState(false);
+  // const [deleteAccount, setDeleteAccount] = useState(false);
+  // const pathname = usePathname();
 
   // if (pathname === "/my-account/settings") {
   //   setProfile(true);
