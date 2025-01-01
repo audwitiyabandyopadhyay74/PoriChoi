@@ -123,7 +123,7 @@ const Page = () => {
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
                   <option key={country.code} value={country.code}>
-                    {country.country} ({country.iso}) ({country.code})
+                  {console.clear(country.country)}  {country.iso} ({country.code})
                   </option>
                 ))}
               </select>
