@@ -113,7 +113,7 @@ const Page = () => {
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <SideBar />
           <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
-            <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
+            <Image src={photo} width={300} height={300} className='rounded-full p-[10px]' alt='Profile Image' />
             <input type="file" onChange={handleImageUpload} className={`${inputClassName} rounded-full`} />
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
             <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
