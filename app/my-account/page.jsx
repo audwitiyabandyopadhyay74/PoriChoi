@@ -8,17 +8,16 @@ import Avatar from '../download.png';
 // import SideBar from '../../Components/SideBar';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
-import MoblieNav from '../Components/Moblie Nav';
+import MoblieNav from '../Components/MoblieNav';
 import { toast } from 'react-toastify';
 import { gsap } from 'gsap';
 
-gsap.to('.content', { duration: 1, delay: 0.5, right: '0%', ease: 'power3.out', x:0 });
 const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
-// console.log(user, posts)
+
   // Fetch user data on authentication state change
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -46,7 +45,6 @@ const Page = () => {
     const fetchData = async () => {
       try {
         const data = await fetchDataFromFirebase();
-        // setPosts(data);
         setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
       } catch (error) {
         toast.error('Error fetching data:', error.message);
@@ -58,53 +56,47 @@ const Page = () => {
     }
   }, [name]);
 
-// const spanClassName = '';
-if(user === null){ 
-  return(
-    <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center  font-bold content'>
-      <MoblieNav />
-            <NavBar />
+  // Apply GSAP animation
+  useEffect(() => {
+    gsap.to('.content', { duration: 1, delay: 0.5, right: '0%', ease: 'power3.out' });
+  }, []);
 
-<span className="text-3xl  h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span><a href='/log-in'>
-<button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button></a>
-</div>
-  )
-} else{ 
-  return (
-    <>      <NavBar />
-      <MoblieNav />
-
-      <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 ">
-        <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
-        <h1 className='text-2xl font-semibold'>{name}</h1>
+  if(user === null){ 
+    return (
+      <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold content'>
+        <MoblieNav />
+        <NavBar />
+        <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
+        <a href='/log-in'>
+          <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
+        </a>
       </div>
-      <br />
-      <div className="flex w-screen h-full justify-between">
-      <div className="flex w-screen h-max lg:flex-row flex-col  gap-[200px] justify-center items-center">
-      <div className="h-max w-[30%] flex flex-col items-center justify-between gap-[400px]">
-      <span className="font-semibold text-3xl">My Posts</span>              
-
-            {filteredPosts.map((post) => (<div className='mt-[-200px]' key={post.id}>
-              <Post  {...post} />
-              </div>
-            ))}
+    )
+  } else {
+    return (
+      <>
+        <NavBar />
+        <MoblieNav />
+        <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 content">
+          <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
+          <h1 className='text-2xl font-semibold'>{name}</h1>
+        </div>
+        <br />
+        <div className="flex w-screen h-full justify-between">
+          <div className="flex w-screen h-max lg:flex-row flex-col gap-[200px] justify-center items-center">
+            <div className="h-max w-[30%] flex flex-col items-center justify-between gap-[400px]">
+              <span className="font-semibold text-3xl">My Posts</span>
+              {filteredPosts.map((post) => (
+                <div className='mt-[-200px]' key={post.id}>
+                  <Post {...post} />
+                </div>
+              ))}
+            </div>
           </div>
-        {/* <SideBar/> */}
-        {/* {/* <form className="h-[70vh] lg:w-max w-screen flex items-center justify-center flex-col gap-4" onSubmit={handleSubmit}> */}
-          {/* <div className="text-3xl /font-semibold">Check Your Profile</div> */}
-          {/* <b className='w-[30vw] hidden'>ℹ️ You can also update one thing by just filling the input and clicking on the Update Your Profile</b>  */}
-          {/* <div className='w-screen lg:w-max flex flex-col flex-wrap justify-center items-center gap-[10px] '> */}
-          {/* <input type="text"   value={name || ''} placeholder={name} onChange={(e) => setChangedName(e.target.value)} readOnly  className={inputClassName} /> */}
-          {/* <input type="text" value={email || ''} placeholder={email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} readOnly/> */}
-          {/* <input type="text" value={phoneNumber || ''} placeholder={phoneNumber} readOnly onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} /> */}
-        {/* </div>  */}
-          {/* <input type="submit" value="Update My Profile" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md p-1 bg-[#0f0f0f] p-[10px] text-white hover:scale-110 cursor-pointer' /> */}
-        
-        {/* </form> */}
-      </div>
-      </div>
-    </>
-  );
-}
+        </div>
+      </>
+    );
+  }
 };
+
 export default Page;
