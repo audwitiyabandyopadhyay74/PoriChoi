@@ -9,15 +9,16 @@ import Avatar from '../download.png';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
 import MoblieNav from '../Components/Moblie Nav';
+import { toast } from 'react-toastify';
 
 
 const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
-  const [posts, setPosts] = useState([]);
+  const  setPosts = [];
   const [filteredPosts, setFilteredPosts] = useState([]);
-console.log(user, posts)
+// console.log(user, posts)
   // Fetch user data on authentication state change
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -48,7 +49,7 @@ console.log(user, posts)
         setPosts(data);
         setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
       } catch (error) {
-        console.error('Error fetching data:', error.message);
+        toast.error('Error fetching data:', error.message);
       }
     };
 

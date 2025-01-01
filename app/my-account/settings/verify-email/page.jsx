@@ -43,7 +43,7 @@ const Page = () => {
       toast.success("Email Verified Successfully!", { theme: "colored" });
     } catch (error) {
       toast.error("Error while sending verification link or updating profile", { theme: "colored" });
-      console.error('Error:', error.message);
+      toast.error('Error:', error.message);
     }
   };
   

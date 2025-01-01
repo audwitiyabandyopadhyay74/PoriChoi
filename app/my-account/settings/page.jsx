@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../Components/NavBar';
-// import SideBar from '../../Components/SideBar';
 import { auth, storage, firestore } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateDoc, doc } from 'firebase/firestore';
@@ -87,12 +86,8 @@ const Page = () => {
       });
   
       toast.success("Profile updated successfully!", { theme: "colored" });
-      // document.location.reload();
-    // } catch (error) {
-    //   // console.error('Error updating profile:', error.message);
-    //   toast.error(error.message.includes("too-many-requests") ? 'Too Many Requests' : 'Error updating profile', { theme: "colored" });
-    // }
-  };
+  
+  }; 
   
     const inputClassName = "w-[90vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
 
@@ -139,5 +134,5 @@ const Page = () => {
       </div>
     </>
   );
-}
+};
 export default Page;
