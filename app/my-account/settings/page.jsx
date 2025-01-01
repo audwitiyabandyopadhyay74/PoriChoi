@@ -119,6 +119,7 @@ const Page = () => {
             <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
             <div className="flex gap-2 items-center">
               <select className={`${inputClassName.replace("w-[82.5vh]", "w-[7.8vw]")} relative left-[-50px]`} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+                <option value=""></option>
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
                   <option key={country.code} value={country.code}>
