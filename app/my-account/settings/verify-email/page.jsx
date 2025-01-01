@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../style.css";
 import MoblieNav from '@/app/Components/Moblie Nav';
-import SideBar from '../../../Components/SideBar';
+// import SideBar from '../../../Components/SideBar';
 
 const Page = () => {
   const [user, setUser] = useState(null);
@@ -79,7 +79,7 @@ const Page = () => {
         <div className="flex w-screen h-screen items-center justify-center relative">
           <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings</span>
           <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
-            <SideBar />
+            {/* <SideBar /> */}
             <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute"  onSubmit={handleSendVerificationLink}>
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
               <button type="submit"  className={isVerified ? 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]' : 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} disabled={isVerified}>

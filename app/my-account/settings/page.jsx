@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import '../../toastify.css';
 import "../style.css";
 import MoblieNav from '../../Components/Moblie Nav';
-import SideBar from '../../Components/SideBar'
+// import SideBar from '../../Components/SideBar'
 import { CountryCodeISO } from "../../Data/CountryCodeISO";
 
 const Page = () => {
@@ -111,7 +111,7 @@ const Page = () => {
       <div className="flex w-screen h-screen items-center justify-center relative">
        <a href='/my-account'><span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span></a>
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
-          <SideBar />
+          {/* <SideBar /> */}
           <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
             <Image src={photo} width={100} height={100} className='rounded-full p-[10px]' alt='Profile Image' />
             <input type="file" onChange={handleImageUpload} className={`${inputClassName} rounded-full`} />
