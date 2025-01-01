@@ -26,7 +26,7 @@ const SideBar = () => {
   //   setDeleteAccount(true);
   // }
 
-  const optionClassName = "h-[15vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer";
+  const optionClassName = "h-[7.5vh] w-[15vh] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer";
   // const optionClassNameActive = "h-[15vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer bg-gray-200";
 
   return (
