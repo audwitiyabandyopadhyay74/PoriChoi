@@ -16,7 +16,7 @@ const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
-  const  setPosts = [];
+  // const  [post,setPosts] = [];
   const [filteredPosts, setFilteredPosts] = useState([]);
 // console.log(user, posts)
   // Fetch user data on authentication state change
@@ -46,7 +46,7 @@ const Page = () => {
     const fetchData = async () => {
       try {
         const data = await fetchDataFromFirebase();
-        setPosts(data);
+        // setPosts(data);
         setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
       } catch (error) {
         toast.error('Error fetching data:', error.message);
