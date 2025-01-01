@@ -10,13 +10,13 @@ import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
 import MoblieNav from '../Components/Moblie Nav';
 import { toast } from 'react-toastify';
+import { gsap } from 'gsap';
 
-
+gsap.to('.content', { duration: 1, delay: 0.5, right: '0%', ease: 'power3.out', x:0 });
 const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
-  // const  [post,setPosts] = [];
   const [filteredPosts, setFilteredPosts] = useState([]);
 // console.log(user, posts)
   // Fetch user data on authentication state change
@@ -61,7 +61,7 @@ const Page = () => {
 // const spanClassName = '';
 if(user === null){ 
   return(
-    <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center  font-bold'>
+    <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center  font-bold content'>
       <MoblieNav />
             <NavBar />
 
