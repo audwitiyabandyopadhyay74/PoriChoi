@@ -31,7 +31,7 @@ const Page = () => {
   
   const handleSendVerificationLink = async (e) => {
     e.preventDefault();
-    try {
+    // try {
       await sendEmailVerification(user);
       toast.success(`Verification link sent to ${email}`, { theme: "colored" });
   
@@ -41,10 +41,10 @@ const Page = () => {
   
       await updateProfile(user, updatedProfileData);
       toast.success("Email Verified Successfully!", { theme: "colored" });
-    } catch (error) {
+    // } catch (error) {
       toast.error("Error while sending verification link or updating profile", { theme: "colored" });
-      toast.error('Error:', error.message);
-    }
+      // toast.error('Error:', error.message);
+    // }
   };
   
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
