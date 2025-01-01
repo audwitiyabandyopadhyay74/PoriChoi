@@ -27,7 +27,7 @@ const SideBar = () => {
   // }
 
   const optionClassName = "h-[15vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer";
-  const optionClassNameActive = "h-[15vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer bg-gray-200";
+  // const optionClassNameActive = "h-[15vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer bg-gray-200";
 
   return (
     <div className="flex items-start h-full w-[25%] border-r border-r-black">
