@@ -89,7 +89,7 @@ const Page = () => {
   
   }; 
   
-    const inputClassName = "w-[90vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
+    const inputClassName = "w-[82.5vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
 
   if (user === null) {
     return (
