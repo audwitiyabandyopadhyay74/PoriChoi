@@ -130,7 +130,7 @@ const Page = () => {
               <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
             </div>
             <input type="submit" value="Save Changes" 
-            className='lg:w-[7vw] lg:h-[7vh] w-max h-[6vh] p-3 rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
+            className='lg:w-[7vw] lg:h-[7vh] w-max h-[6vh] p-0 rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
           </form>
         </div>
       </div>
