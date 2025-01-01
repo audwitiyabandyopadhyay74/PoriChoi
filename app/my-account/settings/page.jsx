@@ -112,13 +112,13 @@ const Page = () => {
        <a href='/my-account'><span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span></a>
         <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <SideBar />
-          <form className="flex flex-col gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSubmit}>
-            <Image src={photo} width={300} height={300} className='rounded-full p-[10px]' alt='Profile Image' />
+          <form className="flex flex-col gap-4 justify-center items-center mt-[30px] w-[80%] absolute" onSubmit={handleSubmit}>
+            <Image src={photo} width={200} height={200} className='rounded-full p-[10px]' alt='Profile Image' />
             <input type="file" onChange={handleImageUpload} className={`${inputClassName} rounded-full`} />
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
             <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
             <div className="flex gap-2 items-center">
-              <select className={`${inputClassName.replace("w-[82.5vh]", "w-[7.8vw]")} relative left-[-50px]`} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+              <select className={`${inputClassName.replace("w-[82.5vh]", "w-[7.8vw]")} `} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
                 <option value=""></option>
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
@@ -129,7 +129,8 @@ const Page = () => {
               </select>
               <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
             </div>
-            <input type="submit" value="Save Changes" className='lg:w-[10vw] lg:h-[6vh] w-max h-[6vh] rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
+            <input type="submit" value="Save Changes" 
+            className='lg:w-[7vw] lg:h-[7vh] w-max h-[6vh] p-3 rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
           </form>
         </div>
       </div>
