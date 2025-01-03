@@ -110,7 +110,7 @@ const Page = () => {
       <ToastContainer />
       <div className="flex w-screen h-screen items-center justify-center relative">
        <a href='/my-account'><span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span></a>
-        <div className="w-[65%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
+        <div className="w-[70%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <SideBar />
           <form className="flex flex-col gap-4 justify-center items-center mt-[30px] w-[80%] absolute" onSubmit={handleSubmit}>
             <Image src={photo} width={200} height={200} className='rounded-full p-[10px]' alt='Profile Image' />
