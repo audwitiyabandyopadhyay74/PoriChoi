@@ -49,7 +49,7 @@ const SideBar = () => {
         </a>
         <a href="/my-account/settings/rest-password">
           <li className={optionClassName}>
-            <i className="fa-solid fa-phone"></i> Reset Password
+            <i className="fa-solid fa-lock"></i> Reset Password
           </li>
         </a>
         <a href="/my-account/settings/delete-account">
