@@ -31,7 +31,7 @@ const Page = () => {
   
   const handleSendVerificationLink = async (e) => {
     e.preventDefault();
-    // try {
+    try {
       await sendEmailVerification(user);
       toast.success(`Verification link sent to ${email}`, { theme: "colored" });
   
@@ -41,10 +41,10 @@ const Page = () => {
   
       await updateProfile(user, updatedProfileData);
       toast.success("Email Verified Successfully!", { theme: "colored" });
-    // } catch (error) {
+    } catch (error) {
       toast.error("Error while sending verification link or updating profile", { theme: "colored" });
-      // toast.error('Error:', error.message);
-    // }
+      toast.error('Error:', error.message);
+    }
   };
   
   const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
@@ -77,7 +77,7 @@ const Page = () => {
         <NavBar />
         <MoblieNav />
         <div className="flex w-screen h-screen items-center justify-center relative">
-          <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings</span>
+          <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings/Verify-Email</span>
           <div className="w-[70 %] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
             <SideBar />
             <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute"  onSubmit={handleSendVerificationLink}>
