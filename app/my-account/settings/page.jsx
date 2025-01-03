@@ -126,7 +126,7 @@ const Page = () => {
                   {console.clear(country.country)}  {country.iso} ({country.code})
                   </option>
                 ))} 
-                {/*I will be back soon !*/}
+                {/*I back !*/}
               </select>
               <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
             </div>
