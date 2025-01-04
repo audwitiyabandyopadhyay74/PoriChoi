@@ -7,15 +7,14 @@ import SideBar from '../../../Components/SideBar';
 import {sendPasswordResetEmail,onAuthStateChanged} from "firebase/auth"
 import {auth} from '../../../firebase'
 
-
-
 const Page = () => {
   const [user,setUser] = useState()
 useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-setUser(user)
+        setUser(user)
       } else {
+        setUser(null)
       }
     });
     return () => unsubscribe();
@@ -26,8 +25,22 @@ setUser(user)
     }catch(error){
       toast.error("Error while sending password reset link", { theme: "colored" });
       toast.error('Error:', error.message);
-    }}
-const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
+    }
+  }
+
+    const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
+
+if(user === null){
+  return (
+    <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
+    <NavBar />
+    <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
+    <a href='/log-in'>
+      <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
+    </a>
+  </div>
+  )
+}else{
   return (
 <>
         <ToastContainer
@@ -52,6 +65,6 @@ const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none ou
         </div>
       </>
   );
-}
+}}
 
 export default Page;

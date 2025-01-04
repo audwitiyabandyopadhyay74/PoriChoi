@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Post from './Post';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
+import Clock from "./Clock";
 
 async function fetchDatafromFirebase() {
   const querySnapshot = await getDocs(collection(firestore, 'posts'));
@@ -33,6 +34,7 @@ const Posts = () => {
 
   return (
     <div className="flex items-start justify-center w-screen h-screen">
+      <Clock/>
       <div className="h-max w-[100%] lg:w-[50%] flex flex-col gap-[400px] p-4 bg-[#fff]">
         {posts.map((post) => (
         <Post {...post}  key={post.id}/>
