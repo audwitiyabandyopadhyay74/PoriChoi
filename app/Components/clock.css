@@ -1,12 +1,25 @@
-.clock {
-    position: relative;
+#analogClock {
     width: 300px;
     height: 300px;
-    border-radius: 50%;
-    background: #fff;
-}
-
-.clock .centerPoint {
+    border-radius: 100%;
+    position: relative;
+  }
+  
+  #clock svg {
+    position: absolute;
+    animation: clockAnm 1s;
+  }
+  
+  @keyframes clockAnm {
+    from {
+      transform: rotate(40deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .clock .centerPoint {
     width: 20px;
     height: 20px;
     position: absolute;
@@ -15,18 +28,94 @@
     top: 0;
     bottom: 0;
     margin: auto;
-    background: black;
-    border-radius: 50%;
-}
-
-.hand {
+  }
+  
+  .clock .centerPoint .sui {
     position: absolute;
-    width: 50%;
-    height: 6px;
-    background-color: black;
-    top: 50%;
-    transform-origin: 100%;
+    width: 20px;
+    height: 100px;
+    background-color: var(--darkColor-blue);
+    top: -90px;
+    transform-origin: bottom;
+    border-radius: 10px;
+  }
+  
+  #hour {
+    height: 80px;
+    top: -70px;
+    background-color: var(--darkerColor-blue);
     transform: rotate(90deg);
-    transition: transform 0.05s ease-in-out;
-}
-
+    transition: transform 1.5s;
+  }
+  
+  #hour::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background-color: var(--darkerColor-blue);
+    bottom: -10px;
+    border-radius: 100px;
+  }
+  
+  #minute {
+    z-index: 9 !important;
+    transition: transform 1.5s;
+  }
+  
+  #minute::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background-color: var(--darkColor-blue);
+    bottom: -10px;
+    border-radius: 100px;
+  }
+  
+  #second {
+    background-color: #00000000;
+    transition: transform 1s;
+  }
+  
+  #second::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--darkColor-blue);
+    top: -28px;
+    border-radius: 100%;
+  }
+  
+  /* ---------------------- */
+  
+  .ttteexxtt {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+  }
+  
+  #userText {
+    font-family: "poppins", "Poppins", serif;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  
+  #date {
+    font-size: 1.4rem;
+  }
+  
+  .digidate {
+    fill: var(--textColorDark-blue);
+  }
+  
+  .amPm {
+    fill: var(--textColorDark-blue);
+  }
+  
+  .digiclock {
+    text-anchor: middle;
+    fill: var(--darkColor-blue);
+    font-size: 8rem;
+    font-weight[_{{{CITATION{{{_1{](https://github.com/leot7495/Blog/tree/116b5f126ff430d97fd81dd86d2c48707b61c7f4/src%2Fcomponents%2FWorksItems%2Fclock%2Fclock.js)
