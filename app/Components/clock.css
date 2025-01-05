@@ -2,9 +2,9 @@
 
 
 .clock {
-    width: 300rem;
-    height: 300rem;
-    border: 20px solid ;
+    width: 300px !important;
+    height: 300px !important;
+    border: 10px solid rgb(0, 102, 255);
     border-radius: 50%;
     position: absolute;
     top: 100px;
@@ -12,6 +12,31 @@
     padding: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     background: white;
+}
+
+/* Add a gradient background inside the clock */
+.clock::before {
+    content: '';
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    top: 10px;
+    left: 10px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,102,255,0.2) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Add a central dot */
+.clock::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgb(0, 102, 255);
+    border-radius: 50%;
+    top: 140px;
+    left: 140px;
 }
 
 .clock-face {
