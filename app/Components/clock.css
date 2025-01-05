@@ -1,90 +1,32 @@
-/* styles.css */
-
-
 .clock {
-    width: 300px !important;
-    height: 300px !important;
-    border: 10px solid rgb(0, 102, 255);
+    position: relative;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
-    position: absolute;
-    top: 100px;
-    left: 10px;
-    padding: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    background: white;
+    background: #fff;
 }
 
-/* Add a gradient background inside the clock */
-.clock::before {
-    content: '';
-    position: absolute;
-    width: 280px;
-    height: 280px;
-    top: 10px;
-    left: 10px;
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,102,255,0.2) 70%);
-    border-radius: 50%;
-    z-index: -1;
-}
-
-/* Add a central dot */
-.clock::after {
-    content: '';
-    position: absolute;
+.clock .centerPoint {
     width: 20px;
     height: 20px;
-    background: rgb(0, 102, 255);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: black;
     border-radius: 50%;
-    top: 140px;
-    left: 140px;
-}
-
-.clock-face {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform: translateY(-3px); /* Fix for the hands positioning */
 }
 
 .hand {
-    width: 50%;
-    background: black;
     position: absolute;
+    width: 50%;
+    height: 6px;
+    background-color: black;
     top: 50%;
     transform-origin: 100%;
     transform: rotate(90deg);
-    transition: all 0.05s;
-    transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    transition: transform 0.05s ease-in-out;
 }
 
-.hour-hand {
-    height: 6px;
-}
-
-.minute-hand {
-    height: 4px;
-}
-
-.second-hand {
-    height: 2px;
-    background: red;
-}
-
-.number {
-    position: absolute;
-    font-size: 24px;
-    transform: translate(-50%, -50%);
-}
-
-.number1  { top: 20%; left: 85%; }
-.number2  { top: 35%; left: 92%; }
-.number3  { top: 50%; left: 97%; }
-.number4  { top: 65%; left: 92%; }
-.number5  { top: 80%; left: 85%; }
-.number6  { top: 85%; left: 50%; }
-.number7  { top: 80%; left: 15%; }
-.number8  { top: 65%; left: 8%; }
-.number9  { top: 50%; left: 3%; }
-.number10 { top: 35%; left: 8%; }
-.number11 { top: 20%; left: 15%; }
-.number12 { top: 15%; left: 50%; }
