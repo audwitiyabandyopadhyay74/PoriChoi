@@ -29,7 +29,7 @@ const Clock = () => {
   }, []);
 
   return (
-    <div className="clock" id="analogClock" style={{ display: "block", position:"absolute",left:"0px",top:"100px" }}>
+    <div className="clock" id="analogClock" style={{ display: "block", position:"absolute",left:"2px",top:"100px" }}>
       <svg 
         fill="none" 
         height="100%" 
