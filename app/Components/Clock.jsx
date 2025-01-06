@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import "./clock.css";
 
 const Clock = () => {
+  const secondHandRef = useRef(null);
+  const minuteHandRef = useRef(null);
+  const hourHandRef = useRef(null);
+
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
+
+      const secondDegrees = ((seconds / 60) * 360) + 90;
+      const minuteDegrees = ((minutes / 60) * 360) + ((seconds / 60) * 6) + 90;
+      const hourDegrees = ((hours / 12) * 360) + ((minutes / 60) * 30) + 90;
+
+      if (secondHandRef.current) secondHandRef.current.style.transform = `rotate(${secondDegrees}deg)`;
+      if (minuteHandRef.current) minuteHandRef.current.style.transform = `rotate(${minuteDegrees}deg)`;
+      if (hourHandRef.current) hourHandRef.current.style.transform = `rotate(${hourDegrees}deg)`;
+    };
+
+    updateClock();
+    const intervalId = setInterval(updateClock, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="clock" id="analogClock" style={{ display: "block" }}>
       <svg 
@@ -20,9 +46,9 @@ const Clock = () => {
         />
       </svg>
       <div className="centerPoint">
-        <div className="sui" id="hour" style={{ transform: "rotate(466.5deg)", transition: "transform 1s" }}></div>
-        <div className="sui" id="second" style={{ transform: "rotate(186deg)", transition: "transform 1s" }}></div>
-        <div className="sui" id="minute" style={{ transform: "rotate(201.1deg)", transition: "transform 1s" }}></div>
+        <div className="sui" id="hour" ref={hourHandRef}></div>
+        <div className="sui" id="second" ref={secondHandRef}></div>
+        <div className="sui" id="minute" ref={minuteHandRef}></div>
       </div>
     </div>
   );

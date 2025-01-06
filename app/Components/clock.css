@@ -4,11 +4,13 @@
     height: 300px;
     border-radius: 100%;
     position: relative;
+    console
   }
   
   #clock svg {
     position: absolute;
     animation: clockAnm 1s;
+    color: aqua;
   }
   
   @keyframes clockAnm {
