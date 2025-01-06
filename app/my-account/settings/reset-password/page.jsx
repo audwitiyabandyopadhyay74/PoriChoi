@@ -15,7 +15,8 @@ const Page = () => {
   useEffect(() => {     
     const unsubscribe = onAuthStateChanged(auth, (user) => {       
       if (user) {         
-        setUser(user);       
+        setUser(user);    
+        setEmail(user.email);
       } else {         
         setUser(null);       
       }     
@@ -75,9 +76,9 @@ const Page = () => {
               />               
               <button 
                 type="submit"  
-                className={'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} 
+                className={'lg:w-[15vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} 
               >                 
-                Send A Reset Password Link               
+                Send Reset Password Link               
               </button>             
             </form>           
           </div>         
