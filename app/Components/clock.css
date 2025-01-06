@@ -1,3 +1,4 @@
+cls
 /* /* #analogClock {
     width: 300px;
     height: 300px;
@@ -89,6 +90,8 @@
   }
   
   /* ---------------------- */
+
+
 /*   
   .ttteexxtt {
     position: absolute;
@@ -118,15 +121,13 @@
     text-anchor: middle;
     fill: var(--darkColor-blue);
     font-size: 8rem;
-    /* font-weight[_{{{CITATION{{{_1{](https://github.com/leot7495/Blog/tree/116b5f126ff430d97fd81dd86d2c48707b61c7f4/src%2Fcomponents%2FWorksItems%2Fclock%2Fclock.js) */ */
+    /* font-weight[_{{{CITATION{{{_1{](https://github.com/leot7495/Blog/tree/116b5f126ff430d97fd81dd86d2c48707b61c7f4/src%2Fcomponents%2FWorksItems%2Fclock%2Fclock.js) */
 
-
-
-  .clock {
-  display: block;
-  margin: 50px auto;
-  background-color: #f3f3f3;
-  border: 16px solid #333;
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+*/ .clock {
+    display: block;
+    margin: 50px auto;
+    background-color: #f3f3f3;
+    border: 16px solid #333;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
