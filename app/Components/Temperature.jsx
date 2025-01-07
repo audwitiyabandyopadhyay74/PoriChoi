@@ -51,8 +51,12 @@ const WeatherApp = () => {
             alignItems: 'start',
             justifyContent: 'center'
         }}>
-            {icon && <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="Weather Icon" />}
+<span className="text-2xl font-bold">
+  Feels Like:
+</span>
             {temperature ? `${temperature}°C` : 'Loading...'}
+            {icon && <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="Weather Icon" />}
+
         </div>
     );
 };
