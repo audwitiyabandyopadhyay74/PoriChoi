@@ -5,6 +5,8 @@ import Post from './Post';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
 import Clock from "./Clock";
+import Temperature from "./Temperature";
+
 
 async function fetchDatafromFirebase() {
   const querySnapshot = await getDocs(collection(firestore, 'posts'));
@@ -41,6 +43,7 @@ const Posts = () => {
     
         ))}
       </div>
+      <Temperature/>
     </div>
   );
 };
