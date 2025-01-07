@@ -50,7 +50,9 @@ const WeatherApp = () => {
             display: 'flex',
             alignItems: 'start',
             justifyContent: 'center'
-        }}>
+        }}
+        className="absolute top-[100px] right-[1px]"
+        >
 <span className="text-2xl font-bold">
   Feels Like:
 </span>
