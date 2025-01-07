@@ -42,17 +42,17 @@ const WeatherApp = () => {
         <div style={{
             width: '13vh',
             borderRadius: '300px',
-            height: '23vh',
+            height: '25vh',
             transform: 'rotate(45deg)',
             background: '#ffffff',
             border: 'solid 1px black',
             textAlign: 'center',
             display: 'flex',
-            alignItems: 'start',
+            alignItems: 'center',
             justifyContent: 'center'
         }}
-        className="absolute top-[100px] right-[1px]"
-        >
+        className="absolute top-[100px] right-[1px] flex-col"
+        > <br />
 <span className="text-2xl font-bold">
   Feels Like:
 </span>
