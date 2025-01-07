@@ -13,6 +13,11 @@
     }
 }
 
+body{
+    -ms-overflow-style: none !important;
+    scrollbar-width: none;
+}
+
 .react-icons {
     background-color: #ff0000;
     color: #ff0000;
