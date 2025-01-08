@@ -8,4 +8,5 @@ export default {
             'raw.githubusercontent.com'
         ],
     },
-};
+    reactStrictMode: true,
+}
