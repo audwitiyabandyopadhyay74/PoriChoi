@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import {  signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+// import {  signOut } from 'firebase/auth';
+// import { auth } from '../firebase';
 // import Link from 'next/link';
 // import { usePathname } from 'next/navigation';
 
@@ -26,12 +26,12 @@ const SideBar = () => {
   //   setDeleteAccount(true);
   // }
 
-  const optionClassName = "h-[7.5vh] w-[30vh] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer rounded-md";
+  // const optionClassName = "h-[7.5vh] w-[30vh] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer rounded-md";
   // const optionClassNameActive = "h-[15vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer bg-gray-200";
 
   return (
     <div className="flex items-start h-full w-[25%] border-r border-r-black">
-      <ul className="flex flex-col items-center gap-[20px]">
+      {/* <ul className="flex flex-col items-center gap-[20px]">
         <a href="/my-account/settings">
           <li className={optionClassName}>
             <i className="fa-solid fa-user"></i> Profile
@@ -60,7 +60,7 @@ const SideBar = () => {
         <li className={`${optionClassName} bg-red-600`} onClick={() => signOut(auth)}>
           <i className="fa-solid fa-right-from-bracket"></i> Logout
         </li>
-      </ul>
+      </ul> */}
     </div>
   );
 };
