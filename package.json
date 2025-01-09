@@ -2,12 +2,11 @@
     "name": "porichoi-by-a-b-m-b",
     "version": "0.1.0",
     "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
-    },
+    
+        "scripts": {
+          "build": "next build",
+          "start": "next start"
+        },
     "dependencies": {
         "@gsap/react": "^2.1.1",
         "firebase": "^10.14.1",
