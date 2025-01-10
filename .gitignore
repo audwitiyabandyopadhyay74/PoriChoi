@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-./porichoi-by-ab-mb
 /.pnp
 .pnp.*
 .yarn/*
