@@ -10,7 +10,7 @@ import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
 import MoblieNav from '../Components/Moblie Nav';
 import { toast } from 'react-toastify';
-import { gsap } from 'gsap';
+// import { gsap } from 'gsap';
 
 const Page = () => {
   const [user, setUser] = useState(null);
@@ -56,10 +56,10 @@ const Page = () => {
     }
   }, [name]);
 
-  // Apply GSAP animation
-  useEffect(() => {
-    gsap.to('.content', { duration: 1, delay: 0.5, right: '0%', ease: 'power3.out' });
-  }, []);
+  // // Apply GSAP animation
+  // (() => {
+  //   console.l
+  // }, []);
 
   if(user === null){ 
     return (

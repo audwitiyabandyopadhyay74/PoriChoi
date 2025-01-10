@@ -1,5 +1,5 @@
-// next.config.mjs
-export default {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
     images: {
         domains: ['lh3.googleusercontent.com',
             'firebasestorage.googleapis.com',
@@ -9,4 +9,8 @@ export default {
         ],
     },
 
+    reactStrictMode: true,
+    swcMinify: true,
 }
+
+export default nextConfig
