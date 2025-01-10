@@ -6,7 +6,7 @@ import { collection, getDocs, query, where, getDoc, doc, updateDoc, arrayUnion, 
 import { usePathname } from "next/navigation";
 import NavBar from "../../Components/NavBar";
 import Image from "next/image";
-import Post from "@/app/Components/Post";
+import Post from "../../Components/Post";
 import { onAuthStateChanged } from "firebase/auth";
 import MobileNav from "../../Components/Moblie Nav";
 import { toast, ToastContainer } from "react-toastify";
