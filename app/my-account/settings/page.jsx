@@ -122,7 +122,7 @@ const Page = () => {
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
             <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
             <div className="flex gap-2 items-center">
-              <select className={`${inputClassName.replace("w-[82.5vh]", "w-[10vh]")} `} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+              <select className={`${inputClassName.replace("w-[82.5vh] min-w-[45vh]", "w-[10vh]")} `} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
                 <option value=""></option>
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
