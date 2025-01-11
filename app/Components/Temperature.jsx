@@ -52,7 +52,7 @@ const WeatherApp = () => {
             justifyContent: 'center',
             position: 'absolute',
             top: '100px',
-            right: '5px',
+            marginRight: '10vh',
             flexDirection: 'column'
         }}
         className="absolute top-[100px] right-[1px] flex-col"
