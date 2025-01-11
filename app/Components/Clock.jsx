@@ -29,9 +29,9 @@ const Clock = () => {
 
   return (
       <div className="clock">
-        <div id="second" ref={secondHandRef}></div>
-        <div id="minute" ref={minuteHandRef}></div>
-        <div id="hour" ref={hourHandRef}></div>
+        <div id="second" className="sui" ref={secondHandRef}></div>
+        <div id="minute" className="sui" ref={minuteHandRef}></div>
+        <div id="hour"   className="sui" ref={hourHandRef}></div>
         <div className="centerPoint"></div>
       </div>
   );
