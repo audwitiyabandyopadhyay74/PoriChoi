@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import Draggable from 'react-draggable';
 import "./clock.css";
 
 const Clock = () => {
@@ -28,14 +27,12 @@ const Clock = () => {
   }, []);
 
   return (
-    <Draggable>
       <div className="clock">
         <div className="hand second-hand" ref={secondHandRef}></div>
         <div className="hand minute-hand" ref={minuteHandRef}></div>
         <div className="hand hour-hand" ref={hourHandRef}></div>
         <div className="center"></div>
       </div>
-    </Draggable>
   );
 };
 
