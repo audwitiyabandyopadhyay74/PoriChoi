@@ -49,7 +49,11 @@ const WeatherApp = () => {
             textAlign: 'center',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            position: 'absolute',
+            top: '100px',
+            right: '5px',
+            flexDirection: 'column'
         }}
         className="absolute top-[100px] right-[1px] flex-col"
         > <br />
