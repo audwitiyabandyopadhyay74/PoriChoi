@@ -83,7 +83,7 @@ const Page = () => {
       await updateDoc(doc(firestore, 'userProfileData', user.uid), {
         userName: changedName || name,
         pic: photoURL,
-      });
+      }); 
   
       toast.success("Profile updated successfully!", { theme: "colored" });
   
