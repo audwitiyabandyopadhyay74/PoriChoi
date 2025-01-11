@@ -1,15 +1,16 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   images: {
-      domains: ['lh3.googleusercontent.com',
-          'firebasestorage.googleapis.com',
-          "via.placeholder.com",
-          "graph.facebook.com",
-          'raw.githubusercontent.com'
-      ],
+    domains: [
+      'lh3.googleusercontent.com',
+      'firebasestorage.googleapis.com',
+      'via.placeholder.com',
+      'graph.facebook.com',
+      'raw.githubusercontent.com',
+    ],
   },
-
   reactStrictMode: true,
-}
+};
 
-export default nextConfig
+export default nextConfig;
