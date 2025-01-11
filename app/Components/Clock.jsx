@@ -27,17 +27,15 @@ const Clock = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  return (      <Draggable>
-
-    <div className="clock">
+  return (
+    <Draggable>
+      <div className="clock">
         <div className="hand second-hand" ref={secondHandRef}></div>
-  
         <div className="hand minute-hand" ref={minuteHandRef}></div>
-  
         <div className="hand hour-hand" ref={hourHandRef}></div>
-      <div className="center"></div>
-    </div>      </Draggable>
-
+        <div className="center"></div>
+      </div>
+    </Draggable>
   );
 };
 
