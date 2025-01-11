@@ -1,9 +1,8 @@
 'use client';
-//  a
-import React from 'react';
-import {  signOut } from 'firebase/auth';
+
+import React, { useState, useEffect } from 'react';
+import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
-// import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const SideBar = () => {
@@ -14,17 +13,39 @@ const SideBar = () => {
   const [deleteAccount, setDeleteAccount] = useState(false);
   const pathname = usePathname();
 
-  if (pathname === "/my-account/settings") {
-    setProfile(true);
-  } if (pathname === "/my-account/settings/verify-email") {
-    setVerifyEmail(true);
-  } if (pathname === "/my-account/settings/verify-phone-number") {
-    setVerifyPhoneNumber(true);
-  } if (pathname === "/my-account/settings/rest-password") {
-    setResetPassword(true);
-  } else {
-    setDeleteAccount(true);
-  }
+  useEffect(() => {
+    if (pathname === "/my-account/settings") {
+      setProfile(true);
+      setVerifyEmail(false);
+      setVerifyPhoneNumber(false);
+      setResetPassword(false);
+      setDeleteAccount(false);
+    } else if (pathname === "/my-account/settings/verify-email") {
+      setProfile(false);
+      setVerifyEmail(true);
+      setVerifyPhoneNumber(false);
+      setResetPassword(false);
+      setDeleteAccount(false);
+    } else if (pathname === "/my-account/settings/verify-phone-number") {
+      setProfile(false);
+      setVerifyEmail(false);
+      setVerifyPhoneNumber(true);
+      setResetPassword(false);
+      setDeleteAccount(false);
+    } else if (pathname === "/my-account/settings/rest-password") {
+      setProfile(false);
+      setVerifyEmail(false);
+      setVerifyPhoneNumber(false);
+      setResetPassword(true);
+      setDeleteAccount(false);
+    } else if (pathname === "/my-account/settings/delete-account") {
+      setProfile(false);
+      setVerifyEmail(false);
+      setVerifyPhoneNumber(false);
+      setResetPassword(false);
+      setDeleteAccount(true);
+    }
+  }, [pathname]);
 
   const optionClassName = "h-[7.5vh] w-[30vh] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer rounded-md";
   const optionClassNameActive = "h-[15vh] w-[95%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer bg-gray-200";
@@ -48,7 +69,7 @@ const SideBar = () => {
           </li>
         </a>
         <a href="/my-account/settings/rest-password">
-          <li className={resetPassword? optionClassNameActive : optionClassName}>
+          <li className={resetPassword ? optionClassNameActive : optionClassName}>
             <i className="fa-solid fa-lock"></i> Reset Password
           </li>
         </a>
