@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import Draggable from 'react-draggable';
 import "./clock.css";
 
 const Clock = () => {
