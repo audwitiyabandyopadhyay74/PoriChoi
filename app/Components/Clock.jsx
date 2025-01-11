@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
 import "./clock.css";
-
+import Draggable from 'react-draggable'
 const Clock = () => {
   const secondHandRef = useRef(null);
   const minuteHandRef = useRef(null);
@@ -27,7 +27,8 @@ const Clock = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  return (
+  return (    <Draggable>
+
     <div className="clock" id="analogClock" style={{ display: "block", position:"absolute",left:"2px",top:"100px" }}>
     <svg 
       fill="none" 
@@ -49,7 +50,7 @@ const Clock = () => {
       <div className="sui" id="second" ref={secondHandRef}></div>
       <div className="sui" id="minute" ref={minuteHandRef}></div>
     </div>
-  </div>
+  </div></Draggable>
   );
 };
 
