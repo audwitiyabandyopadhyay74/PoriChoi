@@ -106,7 +106,7 @@ const Post = (props) => {
             navigator.share({
               title: props.title,
               text: 'Check out this post!',
-              url: window.location.href, // or a specific URL you want to share
+              url: `https://porichoitop.vercel.app/post/${props.id}`, // or a specific URL you want to share
             }).then(() => console.log('Post shared successfully!'))
             .catch((error) => console.error('Error sharing post:', error));
    await updateDoc(docRef,{
