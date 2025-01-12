@@ -74,7 +74,16 @@ const[filrrerUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
     }
   }, [name]);
   console.log(filrrerUserFollowingdata)
-
+alert(filrrerUserFollowingdata)
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await fetchDataFromFirebase();
+  //       setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
+  //     } catch (error) {
+  //       toast.error('Error fetching data:', error.message);
+  //     }
+  //   };
   // // Apply GSAP animation
   // (() => {
   //   console.l
