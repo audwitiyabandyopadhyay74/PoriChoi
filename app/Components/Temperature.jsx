@@ -55,7 +55,7 @@ const WeatherApp = () => {
             marginRight: '10vh',
             flexDirection: 'column'
         }}
-        className="absolute top-[250px] right-[1px] flex-col"
+        className="absolute top-[500px] right-[1px] flex-col"
         > <br />
 <span className="text-2xl font-bold">
   Feels Like:
