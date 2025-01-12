@@ -35,7 +35,7 @@ const Posts = () => {
   }, []);
 
   return (
-    <div className="flex items-start justify-between w-screen h-screen">
+    <div className="flex items-start justify-center w-screen h-screen">
       <Clock/>
       <div className="h-max w-[100%] lg:w-[50%] flex flex-col gap-[400px] p-4 bg-[#fff]">      
 
