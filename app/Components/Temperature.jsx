@@ -39,7 +39,7 @@ const WeatherApp = () => {
     }, []);
 
     return (
-        <div style={{
+        <div  style={{
             width: '13vh',
             borderRadius: '300px',
             height: '25vh',
@@ -50,12 +50,10 @@ const WeatherApp = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            position: 'absolute',
-            top: '100px',
             marginRight: '10vh',
             flexDirection: 'column'
         }}
-        className="absolute top-[500px] right-[1px] flex-col"
+        className="absolute top-1/2 right-[1px] flex-col"
         > <br />
 <span className="text-2xl font-bold">
   Feels Like:
