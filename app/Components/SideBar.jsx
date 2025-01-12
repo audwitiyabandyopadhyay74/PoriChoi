@@ -55,27 +55,44 @@ const SideBar = () => {
       <ul className="flex flex-col items-center gap-[20px]">
         <a href="/my-account/settings">
           <li className={profile ? optionClassNameActive : optionClassName}>
+        <a href="/my-account/settings">
+
             <i className="fa-solid fa-user"></i> Profile
+        </a>
+
           </li>
         </a>
         <a href="/my-account/settings/verify-email">
           <li className={verifyEmail ? optionClassNameActive : optionClassName}>
+        <a href="/my-account/settings/verify-email">
             <i className="fa-solid fa-envelope-circle-check"></i> Verify Email
+</a>
           </li>
         </a>
         <a href="/my-account/settings/verify-phone-number">
           <li className={verifyPhoneNumber ? optionClassNameActive : optionClassName}>
+        <a href="/my-account/settings/verify-phone-number">
+           
             <i className="fa-solid fa-phone"></i> Verify Phone Number
-          </li>
+            </a>
+            </li>
         </a>
         <a href="/my-account/settings/rest-password">
-          <li className={resetPassword ? optionClassNameActive : optionClassName}>
+        <li className={resetPassword ? optionClassNameActive : optionClassName}> 
+        <a href="/my-account/settings/rest-password">
+        
+        <a href="/my-account/settings/rest-password">
+        </a>
             <i className="fa-solid fa-lock"></i> Reset Password
+</a>
           </li>
         </a>
         <a href="/my-account/settings/delete-account">
           <li className={deleteAccount ? optionClassNameActive : optionClassName}>
+          <a href="/my-account/settings/delete-account">
+
             <i className="fa-solid fa-trash"></i> Delete Account
+</a>
           </li>
         </a>
         <li className={`${optionClassName} bg-red-600`} onClick={() => signOut(auth)}>

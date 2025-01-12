@@ -28,7 +28,7 @@ const Clock = () => {
   }, []);
 
   return (
-    <div className="clock block lg:absolute relative mt-[100px] ml-[2px] " id="analogClock">
+    <div className="clock block lg:absolute relative mt-[250px] ml-[2px] " id="analogClock">
     
     <svg 
       fill="none" 
