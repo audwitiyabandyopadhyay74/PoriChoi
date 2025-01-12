@@ -73,9 +73,8 @@ const[filrrerUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
     
     }
   }, [name]);
-  console.log(filrrerUserFollowingdata)
-console.error(filrrerUserFollowingdata)
-localStorage.setItem('filrrerUserFollowingdata',filrrerUserFollowingdata)
+const h =filrrerUserFollowingdata;
+console.log(h);
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
