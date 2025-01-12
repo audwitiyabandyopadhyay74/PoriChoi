@@ -17,8 +17,11 @@ const Page = () => {
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [userFollowingdata, setUserFollowingdata] = useState([]);
+const[filrrerUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
 
-  // Fetch user data on authentication state change
+
+// Fetch user data on authentication state change
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -41,11 +44,25 @@ const Page = () => {
     return data;
   };
 
+    // Fetch posts from Firestore
+    const fetchDataFromFirebase1 = async () => {
+      const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      return data;
+    };
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchDataFromFirebase();
+        const data1 = await fetchDataFromFirebase1();
+
         setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
+        setFilrrerUserFollowingdata(data1.filter(userFollowingdata => userFollowingdata.userName === name))
       } catch (error) {
         toast.error('Error fetching data:', error.message);
       }
@@ -53,8 +70,10 @@ const Page = () => {
 
     if (name) {
       fetchData();
+    
     }
   }, [name]);
+  console.log(filrrerUserFollowingdata)
 
   // // Apply GSAP animation
   // (() => {

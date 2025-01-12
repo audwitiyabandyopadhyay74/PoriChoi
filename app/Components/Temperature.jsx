@@ -50,7 +50,7 @@ const WeatherApp = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginRight: '10vh',
+            marginRight: '10vh',    
             flexDirection: 'column'
         }}
         className="absolute top-1/2 right-[1px] flex-col"
