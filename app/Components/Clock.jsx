@@ -32,9 +32,9 @@ const Clock = () => {
     
     <svg 
       fill="none" 
-      height="100%" 
+      height="352px" 
+      width="356px"  
       viewBox="0 0 461 461" 
-      width="100%" 
       xmlns="http://www.w3.org/2000/svg"
     >
       <path 
