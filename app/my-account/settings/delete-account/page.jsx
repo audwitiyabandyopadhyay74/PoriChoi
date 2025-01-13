@@ -8,7 +8,7 @@ import { doc, deleteDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../style.css';
-import MoblieNav from '../../../Components/Moblie Nav';
+import MoblieNav from '../../../Components/Mobile Nav';
 import SideBar from '../../../Components/SideBar';
 
 const Page = () => {

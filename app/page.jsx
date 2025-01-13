@@ -2,7 +2,7 @@
 
 import Head from 'next/head';
 import NavBar from './Components/NavBar';
-import MobNavBar from './Components/Moblie Nav';
+import MobNavBar from './Components/Mobile Nav';
 import Posts from './Components/Posts';
 import dynamic from 'next/dynamic';
     

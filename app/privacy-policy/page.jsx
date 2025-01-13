@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from "../Components/NavBar";
-import MoblieNav from '../Components/Moblie Nav';
+import MoblieNav from '../Components/Mobile Nav';
 const page = () => {
   return (
     <>

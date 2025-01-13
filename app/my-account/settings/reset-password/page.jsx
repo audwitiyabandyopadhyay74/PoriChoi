@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for react-toastify
 import NavBar from '../../../Components/NavBar'; 
-import MoblieNav from '../../../Components/Moblie Nav'; 
+import MoblieNav from '../../../Components/Mobile Nav'; 
 import SideBar from '../../../Components/SideBar'; 
 import { sendPasswordResetEmail, onAuthStateChanged, updateEmail } from "firebase/auth"; 
 import { auth } from '../../../firebase';
