@@ -17,7 +17,6 @@ const Page = () => {
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
-  const [userFollowingdata, setUserFollowingdata] = useState([]);
 const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
 
 
@@ -125,7 +124,7 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
                   <Post {...post} />
                 </div>
               ))}
-              {FilteredUserFollowingdata || 0}
+              {FilteredUserFollowingdata.followers || 0}
             </div>
           </div>
         </div>

@@ -27,6 +27,7 @@ const Page = () => {
   const [changedEmail, setChangedEmail] = useState("");
   const [changedPhoneNumber, setChangedPhoneNumber] = useState("");
   const [countryCode, setCountryCode] = useState("");
+  // const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
   
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -74,8 +75,40 @@ const Page = () => {
       };
   
       await updateProfile(user, updatedProfileData);
+      
+      
+        //   // Fetch posts from Firestore
+        //   const fetchDataFromFirebase1 = async () => {
+        //     const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
+        //     const data = querySnapshot.docs.map((doc) => ({
+        //       id: doc.id,
+        //       ...doc.data(),
+        //     }));
+        //     return data;
+        //   };
+        
+      
+        // useEffect(() => {
+        //   const fetchData = async () => {
+        //     try {
+        //       const data1 = await fetchDataFromFirebase1();
+      
+        //       setFilrrerUserFollowingdata(data1.filter(userFollowingdata => userFollowingdata.userName === name))
+        //     } catch (error) {
+        //       toast.error('Error fetching data:', error.message);
+        //     }
+        //   };
+      
+        //   if (name) {
+        //     fetchData();
+          
+        //   }
+        // }, [name]);
+      
+        const userName = name;
+      
   
-      await updateDoc(doc(firestore, 'userFollowingdata', user.uid), {
+      await updateDoc(doc(firestore, 'userFollowingdata', userName), {
         userName: changedName || name,
         pic: photoURL,
       });
@@ -99,7 +132,7 @@ const Page = () => {
     return (
       <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
         <NavBar />
-        <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
+        <span className="text-3xl h-[10vh] ws-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
         <a href='/log-in'>
           <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
         </a>
