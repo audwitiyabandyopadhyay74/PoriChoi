@@ -6,7 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../download.png';
 import Post from '../Components/Post';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import MobileNav from '../Components/Moblie Nav';
 import { toast } from 'react-toastify';
 
@@ -18,7 +18,7 @@ const Page = () => {
   const [userFollowingData, setUserFollowingData] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
         setPhoto(currentUser.photoURL || Avatar);
@@ -28,26 +28,46 @@ const Page = () => {
       }
     });
 
-    return () => unsubscribe();
+    return () => unsubscribeAuth();
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [postsSnapshot, followingDataSnapshot] = await Promise.all([
-          getDocs(collection(firestore, 'posts')),
-          getDocs(collection(firestore, 'userFollowingData')),
-        ]);
+    if (!user) return;
 
-        setPosts(postsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-        setUserFollowingData(followingDataSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      } catch (error) {
-        toast.error(`Error fetching data: ${error.message}`);
+    const unsubscribePosts = onSnapshot(
+      collection(firestore, 'posts'),
+      (snapshot) => {
+        const fetchedPosts = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPosts(fetchedPosts);
+      },
+      (error) => {
+        toast.error(`Error fetching posts: ${error.message}`);
         console.error(error);
       }
-    };
+    );
 
-    if (user) fetchData();
+    const unsubscribeUserFollowingData = onSnapshot(
+      collection(firestore, 'userFollowingData'),
+      (snapshot) => {
+        const fetchedData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setUserFollowingData(fetchedData);
+      },
+      (error) => {
+        toast.error(`Error fetching user following data: ${error.message}`);
+        console.error(error);
+      }
+    );
+
+    return () => {
+      unsubscribePosts();
+      unsubscribeUserFollowingData();
+    };
   }, [user]);
 
   const filteredPosts = useMemo(
@@ -59,6 +79,12 @@ const Page = () => {
     () => userFollowingData.filter((data) => data.userName === name),
     [userFollowingData, name]
   );
+
+  useEffect(() => {
+    if (filteredUserFollowingData.length) {
+      console.log('Filtered User Following Data:', filteredUserFollowingData);
+    }
+  }, [filteredUserFollowingData]);
 
   if (!user) {
     return (
