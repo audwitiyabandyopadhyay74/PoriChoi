@@ -95,7 +95,7 @@ const Page = () => {
                   <Post {...post} />
                 </div>
               ))}
-              <span>{filteredUserFollowingData[0]?.followers?length} followers</span>
+              <span>{filteredUserFollowingData[0]?.followers?.length} followers</span>
             </div>
           </div>
         </div>
