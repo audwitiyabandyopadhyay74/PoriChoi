@@ -17,7 +17,7 @@ const Page = () => {
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
-  // const [userFollowingdata, setUserFollowingdata] = useState([]);
+  const [userFollowingdata, setUserFollowingdata] = useState([]);
 const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
 
 
@@ -63,6 +63,7 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
 
         setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
         setFilrrerUserFollowingdata(data1.filter(userFollowingdata => userFollowingdata.userName === name))
+        setUserFollowingdata(FilteredUserFollowingdata.followers?.length)
       } catch (error) {
         toast.error('Error fetching data:', error.message);
       }
@@ -125,7 +126,7 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
                   <Post {...post} />
                 </div>
               ))}
-              {FilteredUserFollowingdata?.followers?.length|| 0}
+              {userFollowingdata|| 0}
               {console.log(FilteredUserFollowingdata?.followers?.length)}
             </div>
           </div>
