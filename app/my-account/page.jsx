@@ -8,7 +8,7 @@ import Avatar from '../download.png';
 // import SideBar from '../../Components/SideBar';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
-import MoblieNav from '../Components/Moblie Nav';
+import MoblieNav from '../Components/Mobile Nav';
 import { toast } from 'react-toastify';
 // import { gsap } from 'gsap';
 
