@@ -74,6 +74,13 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
     }
   }, [name]);
 
+
+
+  console.log(FilteredUserFollowingdata || ["not found",])
+
+
+
+
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -118,7 +125,7 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
                   <Post {...post} />
                 </div>
               ))}
-              {FilteredUserFollowingdata}
+              {FilteredUserFollowingdata || 0}
             </div>
           </div>
         </div>
