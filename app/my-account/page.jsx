@@ -5,22 +5,18 @@ import { auth, firestore } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../download.png';
-// import SideBar from '../../Components/SideBar';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
-import MoblieNav from '../Components/Moblie Nav';
+import MoblieNav from '../Components/MoblieNav';
 import { toast } from 'react-toastify';
-// import { gsap } from 'gsap';
 
 const Page = () => {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(Avatar);
   const [name, setName] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
-const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
+  const [filteredUserFollowingData, setFilteredUserFollowingData] = useState([]);
 
-
-// Fetch user data on authentication state change
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -33,7 +29,6 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
     });
   }, []);
 
-  // Fetch posts from Firestore
   const fetchDataFromFirebase = async () => {
     const querySnapshot = await getDocs(collection(firestore, 'posts'));
     const data = querySnapshot.docs.map((doc) => ({
@@ -43,25 +38,23 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
     return data;
   };
 
-    // Fetch posts from Firestore
-    const fetchDataFromFirebase1 = async () => {
-      const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      return data;
-    };
-  
+  const fetchUserFollowingDataFromFirebase = async () => {
+    const querySnapshot = await getDocs(collection(firestore, 'userFollowingData'));
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return data;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchDataFromFirebase();
-        const data1 = await fetchDataFromFirebase1();
+        const userFollowingData = await fetchUserFollowingDataFromFirebase();
 
-        setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
-        setFilrrerUserFollowingdata(data1.filter(userFollowingdata => userFollowingdata.userName === name))
+        setFilteredPosts(data.filter(post => post.uid === user.uid || post.username === name)); 
+        setFilteredUserFollowingData(userFollowingData.filter(followingData => followingData.userName === name));
       } catch (error) {
         toast.error('Error fetching data:', error.message);
       }
@@ -69,32 +62,10 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
 
     if (name) {
       fetchData();
-    
     }
-  }, [name]);
+  }, [name, user]);
 
-
-
-  console.log(FilteredUserFollowingdata || ["not found",])
-
-
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await fetchDataFromFirebase();
-  //       setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
-  //     } catch (error) {
-  //       toast.error('Error fetching data:', error.message);
-  //     }
-  //   };
-  // // Apply GSAP animation
-  // (() => {
-  //   console.l
-  // }, []);
-
-  if(user === null){ 
+  if (user === null) {
     return (
       <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold content'>
         <MoblieNav />
@@ -104,7 +75,7 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
           <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
         </a>
       </div>
-    )
+    );
   } else {
     return (
       <>
@@ -124,7 +95,7 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
                   <Post {...post} />
                 </div>
               ))}
-              {FilteredUserFollowingdata.followers || 0}
+              <span>{filteredUserFollowingData.length} followers</span>
             </div>
           </div>
         </div>
