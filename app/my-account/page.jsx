@@ -18,7 +18,7 @@ const Page = () => {
   const [name, setName] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [userFollowingdata, setUserFollowingdata] = useState([]);
-const[filrrerUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
+const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
 
 
 // Fetch user data on authentication state change
@@ -73,8 +73,7 @@ const[filrrerUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
     
     }
   }, [name]);
-const h =filrrerUserFollowingdata;
-console.log(h);
+
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -119,6 +118,7 @@ console.log(h);
                   <Post {...post} />
                 </div>
               ))}
+              {FilteredUserFollowingdata}
             </div>
           </div>
         </div>
