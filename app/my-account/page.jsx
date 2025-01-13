@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Avatar from '../download.png';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore';
-import MoblieNav from '../Components/MoblieNav';
+import MoblieNav from '../Components/Moblie Nav';
 import { toast } from 'react-toastify';
 
 const Page = () => {
