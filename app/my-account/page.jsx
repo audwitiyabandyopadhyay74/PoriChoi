@@ -1,69 +1,40 @@
-"use client"
+"use client";
+
 import React, { useState, useEffect } from 'react';
-import NavBar from '../Components/NavBar';
-import { auth, firestore } from '../firebase';
+import NavBar from '../../Components/NavBar';
+import MoblieNav from '../../Components/MoblieNav';
+import Post from '../../Components/Post';
+import { auth } from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import Image from 'next/image';
-import Avatar from '../download.png';
-// import SideBar from '../../Components/SideBar';
-import Post from '../Components/Post';
-import { collection, getDocs } from 'firebase/firestore';
-import MoblieNav from '../Components/Mobile Nav';
-import { toast } from 'react-toastify';
-// import { gsap } from 'gsap';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import '../../toastify.css';
+import "../style.css";
 
 const Page = () => {
   const [user, setUser] = useState(null);
-  const [photo, setPhoto] = useState(Avatar);
-  const [name, setName] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [name, setName] = useState("");
   const [userFollowingdata, setUserFollowingdata] = useState([]);
-const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
+  const [FilteredUserFollowingdata, setFilteredUserFollowingdata] = useState([]);
 
-
-// Fetch user data on authentication state change
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setPhoto(user.photoURL || Avatar);
-        setName(user.displayName || 'Name is not given');
+        setName(user.displayName || user.email);
       } else {
         setUser(null);
       }
     });
+    return () => unsubscribe();
   }, []);
-
-  // Fetch posts from Firestore
-  const fetchDataFromFirebase = async () => {
-    const querySnapshot = await getDocs(collection(firestore, 'posts'));
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return data;
-  };
-
-    // Fetch posts from Firestore
-    const fetchDataFromFirebase1 = async () => {
-      const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      return data;
-    };
-  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchDataFromFirebase();
-        const data1 = await fetchDataFromFirebase1();
-
         setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
-        setFilrrerUserFollowingdata(data1.filter(userFollowingdata => userFollowingdata.userName === name))
-        setUserFollowingdata(FilteredUserFollowingdata[0]?.followers.length)
       } catch (error) {
         toast.error('Error fetching data:', error.message);
       }
@@ -71,32 +42,10 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
 
     if (name) {
       fetchData();
-    
     }
   }, [name]);
 
-
-
-  console.log(FilteredUserFollowingdata || ["not found",])
-
-
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await fetchDataFromFirebase();
-  //       setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
-  //     } catch (error) {
-  //       toast.error('Error fetching data:', error.message);
-  //     }
-  //   };
-  // // Apply GSAP animation
-  // (() => {
-  //   console.l
-  // }, []);
-
-  if(user === null){ 
+  if (user === null) {
     return (
       <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold content'>
         <MoblieNav />
@@ -106,16 +55,16 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
           <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
         </a>
       </div>
-    )
-  } else {
-    return (
-      <>
-        <NavBar />
-        <MoblieNav />
-        <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 content">
-          <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
-          <h1 className='text-2xl font-semibold'>{name}</h1>
-        </div>
+    );
+  }
+
+  return (
+    <div>
+      <MoblieNav />
+      <NavBar />
+      <ToastContainer />
+      <div className="content">
+        <h1 className='text-2xl font-semibold'>{name}</h1>
         <br />
         <div className="flex w-screen h-full justify-between">
           <div className="flex w-screen h-max lg:flex-row flex-col gap-[200px] justify-center items-center">
@@ -126,14 +75,14 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
                   <Post {...post} />
                 </div>
               ))}
-              {userFollowingdata|| 0}
+              {userFollowingdata || 0}
               {console.log(FilteredUserFollowingdata[0]?.followers.length + FilteredUserFollowingdata[0]?.followers + "holders")}
             </div>
           </div>
         </div>
-      </>
-    );
-  }
+      </div>
+    </div>
+  );
 };
 
 export default Page;
