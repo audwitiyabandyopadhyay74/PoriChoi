@@ -63,7 +63,7 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
 
         setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
         setFilrrerUserFollowingdata(data1.filter(userFollowingdata => userFollowingdata.userName === name))
-        setUserFollowingdata(FilteredUserFollowingdata.followers?.length)
+        setUserFollowingdata(FilteredUserFollowingdata[0]?.followers.length)
       } catch (error) {
         toast.error('Error fetching data:', error.message);
       }
