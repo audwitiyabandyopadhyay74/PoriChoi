@@ -12,12 +12,33 @@ import { collection, getDocs } from 'firebase/firestore';
 import MoblieNav from '../Components/Mobile Nav';
 import { toast } from 'react-toastify';
   // import { gsap } from 'gsap';
+// "use client";
+
+// import React, { useState, useEffect } from 'react';
+// import NavBar from '../../Components/NavBar';
+// import MoblieNav from '../../Components/MoblieNav';
+// import Post from '../../Components/Post';
+// import { auth } from '../../firebase';
+// import { onAuthStateChanged } from 'firebase/auth';
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import '../../toastify.css';
+// import "../style.css";
+
+const fetchDataFromFirebase = async () => {
+  // Implement your data fetching logic here
+  // This is a placeholder function
+  return [
+    { id: 1, uid: 'user1', username: 'user1@example.com', title: 'Post 1', content: 'Content 1' },
+    { id: 2, uid: 'user2', username: 'user2@example.com', title: 'Post 2', content: 'Content 2' },
+    // Add more mock data as needed
+  ];
+};
+
 const Page = () => {
   const [user, setUser] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [name, setName] = useState("");
-  const [userFollowingdata, setUserFollowingdata] = useState([]);
-  const [FilteredUserFollowingdata, setFilteredUserFollowingdata] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -35,7 +56,10 @@ const Page = () => {
     const fetchData = async () => {
       try {
         const data = await fetchDataFromFirebase();
-        setFilteredPosts(data.filter(post => post.uid === name) || data.filter(post => post.username === name)); // Adjust filter based on your field
+        console.log('Fetched data:', data);
+        const filtered = data.filter(post => post.uid === name || post.username === name);
+        console.log('Filtered posts:', filtered);
+        setFilteredPosts(filtered);
       } catch (error) {
         toast.error('Error fetching data:', error.message);
       }
@@ -76,8 +100,6 @@ const Page = () => {
                   <Post {...post} />
                 </div>
               ))}
-              {userFollowingdata || 0}
-              {console.log(FilteredUserFollowingdata[0]?.followers.length + FilteredUserFollowingdata[0]?.followers + "holders")}
             </div>
           </div>
         </div>
