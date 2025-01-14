@@ -1,16 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import NavBar from '../../Components/NavBar';
-import MoblieNav from '../../Components/MoblieNav';
-import Post from '../../Components/Post';
-import { auth } from '../../firebase';
+import NavBar from '../Components/NavBar';
+import { auth, firestore } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import '../../toastify.css';
-import "../style.css";
-
+import Image from 'next/image';
+import Avatar from '../download.png';
+// import SideBar from '../../Components/SideBar';
+import Post from '../Components/Post';
+import { collection, getDocs } from 'firebase/firestore';
+import MoblieNav from '../Components/Mobile Nav';
+import { toast } from 'react-toastify';
+  // import { gsap } from 'gsap';
 const Page = () => {
   const [user, setUser] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState([]);
