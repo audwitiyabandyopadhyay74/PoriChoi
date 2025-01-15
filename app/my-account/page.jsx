@@ -64,6 +64,8 @@ const Page = () => {
           (data) => data.uid === user.uid || data.username === name
         );
         setFilteredUserFollowingdata(userFollowers);
+        console.log(userFollowers);
+        
       } catch (error) {
         toast.error('Error fetching followers data:', error.message);
       }
