@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, firestore } from "../firebase";
 import NavBar from "../Components/NavBar";
-import MoblieNav from "../Components/MobileNav";
+import MoblieNav from "../Components/Mobile Nav";
 import Post from "../Components/Post";
 import { toast, ToastContainer } from "react-toastify";
 
