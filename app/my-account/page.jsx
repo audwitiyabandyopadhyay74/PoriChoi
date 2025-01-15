@@ -9,13 +9,13 @@ import MoblieNav from "../Components/MobileNav";
 import Post from "../Components/Post";
 import { toast, ToastContainer } from "react-toastify";
 
+
 const Page = () => {
   const [user, setUser] = useState(null);
-  const [name, setName] = useState("");
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [name, setName] = useState("");
   const [FilteredUserFollowingdata, setFilteredUserFollowingdata] = useState([]);
 
-  // Check user authentication
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -29,7 +29,6 @@ const Page = () => {
     return () => unsubscribe();
   }, []);
 
-  // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -39,49 +38,49 @@ const Page = () => {
           ...doc.data(),
         }));
         const userPosts = posts.filter(
-          (post) => post.uid === name || post.username === name
+          (post) => post.uid === user.uid || post.username === name
         );
         setFilteredPosts(userPosts);
       } catch (error) {
-        console.error("Error fetching posts:", error);
-        toast.error(`Error fetching posts: ${error.message}`);
+        toast.error('Error fetching posts:', error.message);
       }
     };
 
-    if (name) {
+    if (user) {
       fetchPosts();
     }
-  }, [name]);
+  }, [user, name]);
 
-  // Fetch followers data
   useEffect(() => {
     const fetchFollowers = async () => {
       try {
-        const querySnapshot = await getDocs(collection(firestore, "followers"));
+        const querySnapshot = await getDocs(collection(firestore, "userFollowingdata"));
         const followersData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        setFilteredUserFollowingdata(followersData);
+        const userFollowers = followersData.filter(
+          (data) => data.uid === user.uid || data.username === name
+        );
+        setFilteredUserFollowingdata(userFollowers);
       } catch (error) {
-        console.error("Error fetching followers:", error);
-        toast.error(`Error fetching followers: ${error.message}`);
+        toast.error('Error fetching followers data:', error.message);
       }
     };
 
-    fetchFollowers();
-  }, []);
+    if (user) {
+      fetchFollowers();
+    }
+  }, [user, name]);
 
-  if (!user) {
+  if (user === null) {
     return (
-      <div className="w-screen h-screen flex flex-col justify-center items-center">
+      <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold content'>
         <MoblieNav />
         <NavBar />
-        <h2 className="text-3xl font-bold">Please Login to Access This Page</h2>
-        <a href="/log-in">
-          <button className="bg-black text-white px-4 py-2 mt-4 rounded">
-            Login
-          </button>
+        <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
+        <a href='/log-in'>
+          <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
         </a>
       </div>
     );
