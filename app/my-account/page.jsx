@@ -10,6 +10,7 @@ import Post from "../Components/Post";
 import { toast, ToastContainer } from "react-toastify";
 
 
+
 const Page = () => {
   const [user, setUser] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -116,5 +117,4 @@ const Page = () => {
     </div>
   );
 };
-
 export default Page;
