@@ -108,6 +108,7 @@ const Page = () => {
             <p>
               Total Followers:{" "}
               {FilteredUserFollowingdata[0]?.followers?.length || 0}
+              {console.log(FilteredUserFollowingdata[0]?.followers?.length)}
             </p>
           ) : (
             <p>No follower data available.</p>
