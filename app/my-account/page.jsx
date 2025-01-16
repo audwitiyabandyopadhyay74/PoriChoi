@@ -14,15 +14,14 @@ import { toast, ToastContainer } from "react-toastify";
 
 const Page = () => {
   const [user, setUser] = useState(null);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [name, setName] = useState("");
+   const [name, setName] = useState("");
   const [FilteredUserFollowingdata, setFilteredUserFollowingdata] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        setName(currentUser.displayName || currentUser.email);
+        setName(currentUser.displayName);
       } else {
         setUser(null);
         setName("");
