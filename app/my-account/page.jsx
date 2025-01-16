@@ -3,9 +3,9 @@
 import React ,{useState,useEffect} from 'react';
 import Avatar from '../download.png';
 import Post from '../Components/Post';
-import {firestore,auth} from '../firebase'
-import { collection, getDocs } from 'firebase/firestore'
-import MoblieNav from '../Components/Mobile Nav';
+import {firestore,auth} from '../firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import MoblieNav from '../Components/MobileNav';
 import NavBar from '../Components/NavBar';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
@@ -32,7 +32,9 @@ const Page = () => {
   }, []);
 
   const fetchDataFromFirebase = async () => {
-    const querySnapshot = await getDocs(collection(firestore, 'posts'));
+    const postsCollection = collection(firestore, 'posts');
+    const q = query(postsCollection, where('uid', '==', user.uid));
+    const querySnapshot = await getDocs(q);
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -41,7 +43,9 @@ const Page = () => {
   };
 
   const fetchUserFollowingDataFromFirebase = async () => {
-    const querySnapshot = await getDocs(collection(firestore, 'userFollowingData'));
+    const userFollowingDataCollection = collection(firestore, 'userFollowingData');
+    const q = query(userFollowingDataCollection, where('userName', '==', name));
+    const querySnapshot = await getDocs(q);
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
