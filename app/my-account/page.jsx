@@ -51,6 +51,8 @@ const Page = () => {
       fetchPosts();
     }
   }, [user, name]);
+  const followers = FilteredUserFollowingdata[0]?.followers || [];
+
 
   useEffect(() => {
     const fetchFollowers = async () => {
@@ -110,10 +112,7 @@ const Page = () => {
             <p>
               Total Followers:{" "}
               {FilteredUserFollowingdata[0]?.followers.length || 0}
-              {
-              // const filttred  
-              const followers = FilteredUserFollowingdata[0]?.followers || [];
-              console.log(followers.length)}
+              {console.log(followers.length)}
             </p>
           ) : (
             <p>No follower data available.</p>
