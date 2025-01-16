@@ -1,82 +1,65 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
-import { auth, firestore } from "../firebase";
-import NavBar from "../Components/NavBar";
-import MoblieNav from "../Components/Mobile Nav";
-import Post from "../Components/Post";
-import { toast, ToastContainer } from "react-toastify";
-// import { log } from "console";
-
-
+import Avatar from '../download.png';
+import Post from '../Components/Post';
+import { collection, getDocs } from 'firebase/firestore'
+import MoblieNav from '../Components/Moblie Nav';
+import { toast } from 'react-toastify';
 
 const Page = () => {
   const [user, setUser] = useState(null);
-   const [name, setName] = useState("");
-  const [FilteredUserFollowingdata, setFilteredUserFollowingdata] = useState([]);
+  const [photo, setPhoto] = useState(Avatar);
+  const [name, setName] = useState('');
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [filteredUserFollowingData, setFilteredUserFollowingData] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        setName(currentUser.displayName);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setPhoto(user.photoURL || Avatar);
+        setName(user.displayName || 'Name is not given');
       } else {
         setUser(null);
-        setName("");
       }
     });
-    return () => unsubscribe();
   }, []);
 
+  const fetchDataFromFirebase = async () => {
+    const querySnapshot = await getDocs(collection(firestore, 'posts'));
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return data;
+  };
+
+  const fetchUserFollowingDataFromFirebase = async () => {
+    const querySnapshot = await getDocs(collection(firestore, 'userFollowingData'));
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return data;
+  };
+
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(firestore, "posts"));
-        const posts = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        const userPosts = posts.filter(
-          (post) => post.uid === user.uid || post.username === name
-        );
-        setFilteredPosts(userPosts);
+        const data = await fetchDataFromFirebase();
+        const userFollowingData = await fetchUserFollowingDataFromFirebase();
+
+        setFilteredPosts(data.filter(post => post.uid === user.uid || post.username === name)); 
+        setFilteredUserFollowingData(userFollowingData.filter(followingData => followingData.userName === name));
       } catch (error) {
-        toast.error('Error fetching posts:', error.message);
+        toast.error('Error fetching data:', error.message);
       }
     };
 
-    if (user) {
-      fetchPosts();
+    if (name) {
+      fetchData();
     }
-  }, [user, name]);
-  const followers = FilteredUserFollowingdata[0]?.followers || [];
-console.log(followers + FilteredUserFollowingdata[0] + ' followers');
+  }, [name, user]);
 
-  useEffect(() => {
-    const fetchFollowers = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(firestore, "userFollowingdata"));
-        const followersData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        const userFollowers = followersData.filter(
-          (data) => data.uid === user.uid || data.username === name
-        );
-        setFilteredUserFollowingdata(userFollowers);
-        console.log(userFollowers);
-        
-      } catch (error) {
-        toast.error('Error fetching followers data:', error.message);
-      }
-    };
-//  s hhh
-    if (user) {
-      fetchFollowers();
-    }
-  }, [user, name]);
+  const followers = filteredUserFollowingData[0]?.followers || [];
 
   if (user === null) {
     return (
@@ -89,37 +72,32 @@ console.log(followers + FilteredUserFollowingdata[0] + ' followers');
         </a>
       </div>
     );
+  } else {
+    return (
+      <>
+        <NavBar />
+        <MoblieNav />
+        <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 content">
+          <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
+          <h1 className='text-2xl font-semibold'>{name}</h1>
+        </div>
+        <br />
+        <div className="flex w-screen h-full justify-between">
+          <div className="flex w-screen h-max lg:flex-row flex-col gap-[200px] justify-center items-center">
+            <div className="h-max w-[30%] flex flex-col items-center justify-between gap-[400px]">
+              <span className="font-semibold text-3xl">My Posts</span>
+              {filteredPosts.map((post) => (
+                <div className='mt-[-200px]' key={post.id}>
+                  <Post {...post} />
+                </div>
+              ))}
+              <span>{followers.length || "Not Got"} followers</span>
+            </div>
+          </div>
+        </div>
+      </>
+    );
   }
-
-  return (
-    <div>
-      <MoblieNav />
-      <NavBar />
-      <ToastContainer />
-      <div className="content">
-        <h1 className="text-2xl font-bold">{name}'s Posts</h1>
-        <div>
-          <h2 className="text-xl font-semibold">My Posts</h2>
-          {filteredPosts.length > 0 ? (
-            filteredPosts.map((post) => <Post key={post.id} {...post} />)
-          ) : (
-            <p>No posts available.</p>
-          )}
-        </div>
-        <div>
-          <h2 className="text-xl font-semibold mt-8">Followers</h2>
-          {FilteredUserFollowingdata.length > 0 ? (
-            <p>
-              Total Followers:{" "}
-              {FilteredUserFollowingdata[0]?.followers.length || 0}
-              {console.log(followers.length)}
-            </p>
-          ) : (
-            <p>No follower data available.</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
 };
+
 export default Page;
