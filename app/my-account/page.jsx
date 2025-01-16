@@ -1,3 +1,5 @@
+"use client";
+
 import React ,{useState,useEffect} from 'react';
 import Avatar from '../download.png';
 import Post from '../Components/Post';
