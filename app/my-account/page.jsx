@@ -1,8 +1,9 @@
+import React ,{useState,useEffect} from 'react';
 import Avatar from '../download.png';
 import Post from '../Components/Post';
 import { collection, getDocs } from 'firebase/firestore'
 import MoblieNav from '../Components/Moblie Nav';
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'; 
 
 const Page = () => {
   const [user, setUser] = useState(null);
