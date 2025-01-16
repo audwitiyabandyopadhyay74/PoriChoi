@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       'lh3.googleusercontent.com',
+      "yt3.ggpht.com",
       'firebasestorage.googleapis.com',
       'via.placeholder.com',
       'graph.facebook.com',

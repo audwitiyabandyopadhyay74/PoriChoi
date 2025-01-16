@@ -109,8 +109,11 @@ const Page = () => {
           {FilteredUserFollowingdata.length > 0 ? (
             <p>
               Total Followers:{" "}
-              {FilteredUserFollowingdata[0]?.followers?.length || 0}
-              {console.log(FilteredUserFollowingdata[0]?.followers?.length)}
+              {FilteredUserFollowingdata[0]?.followers.length || 0}
+              {
+              // const filttred  
+              const followers = FilteredUserFollowingdata[0]?.followers || [];
+              console.log(followers.length)}
             </p>
           ) : (
             <p>No follower data available.</p>

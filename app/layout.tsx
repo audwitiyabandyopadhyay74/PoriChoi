@@ -29,11 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">        <Analytics/>
+    <html lang="en">       
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#e9e8e8e0] text-black overflow-x-hidden overflow-y-scroll`}
-      >
+      > <Analytics/>
         
         {children}
         <Script src="https://kit.fontawesome.com/dd02391768.js"></Script>
