@@ -5,7 +5,7 @@ import Avatar from '../download.png';
 import Post from '../Components/Post';
 import {firestore,auth} from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import MoblieNav from '../Components/MobileNav';
+import MoblieNav from '../Components/Mobile Nav';
 import NavBar from '../Components/NavBar';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
