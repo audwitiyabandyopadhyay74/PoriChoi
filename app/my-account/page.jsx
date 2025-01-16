@@ -3,9 +3,13 @@
 import React ,{useState,useEffect} from 'react';
 import Avatar from '../download.png';
 import Post from '../Components/Post';
-import {firestore} from '../firebase'
+import {firestore,auth} from '../firebase'
 import { collection, getDocs } from 'firebase/firestore'
 import MoblieNav from '../Components/Mobile Nav';
+import NavBar from '../Components/NavBar';
+import { onAuthStateChanged } from 'firebase/auth';
+import Image from 'next/image';
+
 import { toast } from 'react-toastify'; 
 
 const Page = () => {
