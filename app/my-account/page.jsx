@@ -8,6 +8,7 @@ import NavBar from "../Components/NavBar";
 import MoblieNav from "../Components/Mobile Nav";
 import Post from "../Components/Post";
 import { toast, ToastContainer } from "react-toastify";
+// import { log } from "console";
 
 
 
@@ -52,7 +53,7 @@ const Page = () => {
     }
   }, [user, name]);
   const followers = FilteredUserFollowingdata[0]?.followers || [];
-
+console.log(followers + FilteredUserFollowingdata[0] + ' followers');
 
   useEffect(() => {
     const fetchFollowers = async () => {
