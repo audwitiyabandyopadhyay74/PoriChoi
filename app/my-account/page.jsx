@@ -57,6 +57,7 @@ const Page = () => {
 
         setFilteredPosts(data.filter(post => post.uid === user.uid || post.username === name)); 
         setFilteredUserFollowingData(userFollowingData.filter(followingData => followingData.userName === name));
+        console.log(filteredUserFollowingData + userFollowingData.filter(followingData => followingData.userFollowingData === name));
       } catch (error) {
         toast.error('Error fetching data:', error.message);
       }
