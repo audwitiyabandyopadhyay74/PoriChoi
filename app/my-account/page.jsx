@@ -113,11 +113,11 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
       <>
         <NavBar />
         <MoblieNav />
-        <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-between gap-4 content">
+        <div className="top h-[30vh] w-screen bg-[#fff] flex items-center justify-center gap-4 content">
           <Image src={photo} width={100} height={100} className='rounded-full' alt='Profile Image' />
           <h1 className='text-2xl font-semibold'>{name}</h1>
   <div className="flex flex-col  items-center justify-center">
-  <h1 className='text-2xl font-semibold'>{name}</h1>
+  <h1 className='text-2xl font-semibold'>Followers</h1>
   <span className='text-1xl '>
   {FilteredUserFollowingdata[0]?.followers?.length|| 0}
   </span>
