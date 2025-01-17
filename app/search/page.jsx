@@ -8,22 +8,23 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 
+
 const fetchDataFromFirebase = async () => {
   try {
-    const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
+    const querySnapshot = await getDocs(collection(firestore, "userFollowingdata"));
     return querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
   } catch (error) {
-    console.error('Error fetching data from Firebase:', error);
+    console.error("Error fetching data from Firebase:", error);
     return [];
   }
 };
 
 const Page = () => {
   const [userData, setUserData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -46,8 +47,8 @@ const Page = () => {
       return;
     }
 
-    const userDocRef = doc(firestore, 'userFollowingdata', userId);
-    const currentUserDocRef = doc(firestore, 'userFollowingdata', currentUser);
+    const userDocRef = doc(firestore, "userFollowingdata", userId);
+    const currentUserDocRef = doc(firestore, "userFollowingdata", currentUser);
 
     try {
       const userDoc = await getDoc(userDocRef);
@@ -63,13 +64,16 @@ const Page = () => {
         await updateDoc(currentUserDocRef, {
           followings: arrayUnion(userId),
         });
+        await updateDoc(currentUserDocRef, {
+          followingsCount: increment(1),
+        });
 
         setUserData((prevData) =>
           prevData.map((user) =>
             user.id === userId
               ? { ...user, followers: [...userFollowers, currentUser] }
               : user.id === currentUser
-              ? { ...user, followings: [...currentUserFollowings, userId] }
+              ? { ...user, followings: [...currentUserFollowings, userId], followingsCount: (user.followingsCount || 0) + 1 }
               : user
           )
         );
@@ -81,13 +85,16 @@ const Page = () => {
         await updateDoc(currentUserDocRef, {
           followings: arrayRemove(userId),
         });
+        await updateDoc(currentUserDocRef, {
+          followingsCount: increment(-1),
+        });
 
         setUserData((prevData) =>
           prevData.map((user) =>
             user.id === userId
               ? { ...user, followers: userFollowers.filter((follower) => follower !== currentUser) }
               : user.id === currentUser
-              ? { ...user, followings: currentUserFollowings.filter((following) => following !== userId) }
+              ? { ...user, followings: currentUserFollowings.filter((following) => following !== userId), followingsCount: (user.followingsCount || 1) - 1 }
               : user
           )
         );
@@ -127,11 +134,11 @@ const Page = () => {
                   onClick={() => handleFollow(user.id)}
                   className={`p-2 w-24 rounded text-white ${
                     Array.isArray(user.followers) && user.followers.includes(currentUser)
-                      ? 'bg-gray-400'
-                      : 'bg-blue-500 hover:bg-blue-600 transition-colors'
+                      ? "bg-gray-400"
+                      : "bg-blue-500 hover:bg-blue-600 transition-colors"
                   }`}
                 >
-                  {Array.isArray(user.followers) && user.followers.includes(currentUser) ? 'Unfollow' : 'Follow'}
+                  {Array.isArray(user.followers) && user.followers.includes(currentUser) ? "Unfollow" : "Follow"}
                 </button>
                 <span className="text-gray-500 text-sm mt-1">
                   {Array.isArray(user.followers) ? user.followers.length : 0} Followers
