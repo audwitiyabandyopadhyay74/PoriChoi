@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { firestore, auth } from '../firebase';
-import SearchData from '../Components/Search Data';
-import { getDocs, getDoc, collection, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import SearchData from '../Components/Search Data'; // Ensure the path and naming are correct
+import { getDocs, getDoc, collection, doc, updateDoc, arrayUnion, arrayRemove, increment } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
-
 
 const fetchDataFromFirebase = async () => {
   try {
