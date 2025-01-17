@@ -26,12 +26,14 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
 
+  // Auth state change
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setCurrentUser(user ? user.displayName : null);
     });
   }, []);
 
+  // Fetch user data on mount
   useEffect(() => {
     const fetchUserData = async () => {
       const data = await fetchDataFromFirebase();
@@ -40,6 +42,7 @@ const Page = () => {
     fetchUserData();
   }, []);
 
+  // Follow/Unfollow handler
   const handleFollow = async (userId) => {
     if (!currentUser) {
       console.log("No user is currently logged in.");
@@ -64,7 +67,7 @@ const Page = () => {
           followings: arrayUnion(userId),
         });
         await updateDoc(currentUserDocRef, {
-          followingsCount: increment(1),
+          followingsCount: increment(1), // Ensure increment is used correctly
         });
 
         setUserData((prevData) =>
@@ -85,7 +88,7 @@ const Page = () => {
           followings: arrayRemove(userId),
         });
         await updateDoc(currentUserDocRef, {
-          followingsCount: increment(-1),
+          followingsCount: increment(-1), // Ensure increment is used correctly
         });
 
         setUserData((prevData) =>
@@ -103,6 +106,7 @@ const Page = () => {
     }
   };
 
+  // Filtered user data based on search query
   const filteredData = userData.filter((user) =>
     user.userName?.toLowerCase().includes(searchQuery.toLowerCase())
   );
