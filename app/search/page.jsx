@@ -29,7 +29,7 @@ const Page = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user ? user.uid : null);
+      setCurrentUser(user ? user.displayName : null);
     });
   }, []);
 
