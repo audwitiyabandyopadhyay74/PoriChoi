@@ -127,7 +127,7 @@ const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
                   <Post {...post} />
                 </div>
               ))}
-              {FilteredUserFollowingdata?.followers?.length|| 0}
+              {FilteredUserFollowingdata[0]?.followers?.length|| 0}
               {userFollowingdata|| 0}
               {console.log(FilteredUserFollowingdata?.followers?.length + FilteredUserFollowingdata + FilteredUserFollowingdata[0]?.followers?.length+FilteredUserFollowingdata[0]?.followers.length)}
             </div>
