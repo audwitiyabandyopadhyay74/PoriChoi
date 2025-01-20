@@ -38,17 +38,17 @@ const Page = () => {
     }
   };
 
-  if (user === null) {
-    return (
-      <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
-        <NavBar />
-        <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
-        <a href='/log-in'>
-          <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
-        </a>
-      </div>
-    );
-  } else {
+  // if (user === null) {
+  //   return (
+  //     <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
+  //       <NavBar />
+  //       <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
+  //       <a href='/log-in'>
+  //         <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
+  //       </a>
+  //     </div>
+  //   );
+  // } else {
     return (
       <>
         <ToastContainer
@@ -60,10 +60,10 @@ const Page = () => {
         <NavBar />
         <MoblieNav />
         <div className="flex w-screen h-screen items-center justify-center relative">
-          <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings/Verify-Email</span>
+          <span className='absolute top-[5rem] left-[4rem] hidden lg:block' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings/Verify-Email</span>
           <div className="w-[70%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
             <SideBar />
-            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute flex-col" onSubmit={handleDeleteAccount}>
+            <form className="flex gap-4 justify-center items-center top-[200px] left-[23.0px] w-[80%] absolute flex-col" onSubmit={handleDeleteAccount}>
               <span className='w-full text-center font-bold'>Delete Account</span>
               <button type="submit" className={'lg:w-[15vw] text-white font-bold lg:h-[3vw] bg-red-600 rounded-md w-max h-[6vh] p-[10px]'}>
                 Delete Account
@@ -73,7 +73,7 @@ const Page = () => {
         </div>
       </>
     );
-  }
+  // }
 };
 
 export default Page;

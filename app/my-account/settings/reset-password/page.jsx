@@ -65,10 +65,10 @@ const Page = () => {
         <NavBar />         
         <MoblieNav />         
         <div className="flex flex-col w-screen h-screen items-center justify-center relative">           
-          <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings/Verify-Email</span>           
+          <span className='absolute top-[5rem] left-[4rem] hidden lg:block' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings/Verify-Email</span>           
           <div className="w-[70%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">             
             <SideBar />             
-            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute" onSubmit={handleSendPasswordResetLink}>               
+            <form className="flex flex-col lg:flex-row gap-4 justify-center items-center top-[30vh] left-[8%] mt-[100px] w-[80%] absolute" onSubmit={handleSendPasswordResetLink}>               
               <input 
                 type="email" 
                 className={inputClassName} 

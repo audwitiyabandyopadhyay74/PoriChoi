@@ -2,6 +2,7 @@
 
 .Toastify__progress-bar {
     background: #ff000088;
+    opacity: 1 ;
     
     /* Change this to your desired color */
 }

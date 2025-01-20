@@ -116,7 +116,7 @@ const Post = (props) => {
         };
   return (
     <div className=''>
-      <div className='w-full h-max flex flex-col items-center mt-[220px]'>
+      <div className='w-full h-max flex flex-col items-center mt-[220px]' id='post'>
         
         <div className="flex items-center">
 
@@ -170,7 +170,7 @@ const Post = (props) => {
             {comments.map(comment => (
               <li key={comment.id} className='w-[40%] h-max flex flex-col gap-[0px] justify-start'>
                 <div className='flex items-center gap-5 font-bold w-full h-max'>
-                  <Image src={comment.pic || "https://yt3.ggpht.com/PEMn6YMvrLc8yX9nWB8VqurEVZzi3iRHHxYvBen3yNEbiRgSbk1Gmxycu5x2tfcScYisz4x3Ig=s176-c-k-c0x00ffffff-no-rj"} alt="User profile" width={100} height={100} className='rounded-full w-[10vh] h-[10vh] scale-50' />
+                  <Image src={comment.pic || userPic } alt="User profile" width={100} height={100} className='rounded-full w-[10vh] h-[10vh] scale-50' />
                   {comment.name}
                 </div>
                 <div className='bg-[#ebeaea] p-4 ml-[30px] w-max h-max'>{comment.text}</div>

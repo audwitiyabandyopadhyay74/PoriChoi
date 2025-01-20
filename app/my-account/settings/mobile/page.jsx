@@ -1,21 +1,21 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import NavBar from '../../Components/NavBar';
-import { auth, storage, firestore } from '../../firebase';
+import { auth, storage, firestore } from '../../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateDoc, doc } from 'firebase/firestore';
 import { updateProfile, onAuthStateChanged ,signOut} from 'firebase/auth';
 import Image from 'next/image';
-import Avatar from '../../download.png';
+import Avatar from '../../../Components/download.png';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import '../../toastify.css';
-import "../style.css";
-import MoblieNav from '../../Components/Mobile Nav';
-import SideBar from '../../Components/SideBar'
-import { CountryCodeISO } from "../../Data/CountryCodeISO";
-import { usePathname } from 'next/navigation';
+// import '../../toastify.css';
+// import "../style.css";
+import MoblieNav from '../../../Components/Mobile Nav';
+import NavBar from '../../../Components/NavBar'
+import SideBar from '../../../Components/SideBar'
+import { CountryCodeISO } from "../../../Data/CountryCodeISO";
+// import { usePathname } from 'next/navigation';/
 
 const Page = () => {
   const [user, setUser] = useState(null);
@@ -126,50 +126,48 @@ const Page = () => {
       console.error("Error updating profile:", error);
     }
   };
-    const [profile, setProfile] = useState(false);
-    const [verifyEmail, setVerifyEmail] = useState(false);
-    const [verifyPhoneNumber, setVerifyPhoneNumber] = useState(false);
-    const [resetPassword, setResetPassword] = useState(false);
-    const [deleteAccount, setDeleteAccount] = useState(false);
-    const pathname = usePathname();
+    // const [profile, setProfile] = useState(false);
+    // const [verifyEmail, setVerifyEmail] = useState(false);
+    // const [verifyPhoneNumber, setVerifyPhoneNumber] = useState(false);
+    // const [resetPassword, setResetPassword] = useState(false);
+    // const [deleteAccount, setDeleteAccount] = useState(false);
+    // const pathname = usePathname();
   
-    useEffect(() => {
-      if (pathname === "/my-account/settings") {
-        setProfile(true);
-        setVerifyEmail(false);
-        setVerifyPhoneNumber(false);
-        setResetPassword(false);
-        setDeleteAccount(false);
-      } else if (pathname === "/my-account/settings/verify-email") {
-        setProfile(false);
-        setVerifyEmail(true);
-        setVerifyPhoneNumber(false);
-        setResetPassword(false);
-        setDeleteAccount(false);
-      } else if (pathname === "/my-account/settings/verify-phone-number") {
-        setProfile(false);
-        setVerifyEmail(false);
-        setVerifyPhoneNumber(true);
-        setResetPassword(false);
-        setDeleteAccount(false);
-      } else if (pathname === "/my-account/settings/rest-password") {
-        setProfile(false);
-        setVerifyEmail(false);
-        setVerifyPhoneNumber(false);
-        setResetPassword(true);
-        setDeleteAccount(false);
-      } else if (pathname === "/my-account/settings/delete-account") {
-        setProfile(false);
-        setVerifyEmail(false);
-        setVerifyPhoneNumber(false);
-        setResetPassword(false);
-        setDeleteAccount(true);
-      }
-    }, [pathname]);
+    // useEffect(() => {
+    //   if (pathname === "/my-account/settings") {
+    //     setProfile(true);
+    //     setVerifyEmail(false);
+    //     setVerifyPhoneNumber(false);
+    //     setResetPassword(false);
+    //     setDeleteAccount(false);
+    //   } else if (pathname === "/my-account/settings/verify-email") {
+    //     setProfile(false);
+    //     setVerifyEmail(true);
+    //     setVerifyPhoneNumber(false);
+    //     setResetPassword(false);
+    //     setDeleteAccount(false);
+    //   } else if (pathname === "/my-account/settings/verify-phone-number") {
+    //     setProfile(false);
+    //     setVerifyEmail(false);
+    //     setVerifyPhoneNumber(true);
+    //     setResetPassword(false);
+    //     setDeleteAccount(false);
+    //   } else if (pathname === "/my-account/settings/rest-password") {
+    //     setProfile(false);
+    //     setVerifyEmail(false);
+    //     setVerifyPhoneNumber(false);
+    //     setResetPassword(true);
+    //     setDeleteAccount(false);
+    //   } else if (pathname === "/my-account/settings/delete-account") {
+    //     setProfile(false);
+    //     setVerifyEmail(false);
+    //     setVerifyPhoneNumber(false);
+    //     setResetPassword(false);
+    //     setDeleteAccount(true);
+    //   }
+    // }, [pathname]);
   
-    const optionClassName = "h-[10vh] w-[95%] bg-white mt-[20px] ml-[2.5%] mr-[2.5%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer rounded-md";
-    const optionClassNameActive = `${optionClassName} bg-gray-200`;
-    const inputClassName = "w-[82.5vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
+    const inputClassName = "lg:w-[82.5vh]  w-[60vh] lg:min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
 
   // if (user === null) {
   //   return (
@@ -190,9 +188,9 @@ const Page = () => {
       <ToastContainer />
       <div className="lg:flex w-screen h-screen items-center justify-center relative hidden ">
        <a href='/my-account'><span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span></a>
-        <div className="w-[70%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
+        <div className="w-[100%] h-[80vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <SideBar />
-          <form className="flex flex-col gap-4 justify-center items-center mt-[30px] w-[80%] absolute" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-4 justify-center items-center mt-[30px] w-[100%] absolute" onSubmit={handleSubmit}>
             <Image src={photo} width={200} height={200} className='rounded-full p-[10px]' alt='Profile Image' />
             <input type="file" onChange={handleImageUpload} className={`${inputClassName} rounded-full`} />
             <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
@@ -210,64 +208,39 @@ const Page = () => {
               </select>
               <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
             </div>
-            <div className="flex gap-1 items-center justify-center">
             <input type="submit" value="Save Changes" 
             className='lg:w-[7vw] lg:h-[7vh] w-max h-[6vh] p-0 rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
-          <p className='text-1xl' onClick={()=>{window.open("https://porichoiop.vercel.app/my-account/settings/")}}>Undo</p>
-         </div>
           </form>
         </div>
       </div>
       <div className='visible lg:hidden  w-screen h-screen flex flex-col items-center justify-center'>
-<ul className="w-screen h-screen flex flex-col ">
-  <li className='flex items-center justify-end'><input type="text" className="w-[95%] mr-[2.5%] rounded-md mt-[10px] h-[7vh] outline-none p-4 " placeholder={"What Are You Searching Today"} /> <i className=' w-[26px] h-[21px] top-[25px]  flex justify-center items-center bg-white fa-solid fa-search absolute scale-150  right-[30px]'></i></li>
-  <a href="/my-account/settings">
-          <li className={profile ? optionClassNameActive : optionClassName}>
-        <a href="/my-account/settings/mobile">
+      <SideBar />
 
-            <i className="fa-solid fa-user"></i> Profile
-        </a>
-
-          </li>
-        </a>
-        <a href="/my-account/settings/verify-email">
-          <li className={verifyEmail ? optionClassNameActive : optionClassName}>
-        <a href="/my-account/settings/verify-email">
-            <i className="fa-solid fa-envelope-circle-check"></i> Verify Email
-</a>
-          </li>
-        </a>
-        <a href="/my-account/settings/verify-phone-number">
-          <li className={verifyPhoneNumber ? optionClassNameActive : optionClassName}>
-        <a href="/my-account/settings/verify-phone-number">
-           
-            <i className="fa-solid fa-phone"></i> Verify Phone Number
-            </a>
-            </li>
-        </a>
-        <a href="/my-account/settings/rest-password">
-        <li className={resetPassword ? optionClassNameActive : optionClassName}> 
-        <a href="/my-account/settings/rest-password">
-        
-        <a href="/my-account/settings/rest-password">
-        </a>
-            <i className="fa-solid fa-lock"></i> Reset Password
-</a>
-          </li>
-        </a>
-        <a href="/my-account/settings/delete-account">
-          <li className={deleteAccount ? optionClassNameActive : optionClassName}>
-          <a href="/my-account/settings/delete-account">
-
-            <i className="fa-solid fa-trash"></i> Delete Account
-</a>
-          </li>
-        </a>
-        <li className={`${optionClassName} bg-red-600`} onClick={() => signOut(auth)}>
-          <i className="fa-solid fa-right-from-bracket"></i> Logout
-        </li>
-</ul>
-      </div>
+      <div className="w-[100%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2 items-center justify-center">
+          <form className="flex flex-col gap-4 justify-center items-center mt-[30px] w-[80%] absolute" onSubmit={handleSubmit}>
+            <Image src={photo} width={200} height={200} className='rounded-full p-[10px]' alt='Profile Image' />
+            <input type="file" onChange={handleImageUpload} className={`${inputClassName} rounded-full`} />
+            <input type="text" placeholder="Name" value={changedName || name} onChange={(e) => setChangedName(e.target.value)} className={inputClassName} />
+            <input type="email" placeholder="Email" value={changedEmail || email} onChange={(e) => setChangedEmail(e.target.value)} className={inputClassName} />
+            <div className="flex gap-2 items-center">
+              <select className={`${inputClassName.replace("w-[82.5vh] min-w-[45vh]", "lg:w-[10vh] w-[4vh]")} `} value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
+                <option value=""></option>
+                <option value="">Select Country Code</option>
+                {CountryCodeISO.map((country) => (
+                  <option key={country.code} value={country.code}>
+                  {console.clear(country.country)}  {country.iso} ({country.code})
+                  </option>
+                ))} 
+                {/* I back ! */}
+              </select>
+              <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
+            </div>
+            <div className="flex gap-1 items-center justify-center">
+            <input type="submit" value="Save Changes" 
+            className='lg:w-[7vw] lg:h-[7vh] w-[20vh] h-[6vh] p-0 rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
+          <p className='text-1xl' onClick={()=>{window.open("https://porichoiop.vercel.app/my-account/settings/mobile")}}>Undo</p>
+          </div></form>
+        </div>      </div>
     </>
   );
 };

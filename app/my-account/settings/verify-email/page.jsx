@@ -47,7 +47,7 @@ const Page = () => {
     }
   };
   
-  const inputClassName = 'w-[35vh] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
+  const inputClassName = 'w-[35vh] border-[10px] max-w-max h-[6vh] rounded-md p-4 border-none outline-none shadow-md border text-black';
 
   if (user === null) {
     return (
@@ -77,10 +77,10 @@ const Page = () => {
         <NavBar />
         <MoblieNav />
         <div className="flex w-screen h-screen items-center justify-center relative">
-          <span className='absolute top-[5rem] left-[4rem]' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings/Verify-Email</span>
-          <div className="w-[70 %] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
+          <span className='absolute top-[5rem] left-[4rem] hidden lg:visible' onClick={() => { document.location.href = "/my-account" }}>My Account/Settings/Verify-Email</span>
+          <div className="lg:w-[70%] lg:h-[70vh] flex gap-4 bg-white sm:flex-col w-[100%] h-[100vh] rounded-md shadow-md p-2">
             <SideBar />
-            <form className="flex gap-4 justify-center items-center mt-[100px] w-[80%] absolute"  onSubmit={handleSendVerificationLink}>
+            <form className="flex flex-col lg:flex-row top-[20vh] gap-4 justify-center items-center mt-[100px] w-[100%]  lg:w-[80%] absolute"  onSubmit={handleSendVerificationLink}>
               <input type="email" className={inputClassName} value={email} onChange={(e) => setChangedEmail(e.target.value)} />
               <button type="submit"  className={isVerified ? 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-green-600 rounded-md w-max h-[6vh] p-[10px]' : 'lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'} disabled={isVerified}>
                 {isVerified ? "Verified" : "Verify Email"}
