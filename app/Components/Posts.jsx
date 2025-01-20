@@ -22,26 +22,24 @@ const Posts = () => {
 useEffect(() => {
   gsap.to("#post", {duration: 2, y: 300,rotate:10,opacity:1, scrollTrigger:true, repeat:-1});
 }, []);
-gsap.from("#post", {duration: 2, y: 300,rotate:360, scrollTrigger:"#post"
-});
 
 
-const boxes = gsap.utils.toArray('#post');
-boxes.forEach(box => {
-  const anim = gsap.to(box, { x: 300, paused: true });
+// const boxes = gsap.utils.toArray('#post');
+// boxes.forEach(box => {
+//   const anim = gsap.to(box, { x: 300, paused: true });
   
-  ScrollTrigger.create({
-    trigger: box,
-    start: "center 70%",
-    onEnter: () => anim.play()
-  });
+//   ScrollTrigger.create({
+//     trigger: box,
+//     start: "center 70%",
+//     onEnter: () => anim.play()
+//   });
   
-  ScrollTrigger.create({
-    trigger: box,
-    start: "top bottom",
-    onLeaveBack: () => anim.pause(0)
-  });
-});
+//   ScrollTrigger.create({
+//     trigger: box,
+//     start: "top bottom",
+//     onLeaveBack: () => anim.pause(0)
+//   });
+// });
 
   const [posts, setPosts] = useState([]);
   // const [poststitle, setPoststitle] = useState('');
