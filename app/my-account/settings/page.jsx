@@ -5,15 +5,15 @@ import NavBar from '../../Components/NavBar';
 import { auth, storage, firestore } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateDoc, doc } from 'firebase/firestore';
-import { updateProfile, onAuthStateChanged ,signOut} from 'firebase/auth';
+import { updateProfile, onAuthStateChanged, signOut } from 'firebase/auth';
 import Image from 'next/image';
 import Avatar from '../../download.png';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../toastify.css';
 import "../style.css";
-import MoblieNav from '../../Components/Mobile Nav';
-import SideBar from '../../Components/SideBar'
+import MoblieNav from '../../Components/MoblieNav';
+import SideBar from '../../Components/SideBar';
 import { CountryCodeISO } from "../../Data/CountryCodeISO";
 import { usePathname } from 'next/navigation';
 
@@ -28,8 +28,8 @@ const Page = () => {
   const [changedEmail, setChangedEmail] = useState("");
   const [changedPhoneNumber, setChangedPhoneNumber] = useState("");
   const [countryCode, setCountryCode] = useState("");
-  // const[FilteredUserFollowingdata, setFilrrerUserFollowingdata] = useState([]);
-  
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -44,7 +44,7 @@ const Page = () => {
     });
     return () => unsubscribe();
   }, []);
-  
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -56,7 +56,7 @@ const Page = () => {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -66,7 +66,7 @@ const Page = () => {
         await uploadBytes(imgRef, changedImage);
         photoURL = await getDownloadURL(imgRef);
       }
-  
+
       const fullPhoneNumber = `${countryCode}${changedPhoneNumber || phoneNumber}`;
       const updatedProfileData = {
         photoURL,
@@ -74,122 +74,110 @@ const Page = () => {
         email: changedEmail || email,
         phoneNumber: fullPhoneNumber,
       };
-  
+
       await updateProfile(user, updatedProfileData);
-      
-      
-        //   // Fetch posts from Firestore
-        //   const fetchDataFromFirebase1 = async () => {
-        //     const querySnapshot = await getDocs(collection(firestore, 'userFollowingdata'));
-        //     const data = querySnapshot.docs.map((doc) => ({
-        //       id: doc.id,
-        //       ...doc.data(),
-        //     }));
-        //     return data;
-        //   };
-        
-      
-        // useEffect(() => {
-        //   const fetchData = async () => {
-        //     try {
-        //       const data1 = await fetchDataFromFirebase1();
-      
-        //       setFilrrerUserFollowingdata(data1.filter(userFollowingdata => userFollowingdata.userName === name))
-        //     } catch (error) {
-        //       toast.error('Error fetching data:', error.message);
-        //     }
-        //   };
-      
-        //   if (name) {
-        //     fetchData();
-          
-        //   }
-        // }, [name]);
-      
-        const userName = name;
-      
-  
+
+      const userName = name;
+
       await updateDoc(doc(firestore, 'userFollowingdata', userName), {
         userName: changedName || name,
         pic: photoURL,
       });
-  
+
       await updateDoc(doc(firestore, 'userProfileData', user.uid), {
         userName: changedName || name,
         pic: photoURL,
-      }); 
-  
+      });
+
       toast.success("Profile updated successfully!", { theme: "colored" });
-  
+
     } catch (error) {
       toast.error("Failed to update profile. Please try again.", { theme: "colored" });
       console.error("Error updating profile:", error);
     }
   };
-    const [profile, setProfile] = useState(false);
-    const [verifyEmail, setVerifyEmail] = useState(false);
-    const [verifyPhoneNumber, setVerifyPhoneNumber] = useState(false);
-    const [resetPassword, setResetPassword] = useState(false);
-    const [deleteAccount, setDeleteAccount] = useState(false);
-    const pathname = usePathname();
-  
-    useEffect(() => {
-      if (pathname === "/my-account/settings") {
-        setProfile(true);
-        setVerifyEmail(false);
-        setVerifyPhoneNumber(false);
-        setResetPassword(false);
-        setDeleteAccount(false);
-      } else if (pathname === "/my-account/settings/verify-email") {
-        setProfile(false);
-        setVerifyEmail(true);
-        setVerifyPhoneNumber(false);
-        setResetPassword(false);
-        setDeleteAccount(false);
-      } else if (pathname === "/my-account/settings/verify-phone-number") {
-        setProfile(false);
-        setVerifyEmail(false);
-        setVerifyPhoneNumber(true);
-        setResetPassword(false);
-        setDeleteAccount(false);
-      } else if (pathname === "/my-account/settings/rest-password") {
-        setProfile(false);
-        setVerifyEmail(false);
-        setVerifyPhoneNumber(false);
-        setResetPassword(true);
-        setDeleteAccount(false);
-      } else if (pathname === "/my-account/settings/delete-account") {
-        setProfile(false);
-        setVerifyEmail(false);
-        setVerifyPhoneNumber(false);
-        setResetPassword(false);
-        setDeleteAccount(true);
-      }
-    }, [pathname]);
-  
-    const optionClassName = "h-[10vh] w-[95%] bg-white mt-[20px] ml-[2.5%] mr-[2.5%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer rounded-md";
-    const optionClassNameActive = `${optionClassName} bg-gray-200`;
-    const inputClassName = "w-[82.5vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
 
-  // if (user === null) {
-  //   return (
-  //     <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
-  //       <NavBar />
-  //       <span className="text-3xl h-[10vh] ws-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
-  //       <a href='/log-in'>
-  //         <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
-  //       </a>
-  //     </div>
-  //   );
-  // }
+  const [profile, setProfile] = useState(false);
+  const [verifyEmail, setVerifyEmail] = useState(false);
+  const [verifyPhoneNumber, setVerifyPhoneNumber] = useState(false);
+  const [resetPassword, setResetPassword] = useState(false);
+  const [deleteAccount, setDeleteAccount] = useState(false);
+  const pathname = usePathname();
 
+  useEffect(() => {
+    if (pathname === "/my-account/settings") {
+      setProfile(true);
+      setVerifyEmail(false);
+      setVerifyPhoneNumber(false);
+      setResetPassword(false);
+      setDeleteAccount(false);
+    } else if (pathname === "/my-account/settings/verify-email") {
+      setProfile(false);
+      setVerifyEmail(true);
+      setVerifyPhoneNumber(false);
+      setResetPassword(false);
+      setDeleteAccount(false);
+    } else if (pathname === "/my-account/settings/verify-phone-number") {
+      setProfile(false);
+      setVerifyEmail(false);
+      setVerifyPhoneNumber(true);
+      setResetPassword(false);
+      setDeleteAccount(false);
+    } else if (pathname === "/my-account/settings/rest-password") {
+      setProfile(false);
+      setVerifyEmail(false);
+      setVerifyPhoneNumber(false);
+      setResetPassword(true);
+      setDeleteAccount(false);
+    } else if (pathname === "/my-account/settings/delete-account") {
+      setProfile(false);
+      setVerifyEmail(false);
+      setVerifyPhoneNumber(false);
+      setResetPassword(false);
+      setDeleteAccount(true);
+    }
+  }, [pathname]);
+
+  const optionClassName = "h-[10vh] w-[95%] bg-white mt-[20px] ml-[2.5%] mr-[2.5%] flex items-center justify-center gap-4 p-[30px] shadow-md cursor-pointer rounded-md";
+  const optionClassNameActive = `${optionClassName} bg-gray-200`;
+  const inputClassName = "w-[82.5vh] min-w-[45vh] h-[6vh] rounded-md p-4 border-none outline-none shadow-md border";
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredOptions = [
+    { path: "/my-account/settings/mobile", label: "Profile", active: profile },
+    { path: "/my-account/settings/verify-email", label: "Verify Email", active: verifyEmail },
+    { path: "/my-account/settings/verify-phone-number", label: "Verify Phone Number", active: verifyPhoneNumber },
+    { path: "/my-account/settings/rest-password", label: "Reset Password", active: resetPassword },
+    { path: "/my-account/settings/delete-account", label: "Delete Account", active: deleteAccount },
+  ].filter(option => option.label.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  if (user === null) {
+    return (
+      <div className='w-screen h-screen flex flex-col gap-1 justify-center items-center font-bold'>
+        <ToastContainer
+          toastClassName="relative flex p-4 min-h-10 rounded-lg justify-between overflow-hidden cursor-pointer shadow-xl"
+          bodyClassName="text-sm font-medium text-white block p-3"
+          position="bottom-left"
+          autoClose={3000}
+        />
+        <NavBar />
+        <span className="text-3xl h-[10vh] w-[80%] flex flex-wrap text-center">Please Login To Access This Page</span>
+        <a href='/log-in'>
+          <button className='lg:w-[10vw] text-white font-bold lg:h-[3vw] bg-[#000] rounded-md w-max h-[6vh] p-[10px]'>Login</button>
+        </a>
+      </div>
+    );
+  } 
   return (
     <>
       <NavBar />
       <MoblieNav />
       <ToastContainer />
       <div className="lg:flex w-screen h-screen items-center justify-center relative hidden ">
-       <a href='/my-account'><span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span></a>
+        <a href='/my-account'><span className='absolute top-[5rem] left-[4rem]'>My Account/Settings</span></a>
         <div className="w-[70%] h-[70vh] flex gap-4 bg-white rounded-md shadow-md p-2">
           <SideBar />
           <form className="flex flex-col gap-4 justify-center items-center mt-[30px] w-[80%] absolute" onSubmit={handleSubmit}>
@@ -203,72 +191,46 @@ const Page = () => {
                 <option value="">Select Country Code</option>
                 {CountryCodeISO.map((country) => (
                   <option key={country.code} value={country.code}>
-                  {console.clear(country.country)}  {country.iso} ({country.code})
+                    {country.country} {country.iso} ({country.code})
                   </option>
-                ))} 
-                {/* I back ! */}
+                ))}
               </select>
               <input type="tel" placeholder="Phone Number" value={changedPhoneNumber || phoneNumber} onChange={(e) => setChangedPhoneNumber(e.target.value)} className={inputClassName} />
             </div>
             <div className="flex gap-1 items-center justify-center">
-            <input type="submit" value="Save Changes" 
-            className='lg:w-[7vw] lg:h-[7vh] w-max h-[6vh] p-0 rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
-          <p className='text-1xl' onClick={()=>{window.open("https://porichoiop.vercel.app/my-account/settings/")}}>Undo</p>
-         </div>
+              <input type="submit" value="Save Changes"
+                className='lg:w-[7vw] lg:h-[7vh] w-max h-[6vh] p-0 rounded-md bg-[#0f0f0f] text-white hover:scale-110 cursor-pointer' />
+              <p className='text-1xl' onClick={() => { window.open("https://porichoiop.vercel.app/my-account/settings/") }}>Undo</p>
+            </div>
           </form>
         </div>
       </div>
-      <div className='visible lg:hidden  w-screen h-screen flex flex-col items-center justify-center'>
-<ul className="w-screen h-screen flex flex-col ">
-  <li className='flex items-center justify-end'><input type="text" className="w-[95%] mr-[2.5%] rounded-md mt-[10px] h-[7vh] outline-none p-4 " placeholder={"What Are You Searching Today"} /> <i className=' w-[26px] h-[21px] top-[25px]  flex justify-center items-center bg-white fa-solid fa-search absolute scale-150  right-[30px]'></i></li>
-  <a href="/my-account/settings">
-          <li className={profile ? optionClassNameActive : optionClassName}>
-        <a href="/my-account/settings/mobile">
-
-            <i className="fa-solid fa-user"></i> Profile
-        </a>
-
+      <div className='visible lg:hidden w-screen h-screen flex flex-col items-center justify-center'>
+        <ul className="w-screen h-screen flex flex-col ">
+          <li className='flex items-center justify-end'>
+            <input
+              type="text"
+              className="w-[95%] mr-[2.5%] rounded-md mt-[10px] h-[7vh] outline-none p-4"
+              placeholder="What Are You Searching Today"
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+            <i className='w-[26px] h-[21px] top-[25px] flex justify-center items-center bg-white fa-solid fa-search absolute scale-150 right-[30px]'></i>
           </li>
-        </a>
-        <a href="/my-account/settings/verify-email">
-          <li className={verifyEmail ? optionClassNameActive : optionClassName}>
-        <a href="/my-account/settings/verify-email">
-            <i className="fa-solid fa-envelope-circle-check"></i> Verify Email
-</a>
-          </li>
-        </a>
-        <a href="/my-account/settings/verify-phone-number">
-          <li className={verifyPhoneNumber ? optionClassNameActive : optionClassName}>
-        <a href="/my-account/settings/verify-phone-number">
-           
-            <i className="fa-solid fa-phone"></i> Verify Phone Number
+          {filteredOptions.map(option => (
+            <a key={option.path} href={option.path}>
+              <li className={option.active ? optionClassNameActive : optionClassName}>
+                <i className={`fa-solid ${option.label === "Profile" ? "fa-user" : option.label === "Verify Email" ? "fa-envelope-circle-check" : option.label === "Verify Phone Number" ? "fa-phone" : option.label === "Reset Password" ? "fa-lock" : "fa-trash"}`}></i> {option.label}
+              </li>
             </a>
-            </li>
-        </a>
-        <a href="/my-account/settings/rest-password">
-        <li className={resetPassword ? optionClassNameActive : optionClassName}> 
-        <a href="/my-account/settings/rest-password">
-        
-        <a href="/my-account/settings/rest-password">
-        </a>
-            <i className="fa-solid fa-lock"></i> Reset Password
-</a>
+          ))}
+          <li className={`${optionClassName} bg-red-600`} onClick={() => signOut(auth)}>
+            <i className="fa-solid fa-right-from-bracket"></i> Logout
           </li>
-        </a>
-        <a href="/my-account/settings/delete-account">
-          <li className={deleteAccount ? optionClassNameActive : optionClassName}>
-          <a href="/my-account/settings/delete-account">
-
-            <i className="fa-solid fa-trash"></i> Delete Account
-</a>
-          </li>
-        </a>
-        <li className={`${optionClassName} bg-red-600`} onClick={() => signOut(auth)}>
-          <i className="fa-solid fa-right-from-bracket"></i> Logout
-        </li>
-</ul>
+        </ul>
       </div>
     </>
   );
 };
+
 export default Page;
