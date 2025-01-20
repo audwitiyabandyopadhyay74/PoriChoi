@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { gsap } from 'gsap';
+// import { gsap } from 'gsap';
 import Post from './Post';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
 import Clock from "./Clock";
 import Temperature from "./Temperature";
 
-gsap.to("#post", {duration: 2, x: 300});
+// gsap.to("#post", {duration: 2, x: 300});
 
 async function fetchDatafromFirebase() {
   const querySnapshot = await getDocs(collection(firestore, 'posts'));
@@ -19,9 +19,9 @@ async function fetchDatafromFirebase() {
 }
 
 const Posts = () => {
-useEffect(() => {
-  gsap.to("#post", {duration: 2, y: 300,rotate:10,opacity:1, scrollTrigger:true, repeat:-1});
-}, []);
+// useEffect(() => {
+//   gsap.to("#post", {duration: 2, y: 300,rotate:10,opacity:1, scrollTrigger:true, repeat:-1});
+// }, []);
 
 
 // const boxes = gsap.utils.toArray('#post');
