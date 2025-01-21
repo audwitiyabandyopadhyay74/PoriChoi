@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../toastify.css';
 import "../style.css";
-import MoblieNav from '../../Components/MoblieNav';
+import MoblieNav from '../../Components/Mobile Nav';
 import SideBar from '../../Components/SideBar';
 import { CountryCodeISO } from "../../Data/CountryCodeISO";
 import { usePathname } from 'next/navigation';
