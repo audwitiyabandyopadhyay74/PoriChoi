@@ -37,6 +37,8 @@ export default function RootLayout({
         
         {children}
         <Script src="https://kit.fontawesome.com/dd02391768.js"></Script>
+        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5751083947362207"
+     crossOrigin="anonymous"></Script>
         {/* <Footer/> */}
       </body>
     </html>
