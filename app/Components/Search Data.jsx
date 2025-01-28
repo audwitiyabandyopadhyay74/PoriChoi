@@ -5,9 +5,9 @@ import Image from 'next/image';
 
 const SearchData = (props) => {
   return (
-    <div className='w-[80%] h-max bg-[#fff] p-4 flex items-center justify-between p-[10rem] rounded-md'>
+    <div className='max-w-[80%] w-[100%] h-max bg-[#fff] lg:p-4 flex flex-wrap items-center  justify-center lg:justify-between lg:p-[10rem] rounded-md'>
     <Image src={props.pic || Avatar} alt="" width={100} height={100} className='rounded-full' />
-    <h1 className='text-2xl'><strong>{props.userName || "Not Given"}</strong></h1>
+    <h1 className='text-2xl text-center'><strong>{props.userName || "Not Found"}</strong></h1>
     </div>
 
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { firestore, auth } from '../firebase';
 import SearchData from '../Components/Search Data'; // Ensure the path and naming are correct
 import Post from '../Components/Post';
@@ -27,6 +27,27 @@ const Page = () => {
   const [postData, setPostData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+  const tab1contentref = useRef(null);
+  const tab2contentref = useRef(null);
+  const tab1button = useRef(null);
+  const tab2button = useRef(null);
+
+
+
+  const handleTab1 = () => {
+    tab1contentref.current.classList.remove('hidden')
+    tab1button.current.classList.add('bg-gray-200')
+    tab1contentref.current.classList.add('block')
+    tab2button.current.classList.remove('bg-gray-200')
+    tab2contentref.current.classList.add('hidden')
+  }
+  const handleTab2 = () => {
+    tab2contentref.current.classList.remove('hidden')
+    tab2contentref.current.classList.add('block')
+    tab2button.current.classList.add('bg-gray-200')
+    tab1button.current.classList.remove('bg-gray-200')
+    tab1contentref.current.classList.add('hidden')
+  }
 
   // Auth state change
   useEffect(() => {
@@ -125,27 +146,32 @@ const Page = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <div className="w-[80%] bg-white rounded-lg shadow-md p-6 relative">
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-6 relative">
         <Link href="/" className="absolute top-4 left-4 flex items-center text-blue-600 hover:text-blue-800 transition-colors">
-          <FaArrowLeft className="mr-2" />
+          <FaArrowLeft className="mr-2" /> 
           <span className="font-semibold">Back to Homepage</span>
         </Link>
         <h2 className="text-2xl font-semibold text-center mb-6 mt-10">Search</h2>
         <input
           type="text"
-          placeholder="Search by name or post"
+          placeholder="Search by Names and Posts"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="p-3 border rounded w-full mb-6 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <div className="space-y-4 bg-white">
-          <h3 className="text-xl font-semibold">Users</h3>
+        <div className="space-y-4 bg-white ">
+
+        <div className="w-full h-[10vh] flex justify-start items-center gap-[2vh]">
+    <button className="text-xl font-semibold h-auto rounded-lg bg-gray-200 w-[20vh] hover:scale-110 hover:bg-white " ref={tab1button} onClick={handleTab1}>Users</button> 
+    <button className="text-xl font-semibold h-auto rounded-lg w-[20vh] hover:scale-110 hover:bg-white" ref={tab2button} onClick={handleTab2}>Posts</button>
+</div>
+<div className="tab1" ref={tab1contentref}>
           {filteredUserData.map((user) => (
-            <div key={user.id} className="flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow hover:bg-gray-100 transition-all">
-              <Link href={`user/${user.id}`} className="flex-grow text-lg font-medium text-blue-600">
+            <div key={user.id} className="flex flex-wrap items-center justify-center lg:justify-between bg-gray-50 p-4 rounded-lg shadow hover:bg-gray-100 transition-all">
+              <Link href={`user/${user.id}`} className=" text-lg font-medium text-blue-600">
                 <SearchData {...user} /> 
               </Link>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center justify-center">
                 <button
                   onClick={() => handleFollow(user.id)}
                   className={`p-2 w-24 rounded text-white ${
@@ -161,13 +187,14 @@ const Page = () => {
                 </span>
               </div>
             </div>
-          ))}
-          <h3 className="text-xl font-semibold mt-8">Posts</h3>
+          ))}            </div>
+<div className="tab2 hidden" ref={tab2contentref}>
           {filteredPostData.map((post) => (
             <div key={post.id} className="bg-gray-50 p-4 rounded-lg shadow hover:bg-gray-100 transition-all">
               <Post {...post} />
             </div>
           ))}
+          </div>
         </div>
       </div>
     </div>

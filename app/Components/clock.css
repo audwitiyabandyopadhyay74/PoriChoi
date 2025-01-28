@@ -135,6 +135,8 @@
     position: absolute;
     animation: clockAnm 1s;
     color: aqua;
+	box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5);
+
   }
   
   @keyframes clockAnm {

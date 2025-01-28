@@ -61,7 +61,7 @@ const Posts = () => {
   return (
     <div className="flex items-start justify-center w-screen h-screen">
       <Clock/>
-      <div className="h-max w-[100%] lg:w-[50%] flex flex-col gap-[400px] p-4 bg-[#fff]">      
+      <div className="h-max w-[100%] lg:w-[50%] flex flex-col gap-[400px] p-4 bg-[#fff] lg:mt-0 pt-[300px]">      
 
         {posts.map((post) => (
         <Post {...post}  key={post.id}/>
