@@ -123,31 +123,40 @@
 	--shortcut-size: 50px;
 	--always-show-dock-background: 0;
 }
+
+.clock{
+	position: fixed;
+}
+
+
  #analogClock {
     width: 300px;
     height: 300px;
     border-radius: 100%;
-    position: relative;
+    /* position: fixed; */
     
   }
   
   #clock svg {
-    position: absolute;
-    animation: clockAnm 1s;
+    position: fixed;
+    animation: clockAnm , spin 1s;
     color: aqua;
 	box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5);
-
+	animation-duration: 1s;
+	/* animation: spin 1s infinite linear ; */
   }
   
+
   @keyframes clockAnm {
     from {
-      transform: rotate(40deg);
+      transform: rotate(0deg);
     }
     to {
-      transform: rotate(0deg);
+      transform: rotate(360deg);
     }
   }
   
+
   .clock .centerPoint {
     width: 20px;
     height: 20px;
