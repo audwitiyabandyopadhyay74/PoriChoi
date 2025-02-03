@@ -11,8 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import Form from "./Form";
 import Avatar from "../download.png";
 import Logo from "../favicon.ico";
-
-import { motion, useScroll } from "motion/react";
+import Spb from "./Scroll Progressbar";
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -20,7 +19,6 @@ const NavBar = () => {
   const [user, setUser] = useState(null);
   const [isPostFormVisible, setIsPostFormVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const scrollYProgress = useScroll().scrollYProgress;
 
   useEffect(() => {
     // Update active page based on pathname
@@ -66,10 +64,6 @@ const NavBar = () => {
   return (
     <>
       {/* Desktop Navbar */}
-      <motion.div
-        className="w-full lg:h-24 h-1 bg-[#ff5c00] transition-none"
-        style={{ scaleX: scrollYProgress, position: "fixed" }}
-      ></motion.div>
       <nav className="hidden md:flex fixed top-0 left-0 right-0 h-16 bg-white shadow-md z-50">
         <div className="flex items-center justify-between w-full px-8">
           <div
@@ -128,7 +122,7 @@ const NavBar = () => {
                   >
                     <div className="flex flex-col gap-1">
                       <i
-                        className="fa-solid fa-plus "
+                        className="fa-solid fa-upload "
                         style={{ fontSize: "20px" }}
                       />
                       Upload
@@ -161,14 +155,14 @@ const NavBar = () => {
                 <div className="flex w-max h-max items-center gap-2">
                   <Link href="/log-in">
                     <button
-                      className="bg-black text-white h-[6vh] border rounded-md hover:bg-white border-black border-[2px] hover:text-black transition-all duration-300"
+                      className="bg-black  text-white h-[6vh] hover:translate-y-10 rounded-md hover:bg-white border-black border-[2px] hover:text-black transition-all duration-300"
                       style={{ width: "20vh" }}
                     >
                       Login
                     </button>
                   </Link>
                   <Link href="/sign-up">
-                    <button className="bg-white border-none text-black w-[10vh] h-[6vh] border rounded-md  transition-all duration-300">
+                    <button className="hover:bg-gray-150 bg-white border-none text-black w-[10vh] h-[6vh] border rounded-md  transition-all duration-300">
                       Sign Up
                     </button>
                   </Link>
@@ -206,7 +200,7 @@ const NavBar = () => {
                 className={`${baseClass} flex flex-col items-center justify-center w-max h-full`}
               >
                 <CiLogin size={24} />
-                <span className="text-xs">Log in</span>
+                <span className="text-xs ">Log in</span>
               </Link>
               <Link
                 href="/sign-up"
@@ -279,6 +273,7 @@ const NavBar = () => {
       {isPostFormVisible && (
         <Form className="fixed top-16 left-0 right-0 mx-auto z-40" />
       )}
+      <Spb />
     </>
   );
 };

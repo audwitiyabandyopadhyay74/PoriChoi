@@ -22,11 +22,14 @@ const WeatherApp = () => {
               throw new Error("Network response was not ok");
             }
             const data = await response.json();
+            console.log(data.ico);
+
             const tempKelvin = data.main.temp;
             const tempCelsius = tempKelvin - 273.15;
             console.log(`Temperature: ${tempCelsius.toFixed(2)}°C`);
             setTemperature(tempCelsius.toFixed(0));
             setIcon(data.weather[0].icon);
+            console.log(data);
           } catch (error) {
             console.error("Error fetching weather data:", error);
           }
@@ -47,7 +50,7 @@ const WeatherApp = () => {
         width: "13vh",
         borderRadius: "300px",
         height: "25vh",
-        transform: "rotate(45deg)",
+        // transform: "rotate(45deg)",
         background: "#ffffff",
         border: "solid 1px black",
         textAlign: "center",
@@ -57,16 +60,21 @@ const WeatherApp = () => {
         marginRight: "10vh",
         flexDirection: "column",
       }}
-      className="absolute top-1/2 right-[1px] flex-col"
+      className="absolute top-1/2 right-[1px] flex-col transition-none p-1"
     >
       {" "}
       <br />
       <span className="text-2xl font-bold">Feels Like:</span>
-      {temperature ? `${temperature}°C` : ""}
+      {temperature ? (
+        `${temperature}°C`
+      ) : (
+        <i class="fa-solid fa-loader fa-rotate"></i>
+      )}
       {icon && (
         <img
           src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
           alt="Weather Icon"
+          draggable={false}
         />
       )}
     </motion.div>
