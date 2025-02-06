@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { auth, firestore, storage } from "../firebase";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
+import { doc, getDoc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { getDownloadURL, ref, deleteObject } from "firebase/storage";
 import { onAuthStateChanged } from "firebase/auth";
 import Userpic from "../download.png";
 import Link from "next/link";
@@ -16,12 +16,15 @@ const Post = (props) => {
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [likeCount, setLikeCount] = useState(props.like || 0);
   const [likedBy, setLikedBy] = useState(props.likedBy || []);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(props.title);
+  const [editDate, setEditDate] = useState(props.date);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        setUserPic(user.photoURL);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        setUserPic(currentUser.photoURL);
       }
     });
     fetchComments();
@@ -54,7 +57,7 @@ const Post = (props) => {
   };
 
   const handleLike = async () => {
-    if (!user) return; // Ensure user is logged in
+    if (!user) return;
     if (likedBy.includes(user.uid)) {
       console.log("User has already liked this post");
       return;
@@ -63,7 +66,7 @@ const Post = (props) => {
     try {
       const docRef = doc(firestore, "posts", props.id);
       const newLikeCount = likeCount + 1;
-      const updatedLikedBy = [...likedBy, user.uid]; // Add user ID to likedBy array
+      const updatedLikedBy = [...likedBy, user.uid];
 
       await updateDoc(docRef, {
         like: newLikeCount,
@@ -82,14 +85,13 @@ const Post = (props) => {
     if (!user) return;
     try {
       const docRef = doc(firestore, "posts", props.id);
-      const docSnap = await getDoc(docRef);
       const newComment = {
         id: comments.length + 1,
         name: user.displayName,
         pic: userPic,
         text: commentText,
       };
-      const updatedComments = [...(docSnap.data()?.comments || []), newComment];
+      const updatedComments = [...comments, newComment];
 
       await setDoc(docRef, { comments: updatedComments }, { merge: true });
       setComments(updatedComments);
@@ -101,39 +103,115 @@ const Post = (props) => {
   };
 
   const toggleCommentInput = () => setShowCommentInput(!showCommentInput);
+
   const handleShare = async () => {
-    navigator
-      .share({
+    try {
+      await navigator.share({
         title: props.title,
         text: "Check out this post!",
-        url: `https://porichoitop.vercel.app/post/${props.id}`, // or a specific URL you want to share
-      })
-      .then(() => console.log("Post shared successfully!"))
-      .catch((error) => console.error("Error sharing post:", error));
-    await updateDoc(docRef, {
-      Shares: Shares + 1,
-    });
+        url: `https://yourwebsite.com/post/${props.id}`,
+      });
+      console.log("Post shared successfully!");
+    } catch (error) {
+      console.error("Error sharing post:", error);
+    }
   };
+
+  const handleDelete = async () => {
+    if (!user || user.uid !== props.userId) return;
+
+    try {
+      // Delete the post from Firestore
+      const docRef = doc(firestore, "posts", props.id);
+      await deleteDoc(docRef);
+
+      // Delete the image from Firebase Storage
+      if (props.imageUrl) {
+        const imageRef = ref(storage, props.imageUrl);
+        await deleteObject(imageRef);
+      }
+
+      console.log("Post and image deleted successfully!");
+      // Optionally, redirect the user after deletion
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
+  const handleEdit = async () => {
+    if (!user || user.uid !== props.userId) return;
+
+    if (isEditing) {
+      // Save the changes
+      try {
+        const docRef = doc(firestore, "posts", props.id);
+        await updateDoc(docRef, {
+          title: editTitle,
+          date: editDate,
+          // Add other fields as needed
+        });
+        setIsEditing(false);
+        console.log("Post updated successfully!");
+      } catch (error) {
+        console.error("Error updating post:", error);
+      }
+    } else {
+      // Enter edit mode
+      setIsEditing(true);
+    }
+  };
+
   return (
     <div className="">
       <div
         className="w-full h-max flex flex-col items-center mt-[220px] bg-white"
         id="post"
       >
-        <div className="flex items-center">
-          <Image
-            src={props.photoUrl || Userpic}
-            alt=""
-            width={100}
-            height={100}
-            className="rounded-full w-[10vh] h-[10vh] scale-50"
-            objectFit="cover"
-          />
-          <span className="font-bold text-2xl">{props.username}</span>
+        <div className="flex items-center w-full justify-between p-4">
+          <div className="flex items-center">
+            <Image
+              src={props.photoUrl || Userpic}
+              alt=""
+              width={100}
+              height={100}
+              className="rounded-full w-[10vh] h-[10vh] scale-50"
+              objectFit="cover"
+            />
+            <span className="font-bold text-2xl">{props.username}</span>
+          </div>
+          {user && user.uid === props.userId && (
+            <div className="flex gap-4">
+              <button onClick={handleEdit} className="text-blue-500">
+                {isEditing ? "Save" : "Edit"}
+              </button>
+              <button onClick={handleDelete} className="text-red-500">
+                Delete
+              </button>
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-4 w-full items-start p-4 ">
-          <div className="text-3xl font-semibold w-full">{props.title}</div>
-          <div className="text-1xl pl-[5px] font-medium">{props.date}</div>
+          {isEditing ? (
+            <>
+              <input
+                type="text"
+                value={editTitle}
+                onChange={(e) => setEditTitle(e.target.value)}
+                className="text-3xl font-semibold w-full border"
+              />
+              <input
+                type="text"
+                value={editDate}
+                onChange={(e) => setEditDate(e.target.value)}
+                className="text-1xl pl-[5px] font-medium border"
+              />
+            </>
+          ) : (
+            <>
+              <div className="text-3xl font-semibold w-full">{props.title}</div>
+              <div className="text-1xl pl-[5px] font-medium">{props.date}</div>
+            </>
+          )}
         </div>
         <Link href={`post/${props.id}`}>
           <img
@@ -149,7 +227,6 @@ const Post = (props) => {
               className="flex flex-col justify-center items-center cursor-pointer"
               onClick={handleLike}
             >
-              {/* Use conditional class assignment for color */}
               <i
                 className={`fa-solid fa-heart ${
                   user && likedBy.includes(user.uid)
@@ -179,9 +256,7 @@ const Post = (props) => {
                 className="fa-solid fa-share text-2xl"
                 style={{ fontSize: "40px" }}
               ></i>
-              <div className="text-1xl hover:scale-105" onClick={handleShare}>
-                Share
-              </div>
+              <div className="text-1xl hover:scale-105">Share</div>
             </div>
           </div>
           {showCommentInput && (
@@ -201,7 +276,7 @@ const Post = (props) => {
             </div>
           )}
         </div>
-        <div className="mt-4">
+        <div className="mt-4 w-full p-4">
           <h2 className="text-xl font-semibold">Comments:</h2>
           <ul>
             {comments.map((comment) => (

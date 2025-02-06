@@ -40,7 +40,7 @@ const NewsPage = () => {
           frameborder="0"
           width="1920"
           height="1080"
-          src="https://www.youtube.com/embed/t5KtmrYj6rI?autoplay=1&cc_load_policy=1&modestbranding=1"
+          src="https://www.youtube-nocookie.com/embed/PKwLsAu-z10?autoplay=1&cc_load_policy=1&modestbranding=1&showinfo=0"
           allowfullscreen
         ></iframe>
         {newsData.map((news) => (

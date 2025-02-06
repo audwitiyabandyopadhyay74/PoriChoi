@@ -74,3 +74,11 @@ Link::before {
     /* flex-wrap: ; */
     /* Change this to your desired color */
 }
+
+
+.slab:before{
+content: '';
+position: relative;
+background: #36c519;
+width: 100%;
+}

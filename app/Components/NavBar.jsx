@@ -11,6 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import Form from "./Form";
 import Avatar from "../download.png";
 import Logo from "../favicon.ico";
+import { TbDeviceGamepad2 } from "react-icons/tb";
 
 import { motion, useScroll } from "motion/react";
 
@@ -184,7 +185,7 @@ const NavBar = () => {
       <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t-md z-50">
         <div className="flex items-center justify-evenly h-full">
           {user &&
-            ["home", "my-account", "news"].map((page) => (
+            ["home", "my-account", "news", "game"].map((page) => (
               <Link
                 key={page}
                 href={`/${page === "home" ? "" : page}`}
@@ -195,6 +196,7 @@ const NavBar = () => {
                 {page === "home" && <FaHome size={24} />}
                 {page === "my-account" && <FaUser size={24} />}
                 {page === "news" && <FaNewspaper size={24} />}
+                {page === "game" && <TbDeviceGamepad2 size={24} />}
                 <span className="text-xs capitalize">
                   {page.replace("-", " ")}
                 </span>
